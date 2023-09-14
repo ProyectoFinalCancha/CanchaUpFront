@@ -8,6 +8,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistoComponent } from './components/registo/registo.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
