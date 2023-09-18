@@ -7,7 +7,8 @@ import { Jugador } from '../interfaces/jugador.interface';
   providedIn: 'root'
 })
 export class JugadorService {
-  API_SERVER: string = "http://localhost:8080/wicket/wicket/page?5";
+  // API_SERVER: string = "http://localhost:8080/wicket/wicket/page?5";
+  API_SERVER: string = "http://localhost:8080/restful/objects/simple.Jugador/1/actions/delete/invoke";
 
   // @GetMapping("/custom/simpleObjects")
 	//    /wicket es el homepage 

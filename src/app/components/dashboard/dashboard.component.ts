@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+
+  sidebarVisible: boolean = false;
 constructor(private router:Router){
 
 }
