@@ -9,17 +9,22 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { VerJugadoresComponent } from './ver-jugadores/ver-jugadores.component';
+import { FormsModule } from '@angular/forms';
+
+
+
 
 @NgModule({
   declarations: [RegistoComponent,
-  DashboardComponent, LoginComponent,
-SidenavComponent,
-VerJugadoresComponent],
+    DashboardComponent, LoginComponent,
+    SidenavComponent,
+    VerJugadoresComponent],
   imports: [
     CommonModule,
     SidebarModule,
-ButtonModule
-    
+    ButtonModule,
+    FormsModule
+
   ]
 })
 export class ComponentModule { }

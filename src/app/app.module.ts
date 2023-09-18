@@ -9,6 +9,8 @@ import { RegistoComponent } from './components/registo/registo.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
+
+
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Jugador } from '../interfaces/jugador.interface';
@@ -8,7 +8,7 @@ import { Jugador } from '../interfaces/jugador.interface';
 })
 export class JugadorService {
   // API_SERVER: string = "http://localhost:8080/wicket/wicket/page?5";
-  API_SERVER: string = "http://localhost:8080/restful/objects/simple.Jugador/1/actions/delete/invoke";
+  API_SERVER: string = "http://localhost:8080/restful/objects/simple.Jugador/";
 
   // @GetMapping("/custom/simpleObjects")
 	//    /wicket es el homepage 
@@ -24,6 +24,12 @@ export class JugadorService {
   }
 
   public getAllJugadores(): Observable<Jugador[]>{
+
+    let username = "sven";
+    let password = "pass";
+
+    const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
+
     return this.httpClient.get<Jugador[]>(this.API_SERVER);
   }
 }

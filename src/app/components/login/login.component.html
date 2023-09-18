@@ -7,21 +7,32 @@
                 <span class="login100-form-title p-b-49">
                     <img src="../../../assets/images/canchaUpBall.png" style="height: 47px; width: 47px;" alt="">&nbsp;&nbsp;&nbsp;Cancha UP!&nbsp;&nbsp;&nbsp;<img src="../../../assets/images/canchaUpBall.png" style="height: 47px; width: 47px;" alt="">
                 </span>
-
                 <div class="wrap-input100 m-b-23">
+                    <span class="label-input100">Username</span>
+                    <input class="input100"
+                           type="text" 
+                           name="username" 
+                           [(ngModel)]="username"
+                           id="username"
+                           placeholder="Ingrese su email">
+                    <span class="focus-input100"></span>
+                </div>
+                <!-- <div class="wrap-input100 m-b-23">
                     <span class="label-input100">Email</span>
                     <input class="input100"
                            type="email" 
                            name="email" 
                            placeholder="Ingrese su email">
                     <span class="focus-input100"></span>
-                </div>
+                </div> -->
 
                 <div class="wrap-input100">
                     <span class="label-input100">Password</span>
                     <input class="input100"
                            type="password"
                            name="password" 
+                           [(ngModel)]="password"
+                           id="password"
                            placeholder="Ingrese su contraseña">
                     <span class="focus-input100"></span>
                 </div>
@@ -31,7 +42,7 @@
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <button (click)="IraDash()" class="login100-form-btn">
+                        <button (click)="loguear()" class="login100-form-btn">
                             Login
                         </button>
                     </div>
