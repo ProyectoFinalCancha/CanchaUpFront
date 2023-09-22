@@ -27,7 +27,7 @@ export class LoginComponent {
   }
 
   public loguear() {
-    let resp = this.authService.login(this.username, this.password);
+    let resp = this.authService.getUser(this.username, this.password);
     resp.subscribe(data => {
         console.log(data)
     })

@@ -10,7 +10,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 
-
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 
@@ -22,15 +21,11 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {HttpClientModule} from '@angular/common/http';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ComponentModule } from './components/component.module';
-
+import { VerJugadoresComponent } from './components/ver-jugadores/ver-jugadores.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    // LoginComponent,
-    // RegistoComponent,
-    // DashboardComponent,
-    // SidenavComponent
+    AppComponent,     
   ],
   imports: [
     BrowserModule,
@@ -40,8 +35,9 @@ import { ComponentModule } from './components/component.module';
     MatSidenavModule,
     ButtonModule,
     SidebarModule,
-
     ComponentModule
+
+    
 
     
   ],
