@@ -7,13 +7,14 @@ import { PartidoService } from 'src/app/services/partido.service';
 @Component({
   selector: 'app-partidos',
   templateUrl: './partidos.component.html',
-  styleUrls: ['./partidos.component.css']
+  styleUrls: ['./partidos.component.css'],
+  providers:[PartidoService]
 })
 export class PartidosComponent {
 
   partido!:Partido;
   
-  constructor(partidoService : PartidoService) { }
+  constructor(public partidoService : PartidoService) { }
 
   ngOnInit() {
     this.getPartidos();
@@ -21,15 +22,15 @@ export class PartidosComponent {
 
 
   getPartidos() {
-    this.partidoService.getJugadores().subscribe((res) => {
-      this.jugadorService.jugadores = res;
+    this.partidoService.getPartidos().subscribe((res) => {
+      this.partidoService.partidos = res;
     });
   }
 
 
   agregarPartido(form:NgForm){
-    this.partidoService.createJugador(form.value).subscribe((res) => {
-      this.getJugadores();
+    this.partidoService.createPartido(form.value).subscribe((res) => {
+      this.getPartidos();
       this.resetForm(form);
     })
   }
@@ -37,14 +38,14 @@ export class PartidosComponent {
   resetForm(form:NgForm){
     if(form){
       form.reset();
-      this.jugadorService.jugador = new Jugador()
+      this.partidoService.partido = new Partido()
     }
   }
 
-  borrarJugador(id:number,form:NgForm){
-    if(confirm("Estas seguro de borrar el jugador?")){
-      this.jugadorService.deleteJugador(id).subscribe((res) =>{
-        this.getJugadores();
+  borrarPartido(id:number,form:NgForm){
+    if(confirm("Estas seguro de borrar el Partido?")){
+      this.partidoService.deletePartido(id).subscribe((res) =>{
+        this.getPartidos();
         this.resetForm(form);
       })
     }

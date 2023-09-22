@@ -1,0 +1,94 @@
+<div class="row">
+
+    <!-- FORM -->
+    <div class="col-md-3" style="margin-left: 20px; margin-top: 20px;">
+      <div class="card">
+        <div class="card-body p-4">
+  
+          <!-- FORM -->
+          <form #encargadoForm="ngForm" (ngSubmit)="agregarEncargado(encargadoForm)">
+            <h1>Crear Encargado</h1>
+            <br>
+            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="encargadoService.encargado.id">
+  
+            <div class="form-group">
+              
+              <input type="text" name="nombre" #name="ngModel" [(ngModel)]="encargadoService.encargado.nombre"
+                placeholder="Ingrese su nombre" class="form-control">
+            </div>
+  <br>
+            <div class="form-group">
+              <div class="input-field col-s12">
+                <input type="text" name="apellido" #name="ngModel" [(ngModel)]="encargadoService.encargado.apellido"
+                  placeholder="Ingrese su apellido" class="form-control">
+              </div>
+            </div>
+  <br>
+            <div class="form-group">
+              <input type="text" name="dni" #name="ngModel" [(ngModel)]="encargadoService.encargado.dni"
+                placeholder="Ingrese su dni" class="form-control">
+            </div>
+  <br>
+            <div class="form-group">
+              <div class="input-field col-s12">
+                <input type="text" name="localidad" #name="ngModel" [(ngModel)]="encargadoService.encargado.localidad"
+                  placeholder="Ingrese su localidad" class="form-control">
+              </div>
+              <br>
+  
+          
+            <div class="form-group">
+              <div class="input-field col-s12">
+                <input type="text" name="username" #name="ngModel" [(ngModel)]="encargadoService.encargado.username"
+                  placeholder="Ingrese su username" class="form-control">
+              </div>
+            </div>
+            <br>
+        </div>
+        <div class="form-group">
+          <div class="input-field col-s12">
+            <input type="text" name="password" #name="ngModel" [(ngModel)]="encargadoService.encargado.password"
+              placeholder="Ingrese su password" class="form-control">
+          </div>
+        </div>
+        
+  <br><br>    <button class="btn btn-success">Guardar</button>&nbsp;
+          <button class="btn btn-danger mr-2" (click)="resetForm(encargadoForm)">Borrar</button>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- TABLE -->
+  <div class="col-md-8">
+    <table class="table table-striped">
+      <thead>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Dni</th>
+        <th>Localidad</th>
+        <th>username</th>
+        <th>password</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let encargado of encargadoService.encargados">
+          <td>{{ encargado.nombre}}</td>
+          <td>{{ encargado.apellido }}</td>
+          <td>{{ encargado.dni }}</td>
+          <td>{{ encargado.localidad }}</td>
+          <td>{{ encargado.password }}</td>
+          <td>{{ encargado.username }}</td>
+          <td>
+            <!-- <a (click)="getJugadores(employee)" class="btn btn-secondary btn-sm">
+              <i class="material-icons">edit</i>
+            </a> -->
+            <a (click)="borrarEncargado(encargado.id, encargadoForm)" class="btn btn-danger btn-sm">
+              <i class="material-icons">Borrar</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>

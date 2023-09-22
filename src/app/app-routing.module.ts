@@ -4,6 +4,8 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegistoComponent } from './components/registo/registo.component';
 import { VerJugadoresComponent } from './components/ver-jugadores/ver-jugadores.component';
+import { PartidosComponent } from './components/partidos/partidos.component';
+import { EncargadoComponent } from './components/encargado/encargado.component';
 
 const routes: Routes = [
   {
@@ -25,8 +27,16 @@ const routes: Routes = [
   },
   
   {
-    path: 'ver-jugadores',
+    path: 'verJugadores',
     component: VerJugadoresComponent
+  },
+  {
+    path:'partidos',
+    component:PartidosComponent
+  },
+  {
+    path:'encargados',
+    component:EncargadoComponent
   },
   {
     path: '**',

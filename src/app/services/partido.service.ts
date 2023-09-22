@@ -8,13 +8,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PartidoService {
 
-  partido!: Partido
+  partido!: Partido;
+  partidos!: Partido[];
                               
   private API_GET: string =  "http://localhost:8080/restful/services/simple.PartidoServices/actions/verPartidos/invoke"
   // private API_CONFIRMARPARTIDO : string = "http://localhost:8080/restful/objects/simple.Partido/1/actions/completar/invoke"   NO VA A FUNCIONAR PORQUE HAY QUE MANDARLE EL ID COMO HEADER EN ESE URL ESTA CON EL ID 1 
   private API_POST: string ="http://localhost:8080/restful/services/simple.PartidoServices/actions/crearPartido/invoke"
   private API_SACAR_TURNO: string = "http://localhost:8080/restful/services/simple.PartidoServices/actions/sacarTurno/invoke"
-  
+  private API_BORRAR: string = ''; //PEGAR LINK PARA BORRAR PARTIDO
   
   
   
@@ -25,31 +26,31 @@ export class PartidoService {
    }
 
 
-   createJugador(partido:Partido){
-    const url = `${this.API_CREATE}`;
-    return this.http.post(url,jugador);
+   createPartido(partido:Partido){
+    const url = `${this.API_POST}`;
+    return this.http.post(url,partido);
   }
-  getJugador(){
+  getPartido(){
     // const url = `${this.API_SERVER}/${id}`;
     let username = "sven";
     let password = "pass";
   
     const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
-    return this.http.get<Jugador>(this.API_GET, {headers, responseType: 'text' as 'json'});
-    // return this.http.get(url);
+    return this.http.get<Partido>(this.API_GET, {headers, responseType: 'text' as 'json'});
+
   }
-  getJugadores(){
+  getPartidos(){
     
     let username = "sven";
     let password = "pass";
   
     const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
   
-    return this.http.get<Jugador[]>(this.API_GET, {headers, responseType: 'text' as 'json'});
+    return this.http.get<Partido[]>(this.API_GET, {headers, responseType: 'text' as 'json'});
   }
   
-  deleteJugador(id: number) {
-    return this.http.delete(this.API_DELETE + `/${id}`);
+  deletePartido(id: number) {
+    return this.http.delete(this.API_BORRAR + `/${id}`);
   }
   
   

@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
 import { PartidosComponent } from './partidos/partidos.component';
+import { EncargadoComponent } from './encargado/encargado.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PartidosComponent } from './partidos/partidos.component';
     LoginComponent,
     SidenavComponent,
     VerJugadoresComponent,
-    PartidosComponent],
+    PartidosComponent,
+    EncargadoComponent],
   imports: [
     CommonModule,
     SidebarModule,
@@ -34,7 +36,8 @@ import { PartidosComponent } from './partidos/partidos.component';
 
   ],
   exports: [
-    VerJugadoresComponent
+    VerJugadoresComponent,
+    PartidosComponent
   ]
 })
 export class ComponentModule { }
