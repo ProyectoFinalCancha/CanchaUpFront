@@ -27,7 +27,18 @@ export class VerJugadoresComponent {
     });
   }
 
-
+  buscarJugador(){
+    const oid = 1;
+    this.jugadorService.getJugador(oid).subscribe(
+      (response) =>{
+        console.log('Respuesta exitosa:', response);
+      },
+      (error) => {
+       
+        console.error('Error:', error);
+      }
+    )
+  }
   agregarJugador(form:NgForm){
     this.jugadorService.createJugador(form.value).subscribe((res) => {
       this.getJugadores();

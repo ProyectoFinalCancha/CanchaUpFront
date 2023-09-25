@@ -8,15 +8,14 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistoComponent } from './components/registo/registo.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 
-
+import { CardModule } from 'primeng/card';
 
 import {MatSidenavModule} from '@angular/material/sidenav'; 
-
 
 import {HttpClientModule} from '@angular/common/http';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -34,7 +33,8 @@ import { ComponentModule } from './components/component.module';
     MatSidenavModule,
     ButtonModule,
     SidebarModule,
-    ComponentModule
+    ComponentModule,
+    NgbModule
 
     
 

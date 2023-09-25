@@ -26,27 +26,26 @@ createJugador(jugador : Jugador){
   const url = `${this.API_CREATE}`;
   return this.http.post(url,jugador);
 }
-getJugador(){
-  // const url = `${this.API_SERVER}/${id}`;
-  let username = "sven";
-  let password = "pass";
-
-  const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
-  return this.http.get<Jugador>(this.API_GET, {headers, responseType: 'text' as 'json'});
-  // return this.http.get(url);
+getJugador(oid:number){
+  
+  const headers = new HttpHeaders();
+  const urlWithParams = `${this.API_GET}?objectid=${oid}`;
+  
+  return this.http.get<Jugador>(urlWithParams, { headers, responseType: 'text' as 'json' })
+  
 }
 getJugadores(){
   
-  let username = "sven";
-  let password = "pass";
+  // let username = "sven";
+  // let password = "pass";
 
-  const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
-
+  // const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
+  const headers = new HttpHeaders();
   return this.http.get<Jugador[]>(this.API_GET, {headers, responseType: 'text' as 'json'});
 }
 
-deleteJugador(id: number) {
-  return this.http.delete(this.API_DELETE + `/${id}`);
+deleteJugador(oid: number) {
+  return this.http.delete(this.API_DELETE + `/${oid}`);
 }
 
 

@@ -1,7 +1,7 @@
 export class Jugador{
 
-   constructor(id=0, nombre='',apellido='',telefono='', mail='', password='', username=''){
-    this.id = id;
+   constructor(oid=0, nombre='',apellido='',telefono='', mail='', password='', username=''){
+    this.oid = oid;
     this.nombre = nombre;
     this.apellido = apellido;
     this.telefono = telefono;
@@ -12,7 +12,7 @@ export class Jugador{
     
     
    }
-    id:number;
+    oid:number;
     nombre: string;
     apellido: string;
     telefono: string;

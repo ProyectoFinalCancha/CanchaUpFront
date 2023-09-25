@@ -1,98 +1,43 @@
 
-<div style="">
-  <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="nav-link active" href="dashboard"><img src="../../../assets/images/logo-65x48.png" alt="">
-        <span class="visually-hidden">(current)</span>
-      </a>&nbsp;
-      <a class="navbar-brand">Cancha Up!</a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav me-auto">
-
-
-          
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="" role="button" aria-haspopup="true"
-              aria-expanded="false">Partido</a>
-            <div class="dropdown-menu ">
-              <a class="dropdown-item" href="partidos">Crear Partido</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Sacar Turno</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Ver Partidos</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Buscar Partido </a>
-              <a class="dropdown-item" href="#">Buscar Partido por Representante</a>
-              <a class="dropdown-item" href="#">Buscar Partido por Estado</a>
-              
-              
-             
-            </div>
-          </li>
-
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
-              aria-expanded="false">Jugador</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="verJugadores">Crear Jugador</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Buscar Jugador</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="ver-jugadores">ver Jugadores</a>
-
-            </div>
-
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
-              aria-expanded="false">Encargado</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="encargados">Crear Encargado</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Buscar Encargado</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">ver Encargados</a>
-
-            </div>
-
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
-              aria-expanded="false">Reportes</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="">Generar Reporte Jugador PDF</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Generar Reporte Partidos PDF</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Generar Reporte Partidos PDF</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Generar Reporte Partidos PDF</a>
-
-            </div>
-
-          </li>
-
-        </ul>
-
-        <form class="d-flex">
-          <button type="button" class="btn btn-info" type="submit">Mi Usuario</button>
-          &nbsp;&nbsp;
-          <button class="btn btn-danger my-2 my-sm-0" type="submit" (click)="salir()">Salir</button>
-          </form>
-      </div>
-    </div>
-  </nav>
-  <img src="../../../assets/images/dashboradimg.jpeg" alt="" style=" width: 100%;height: 100%;">
-
-
-
-
+<!-- <div class="card flex flex-wrap justify-content-center gap-2">
+  <p-sidebar [(visible)]="sidebarVisible1" position="left">
+    <h3>Sacar Turno</h3>
+  </p-sidebar>
 </div>
+<div class="card flex flex-wrap justify-content-center gap-2">
+  <p-sidebar [(visible)]="sidebarVisible2" position="left">
+    <h3>MatchMaking</h3>
+  </p-sidebar>
+</div> -->
+<div class="centered-container">
+  <p-card class="scrollable-card" header="Sacar un Turno" subheader="Recuerda ver antes la disponibilidad de canchas" [style]="{ width: '360px'}">
+    <ng-template pTemplate="header">
+      <img alt="Card" src="../../../assets/images/imgCard.jpg" />
+    </ng-template>
+    <ng-template pTemplate="footer">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <p-button label="Haz Click Aquí" (click)="sidebarVisible1 = true" styleClass="p-button-outlined p-button-help"></p-button>
+    </ng-template>
+    <p-sidebar [(visible)]="sidebarVisible1" position="left">
+      <h1>Sacar Turno</h1>
+    </p-sidebar>
+  </p-card>
+
+  <p-card class="scrollable-card" header="Match Making" subheader="Ingresa para ver Encontrar un partido" [style]="{ width: '360px' }">
+    <ng-template pTemplate="header">
+      <img alt="Card" src="../../../assets/images/matchmaking img.avif" />
+    </ng-template>
+    <p>
+      El sistema de MatchMaking sirve para buscar algún partido incompleto y ingresar allí, también ingresas en lista de Espera hasta que encuentres un partido
+    </p>
+    <ng-template pTemplate="footer">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <p-button label="Haz Click Aquí" (click)="irAMatch()" styleClass="p-button-outlined p-button-danger"></p-button>
+    </ng-template>
+    <p-sidebar [(visible)]="sidebarVisible2" position="left">
+      <h1>MatchMaking</h1>
+    </p-sidebar>
+  </p-card>
+</div>
+
 

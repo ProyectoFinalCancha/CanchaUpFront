@@ -16,7 +16,11 @@ import { MatInputModule } from '@angular/material/input';
 import { PartidosComponent } from './partidos/partidos.component';
 import { EncargadoComponent } from './encargado/encargado.component';
 
-
+import {MatSidenavModule} from '@angular/material/sidenav'; 
+import { CardModule } from 'primeng/card';
+import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+import { DashboardMatchMakingComponent } from './dashboard/dashboard-match-making/dashboard-match-making.component';
+import { PopupComponent } from './popup/popup.component';
 @NgModule({
   declarations: [
     RegistoComponent,
@@ -25,19 +29,24 @@ import { EncargadoComponent } from './encargado/encargado.component';
     SidenavComponent,
     VerJugadoresComponent,
     PartidosComponent,
-    EncargadoComponent],
+    EncargadoComponent,
+    DashboardAdminComponent,
+    DashboardMatchMakingComponent,
+    PopupComponent],
   imports: [
     CommonModule,
     SidebarModule,
     ButtonModule,
     FormsModule,
     MatInputModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    MatSidenavModule,
+    CardModule
   ],
   exports: [
     VerJugadoresComponent,
-    PartidosComponent
+    PartidosComponent,
+    PopupComponent
   ]
 })
 export class ComponentModule { }

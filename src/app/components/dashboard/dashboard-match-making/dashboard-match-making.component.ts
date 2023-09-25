@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-dashboard-match-making',
+  templateUrl: './dashboard-match-making.component.html',
+  styleUrls: ['./dashboard-match-making.component.css']
 })
-export class DashboardComponent {
+export class DashboardMatchMakingComponent {
   sidebarVisible1: boolean = false;
   sidebarVisible2: boolean = false;
   sidebarVisible3: boolean = false;
 
-
+  
   cursorStyle: string = 'default';
 constructor(private router:Router){
 
@@ -22,8 +22,5 @@ cambiarCursor(puntero: boolean) {
 
 salir(){
   this.router.navigate(['/login']);
-}
-irAMatch(){
-  this.router.navigate(['/match'])
 }
 }

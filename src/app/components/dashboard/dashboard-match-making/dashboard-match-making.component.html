@@ -1,0 +1,35 @@
+<!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
+
+
+<div class="centered-container">
+    <p-card class="scrollable-card" header="Match Individual" subheader="Soy un Jugador y quiero encontrar a mi equipo" [style]="{ width: '360px'}">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="../../../../assets/images/individualMatch.jpg" />
+      </ng-template>
+      <ng-template pTemplate="footer">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p-button label="Haz Click Aquí" (click)="sidebarVisible1 = true" styleClass="p-button-outlined p-button-help"></p-button>
+      </ng-template>
+      <p-sidebar [(visible)]="sidebarVisible1" position="left">
+        <h1>Soy un Jugador y quiero encontrar a mi equipo</h1>
+      </p-sidebar>
+    </p-card>
+  
+    <p-card class="scrollable-card" header="Match Grupal" subheader="Tengo a mi equipo y quiero competir con otro" [style]="{ width: '360px' }">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="../../../../assets/images/grupalMatch.jpg" />
+      </ng-template>
+      <p>
+       EXPLICACION 
+      </p>
+      <ng-template pTemplate="footer">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p-button label="Haz Click Aquí" (click)="sidebarVisible2 = true" styleClass="p-button-outlined p-button-danger"></p-button>
+      </ng-template>
+      <p-sidebar [(visible)]="sidebarVisible2" position="left">
+        <h1>MatchMaking</h1>
+      </p-sidebar>
+    </p-card>
+  </div>
+  
+  

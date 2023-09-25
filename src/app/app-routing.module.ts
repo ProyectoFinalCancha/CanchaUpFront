@@ -6,8 +6,11 @@ import { RegistoComponent } from './components/registo/registo.component';
 import { VerJugadoresComponent } from './components/ver-jugadores/ver-jugadores.component';
 import { PartidosComponent } from './components/partidos/partidos.component';
 import { EncargadoComponent } from './components/encargado/encargado.component';
+import { PopupComponent } from './components/popup/popup.component';
+import { DashboardMatchMakingComponent } from './components/dashboard/dashboard-match-making/dashboard-match-making.component';
 
 const routes: Routes = [
+  
   {
     path: '',
     component: LoginComponent,
@@ -25,18 +28,22 @@ const routes: Routes = [
     path: 'registro',
     component: RegistoComponent
   },
-  
+
   {
     path: 'verJugadores',
     component: VerJugadoresComponent
   },
   {
-    path:'partidos',
-    component:PartidosComponent
+    path: 'partidos',
+    component: PartidosComponent
   },
   {
-    path:'encargados',
-    component:EncargadoComponent
+    path:'match',
+    component:DashboardMatchMakingComponent
+  },
+  {
+    path: 'encargados',
+    component: EncargadoComponent
   },
   {
     path: '**',

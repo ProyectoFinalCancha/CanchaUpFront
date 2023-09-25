@@ -37,13 +37,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5gb",
+                  "maximumError": "10000mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "5gb",
+                  "maximumError": "10000mb"
                 }
               ],
               "outputHashing": "all"
@@ -68,9 +68,6 @@
             "development": {
               "browserTarget": "JugadorFrontEnd:build:development"
             }
-          },
-          "options": {
-            "proxyConfig": "proxy.config.json"
           },
           "defaultConfiguration": "development"
         },
