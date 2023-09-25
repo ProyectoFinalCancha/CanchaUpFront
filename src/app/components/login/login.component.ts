@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,11 @@ export class LoginComponent {
 
   IraDash() {
     this.router.navigate(['/dashboard'])
+    Swal.fire(
+      '⚽ Bienvenido! ⚽',
+      '@NombreDeUsuario',
+      'success'
+    )
   }
 
   public loguear() {

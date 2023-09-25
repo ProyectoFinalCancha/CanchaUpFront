@@ -46,6 +46,10 @@ const routes: Routes = [
     component: EncargadoComponent
   },
   {
+    path:'popup',
+    component:PopupComponent
+  },
+  {
     path: '**',
     redirectTo: ''
   }

@@ -26,4 +26,8 @@ salir(){
 irAMatch(){
   this.router.navigate(['/match'])
 }
+
+irAPopup(){
+  this.router.navigate(['/popup'])
+}
 }
