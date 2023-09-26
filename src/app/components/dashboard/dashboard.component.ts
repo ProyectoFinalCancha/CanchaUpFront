@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+
+import { MatDialog } from '@angular/material/dialog';
+import { PopupService } from 'src/app/services/popup.service';
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -11,10 +16,12 @@ export class DashboardComponent {
   sidebarVisible2: boolean = false;
   sidebarVisible3: boolean = false;
 
+  
 
   cursorStyle: string = 'default';
-constructor(private router:Router){
-
+constructor(private router:Router,
+  public popupService:PopupService){
+   
 }
 cambiarCursor(puntero: boolean) {
   this.cursorStyle = puntero ? 'pointer' : 'default';
@@ -26,8 +33,15 @@ salir(){
 irAMatch(){
   this.router.navigate(['/match'])
 }
+abrirPopup(){
 
-irAPopup(){
-  this.router.navigate(['/popup'])
+  this.sidebarVisible2 = true
+}
+
+
+abrirPopupDesdeDashboard(): void {
+  // Llama al método del servicio para abrir el popup
+  const fechaActual = new Date();
+  this.popupService.abrirPopup('', fechaActual, '');
 }
 }

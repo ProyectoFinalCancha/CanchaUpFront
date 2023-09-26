@@ -1,0 +1,17 @@
+/* Estilo para el formulario */
+mat-form-field {
+    width: 100%; /* Ancho del formulario */
+    margin-bottom: 10px; /* Espacio entre campos */
+    
+  }
+  
+  /* Estilo para los inputs */
+  input.mat-input {
+    width: 100%; /* Ancho de los inputs */
+  }
+  
+  /* Estilo para el botón */
+  button.mat-button {
+    width: 100%; /* Ancho del botón */
+  }
+  

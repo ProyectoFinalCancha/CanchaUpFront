@@ -21,6 +21,20 @@ import { CardModule } from 'primeng/card';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { DashboardMatchMakingComponent } from './dashboard/dashboard-match-making/dashboard-match-making.component';
 import { PopupComponent } from './popup/popup.component';
+
+
+
+
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, } from '@angular/material/dialog';
+import {NgIf} from '@angular/common';
+
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.component'; // Importa MatDialogModule
+
 @NgModule({
   declarations: [
     RegistoComponent,
@@ -32,7 +46,8 @@ import { PopupComponent } from './popup/popup.component';
     EncargadoComponent,
     DashboardAdminComponent,
     DashboardMatchMakingComponent,
-    PopupComponent],
+    PopupComponent,
+    PopupDialogComponent],
   imports: [
     CommonModule,
     SidebarModule,
@@ -41,12 +56,14 @@ import { PopupComponent } from './popup/popup.component';
     MatInputModule,
     ReactiveFormsModule,
     MatSidenavModule,
-    CardModule
+    CardModule,
+    MatDialogModule
   ],
   exports: [
     VerJugadoresComponent,
     PartidosComponent,
     PopupComponent
-  ]
+  ],
+  
 })
 export class ComponentModule { }

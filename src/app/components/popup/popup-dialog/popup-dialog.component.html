@@ -1,0 +1,30 @@
+<img src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Imagen" style="max-width: 100%;">
+<form>
+  <mat-form-field>
+    <span>
+      <FONT COLOR="#5d5def">Ingrese su Nombre</FONT>
+    </span>
+    <input matInput placeholder="Nombre" [(ngModel)]="data.nombre" [ngModelOptions]="{ standalone: true }">
+  </mat-form-field>
+  <mat-form-field>
+    <span>
+      <FONT COLOR="#5d5def">Ingrese dia</FONT>
+    </span>
+    <input matInput type="date" placeholder="Día" [(ngModel)]="data.dia" [ngModelOptions]="{ standalone: true }">
+  </mat-form-field>
+  <mat-form-field>
+    <span>
+      <FONT COLOR="#5d5def">Ingrese su télefono</FONT>
+    </span>
+    <input matInput placeholder="Teléfono" [(ngModel)]="data.telefono" [ngModelOptions]="{ standalone: true }">
+  </mat-form-field>
+  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;
+   <p-button label="Guardar" styleClass="p-button-outlined p-button-help"></p-button>
+
+  </form>

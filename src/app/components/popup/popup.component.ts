@@ -1,5 +1,9 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material/dialog';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { PopupDialogComponent } from './popup-dialog/popup-dialog.component';
+
+
 
 @Component({
   selector: 'app-popup',
@@ -7,27 +11,24 @@ import { NgbModal, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent {
-  name: string | null = null;
-  age: number | null = null;
+  nombre: string = '';
+  dia:  Date | null = null;
+  telefono: string = '';
 
-  constructor(private modalService: NgbModal) {}
+  constructor(public dialog: MatDialog) { }
 
-  open(content: any) {
-    const modalRef: NgbModalRef = this.modalService.open(content);
+  abrirPopup(): void {
+    const dialogRef = this.dialog.open(PopupDialogComponent, {
+      width: '400px',
+      data: { nombre: this.nombre, dia: this.dia, telefono:this.telefono }
+    });
 
-    modalRef.result.then(
-      (result) => {
-        if (result === 'Ok') {
-          // Código para manejar el cierre con "Ok"
-        } else if (result === 'Cancelled') {
-          // Código para manejar el cierre con "Cancelled"
-        } else if (result === 'Aborted') {
-          // Código para manejar el cierre con "Aborted"
-        }
-      },
-      (reason) => {
-        // Manejar el cierre del modal debido a razones no controladas
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.nombre = result.nombre;
+        this.dia = result.dia;
+        this.telefono = result.telefono;
       }
-    );
+    });
   }
 }
