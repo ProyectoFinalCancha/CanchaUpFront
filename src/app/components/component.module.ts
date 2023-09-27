@@ -32,6 +32,8 @@ import {NgIf} from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+import {MatSelectModule} from '@angular/material/select'; 
+
 import { MatDialogModule } from '@angular/material/dialog';
 import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.component'; // Importa MatDialogModule
 
@@ -57,7 +59,8 @@ import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.componen
     ReactiveFormsModule,
     MatSidenavModule,
     CardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   exports: [
     VerJugadoresComponent,

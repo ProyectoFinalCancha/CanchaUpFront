@@ -1,7 +1,9 @@
-export class Partido {
+import { Horarios } from "./horarios.enum";
 
+export class Partido {
     
-   constructor(id=0,horario='', dia: Date | null = null,telefono='', precio=''){
+    
+   constructor(id=0,horario=Horarios["18 hs"], dia: Date | null = null,telefono='', precio=''){
     this.id = id;
     this.horario = horario;
     this.dia = dia;
@@ -12,7 +14,7 @@ export class Partido {
     
    }
     id:number;
-    horario: string;
+    horario: Horarios;
     dia: Date | null;
     telefono: string;
     precio: string;

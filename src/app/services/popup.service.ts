@@ -9,10 +9,10 @@ export class PopupService {
 
   constructor(private dialog: MatDialog) { }
 
-  abrirPopup(nombre: string, dia: Date, telefono: string): void {
+  abrirPopup(horario: string, dia: Date, telefono: string): void {
     const dialogRef = this.dialog.open(PopupDialogComponent, {
       width: '400px',
-      data: { nombre, dia, telefono }
+      data: { horario, dia, telefono }
     });
 
     dialogRef.afterClosed().subscribe(result => {
