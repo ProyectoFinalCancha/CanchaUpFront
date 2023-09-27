@@ -27,7 +27,7 @@ export class LoginComponent {
     this.router.navigate(['/dashboard'])
     Swal.fire(
       '⚽ Bienvenido! ⚽',
-      '@NombreDeUsuario',
+      'Nombre de Usuario:  '+ `${this.username}`,
       'success'
     )
   }
