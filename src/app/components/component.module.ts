@@ -20,7 +20,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { CardModule } from 'primeng/card';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { DashboardMatchMakingComponent } from './dashboard/dashboard-match-making/dashboard-match-making.component';
-import { PopupComponent } from './popup/popup.component';
+// import { PopupComponent } from './popup/popup.component';
 
 
 
@@ -48,8 +48,11 @@ import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.componen
     EncargadoComponent,
     DashboardAdminComponent,
     DashboardMatchMakingComponent,
-    PopupComponent,
-    PopupDialogComponent],
+    // PopupComponent,
+    PopupDialogComponent
+  
+  
+  ],
   imports: [
     CommonModule,
     SidebarModule,
@@ -65,7 +68,7 @@ import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.componen
   exports: [
     VerJugadoresComponent,
     PartidosComponent,
-    PopupComponent
+    // PopupComponent
   ],
   
 })

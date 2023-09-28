@@ -11,7 +11,8 @@ export class PopupService {
 
   abrirPopup(horario: string, dia: Date, telefono: string): void {
     const dialogRef = this.dialog.open(PopupDialogComponent, {
-      width: '400px',
+      // width: '400px',
+      
       data: { horario, dia, telefono }
     });
 

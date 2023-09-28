@@ -6,8 +6,9 @@ import { RegistoComponent } from './components/registo/registo.component';
 import { VerJugadoresComponent } from './components/ver-jugadores/ver-jugadores.component';
 import { PartidosComponent } from './components/partidos/partidos.component';
 import { EncargadoComponent } from './components/encargado/encargado.component';
-import { PopupComponent } from './components/popup/popup.component';
+// import { PopupComponent } from './components/popup/popup.component';
 import { DashboardMatchMakingComponent } from './components/dashboard/dashboard-match-making/dashboard-match-making.component';
+import { PopupDialogComponent } from './components/popup/popup-dialog/popup-dialog.component';
 
 const routes: Routes = [
   
@@ -47,7 +48,7 @@ const routes: Routes = [
   },
   {
     path:'popup',
-    component:PopupComponent
+    component:PopupDialogComponent
   },
   {
     path: '**',

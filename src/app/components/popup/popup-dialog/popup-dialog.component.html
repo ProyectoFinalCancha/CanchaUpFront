@@ -1,34 +1,32 @@
-<img src="../../../../assets/images/maxresdefault.jpg" alt="Imagen" style="max-width: 100%;" loading="lazy">
+<mat-dialog-content class="custom-dialog-container">
+  
+  <!-- Coloca tu imagen o contenido personalizado aquí -->
+  <img style="width: 400px;" src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Descripción de la imagen" loading="lazy">
+  <br>
+<br>
+  <!-- Campos de formulario y botones -->
+  <mat-form-field class="mattiDialog">
+    <span>
+      <FONT COLOR="#5d5def">Ingrese día</FONT>
+    </span>
+    <input matInput type="date" placeholder="Día" [(ngModel)]="partido.dia" [ngModelOptions]="{ standalone: true }" (change)="onDiaSeleccionado()">
+  </mat-form-field>
+  <br>
 
-<form>
-  <mat-form-field>
+  <mat-form-field class="mattiDialog">
     <span>
       <FONT COLOR="#5d5def">Seleccione Horario</FONT>
     </span>
-    <mat-select [(ngModel)]="partido.horario" [ngModelOptions]="{ standalone: true }">
+    <!-- Agrega [disabled] para habilitar o deshabilitar el mat-select según si diaSeleccionado es verdadero -->
+    <mat-select [(ngModel)]="partido.horario" [ngModelOptions]="{ standalone: true }" (ngModelChange)="onHorarioSeleccionado()" [disabled]="!diaSeleccionado">
       <mat-option *ngFor="let horarioOption of horarios" [value]="horarioOption">
         {{ horarioOption }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <span>
-      <FONT COLOR="#5d5def">Ingrese día</FONT>
-    </span>
-    <input matInput type="date" placeholder="Día" [(ngModel)]="partido.dia" [ngModelOptions]="{ standalone: true }">
-  </mat-form-field>
-  <mat-form-field>
-    <span>
-      <FONT COLOR="#5d5def">Ingrese su teléfono</FONT>
-    </span>
-    <input matInput placeholder="Teléfono" [(ngModel)]="partido.telefono" [ngModelOptions]="{ standalone: true }">
-  </mat-form-field>
-  
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;
-  <p-button label="Guardar" (click)="guardarPartido()"></p-button>
-</form>
+
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <p-button label="Sacar turno" (click)="guardarPartido()" styleClass="p-button-outlined p-button-help" [disabled]="!(diaSeleccionado && horarioSeleccionado)"></p-button>
+</mat-dialog-content>

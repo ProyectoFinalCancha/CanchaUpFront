@@ -28,7 +28,7 @@ export class LoginComponent {
     Swal.fire(
       '⚽ Bienvenido! ⚽',
       'Nombre de Usuario:  '+ `${this.username}`,
-      'success'
+      'success',
     )
   }
 

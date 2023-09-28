@@ -1,17 +1,29 @@
-/* Estilo para el formulario */
-mat-form-field {
-    width: 100%; /* Ancho del formulario */
-    margin-bottom: 10px; /* Espacio entre campos */
-    
-  }
+/* Estilo para el contenedor del diálogo */
+.mat-dialog-container {
+  /* border-radius: 50px !important; 
+  padding: 0px; 
+  background-color: #a44d4d;  */
+}
+
+/* Estilo para los campos de formulario dentro del diálogo */
+.mattiDialog {
+  width: 400px;
+}
+
+.rounded-dialog-content{
+  border-radius: 10px !important; /* Añadir !important para asegurarse de que los estilos se apliquen */
+  padding: 3px; /* Ajusta el espacio interno del diálogo según tus necesidades */
   
-  /* Estilo para los inputs */
-  input.mat-input {
-    width: 100%; /* Ancho de los inputs */
-  }
-  
-  /* Estilo para el botón */
-  button.mat-button {
-    width: 100%; /* Ancho del botón */
-  }
-  
+}
+
+/* Estilo para el botón dentro del diálogo */
+.mat-dialog-container button.mat-button {
+  /* Estilos para el botón */
+}/* Estilo personalizado para el cuadro de diálogo */
+.custom-dialog-container {
+  border-radius: 5px; /* Ajusta el radio de borde según tus necesidades */
+  margin: 10px; /* Agrega márgenes según tus necesidades */
+  padding: 20px; /* Ajusta el espacio interno del cuadro de diálogo según tus necesidades */
+  box-shadow: 0 29px 12px rgba(0, 0, 0, 0.2), 0 0 16px rgba(0, 0, 0, 0.2); /* Añade un resplandor al cuadro de diálogo con mayor opacidad */
+  background-color: #ffffff; /* Cambia el color de fondo del cuadro de diálogo a uno con contraste */
+}
