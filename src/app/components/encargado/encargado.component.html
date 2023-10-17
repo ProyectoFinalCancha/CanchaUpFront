@@ -1,94 +1,124 @@
-<div class="row">
+
+<body>
+
+<div class="mybotton">
+  <br>
+  <!-- <p-button class="mybotton" label="Salir" severity="danger"></p-button> -->
+  <button (click)="navegar()" class="bn632-hover bn26">Volver a Home</button>
+</div>
+  <div class="row">
 
     <!-- FORM -->
-    <div class="col-md-3" style="margin-left: 20px; margin-top: 20px;">
+    <div class="col-md-3" style="margin-left: 100px; margin-top: 20px;">
       <div class="card">
         <div class="card-body p-4">
-  
           <!-- FORM -->
-          <form #encargadoForm="ngForm" (ngSubmit)="agregarEncargado(encargadoForm)">
-            <h1>Crear Encargado</h1>
+          <form #encargadoForm="ngForm" (submit)="agregarEncargado(encargadoForm)">
+            <h1  class="titulo-bonito">Crear Encargado</h1>
             <br>
             <input type="hidden" name="id" #id="ngModel" [(ngModel)]="encargadoService.encargado.id">
-  
+
             <div class="form-group">
-              
-              <input type="text" name="nombre" #name="ngModel" [(ngModel)]="encargadoService.encargado.nombre"
+              <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="encargadoService.encargado.nombre"
                 placeholder="Ingrese su nombre" class="form-control">
             </div>
-  <br>
+            <br>
             <div class="form-group">
               <div class="input-field col-s12">
-                <input type="text" name="apellido" #name="ngModel" [(ngModel)]="encargadoService.encargado.apellido"
+                <input type="text" name="apellido" #apellido="ngModel" [(ngModel)]="encargadoService.encargado.apellido"
                   placeholder="Ingrese su apellido" class="form-control">
               </div>
             </div>
-  <br>
+            <br>
             <div class="form-group">
-              <input type="text" name="dni" #name="ngModel" [(ngModel)]="encargadoService.encargado.dni"
+              <input type="text" name="dni" #dni="ngModel" [(ngModel)]="encargadoService.encargado.dni"
                 placeholder="Ingrese su dni" class="form-control">
             </div>
-  <br>
+            <br>
             <div class="form-group">
               <div class="input-field col-s12">
-                <input type="text" name="localidad" #name="ngModel" [(ngModel)]="encargadoService.encargado.localidad"
-                  placeholder="Ingrese su localidad" class="form-control">
-              </div>
-              <br>
-  
-          
-            <div class="form-group">
-              <div class="input-field col-s12">
-                <input type="text" name="username" #name="ngModel" [(ngModel)]="encargadoService.encargado.username"
-                  placeholder="Ingrese su username" class="form-control">
+                <input type="text" name="telefono" #telefono="ngModel" [(ngModel)]="encargadoService.encargado.telefono"
+                  placeholder="Ingrese su telefono" class="form-control">
               </div>
             </div>
             <br>
+            
+            <div class="form-group">
+              <div class="input-field col-s12">
+                <input type="text" name="password" #password="ngModel" [(ngModel)]="encargadoService.encargado.password"
+                  placeholder="Ingrese su password" class="form-control">
+              </div>
+            </div>
+            <br><br>
+            <a href="/buttons/6" type="submit" class="bn6">Guardar</a>
+            <!-- <button type="button" class="btn btn-danger mr-2" (click)="resetForm(encargadoForm)">Borrar</button> -->
+          </form>
+
         </div>
-        <div class="form-group">
-          <div class="input-field col-s12">
-            <input type="text" name="password" #name="ngModel" [(ngModel)]="encargadoService.encargado.password"
-              placeholder="Ingrese su password" class="form-control">
-          </div>
+
+      </div>
+
+      <br><br><br><br>
+    </div>
+    <div class="col-md-3" style="margin-left: 300px; margin-top: 20px;">
+      <div class="card">
+        <div class="card-body p-4">
+          <h1  class="titulo-bonito">Buscar Encargado</h1>
+          <br>
+          <span class="p-input-icon-left">
+          
+            <input type="text" placeholder="Ingrese Nro de Telefono" pInputText /> &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" (click)="buscarEncargado()">Buscar</button>
+          </span>
         </div>
         
-  <br><br>    <button class="btn btn-success">Guardar</button>&nbsp;
-          <button class="btn btn-danger mr-2" (click)="resetForm(encargadoForm)">Borrar</button>
-          
-        </form>
       </div>
+      
+    </div>
+    
+
+    <!-- TABLE -->
+    <div class="tabla-container">
+      <table class="tabla-estilo" #tabla>
+        <thead>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Dni</th>
+          <th>Telefono</th>
+          <th>password</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let encargado of encargadoService.encargados">
+            <td>{{ encargado.nombre }}</td>
+            <td>{{ encargado.apellido }}</td>
+            <td>{{ encargado.dni }}</td>
+            <td>{{ encargado.telefono }}</td>
+            <td>{{ encargado.password }}</td>
+            <td>
+              <a (click)="borrarEncargado(encargadoService.eliminarEncargado)" class="btn btn-danger btn-sm">
+                <i class="material-icons">Borrar</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
-  <!-- TABLE -->
-  <div class="col-md-8">
-    <table class="table table-striped">
-      <thead>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Dni</th>
-        <th>Localidad</th>
-        <th>username</th>
-        <th>password</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let encargado of encargadoService.encargados">
-          <td>{{ encargado.nombre}}</td>
-          <td>{{ encargado.apellido }}</td>
-          <td>{{ encargado.dni }}</td>
-          <td>{{ encargado.localidad }}</td>
-          <td>{{ encargado.password }}</td>
-          <td>{{ encargado.username }}</td>
-          <td>
-            <!-- <a (click)="getJugadores(employee)" class="btn btn-secondary btn-sm">
-              <i class="material-icons">edit</i>
-            </a> -->
-            <a (click)="borrarEncargado(encargado.id, encargadoForm)" class="btn btn-danger btn-sm">
-              <i class="material-icons">Borrar</i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+
+  <div class="paginator-container">
+    <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 20, 50]"
+      (page)="onPageChange($event)"></mat-paginator>
   </div>
+  <div class="boton-container">
+    <button class="boton-personalizado" style="border-bottom-left-radius: 10px;" (click)="goToFirstPage()">
+      <i class="fa fa-angle-double-left"></i>
+    </button>
+    <button class="boton-personalizado" style="border-bottom-right-radius: 10px;" (click)="goToLastPage()">
+      <i class="fa fa-angle-double-right"></i>
+    </button>
   </div>
+  <br>
+
+
+</body>

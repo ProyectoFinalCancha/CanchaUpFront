@@ -14,7 +14,7 @@ export class LoginComponent {
   username!: string;
   password!: string;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router) {
 
   }
 
@@ -32,10 +32,14 @@ export class LoginComponent {
     )
   }
 
-  public loguear() {
-    let resp = this.authService.getUser(this.username, this.password);
-    resp.subscribe(data => {
-        console.log(data)
-    })
+  loginEncargado(){
+    this.router.navigate(['/loginEncargado'])
   }
+
+  // public loguear() {
+  //   let resp = this.authService.getUser(this.username, this.password);
+  //   resp.subscribe(data => {
+  //       console.log(data)
+  //   })
+  // }
 }

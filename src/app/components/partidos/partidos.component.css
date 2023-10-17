@@ -1,0 +1,231 @@
+body {
+    background-image: url('../../../assets/images/sun-tornado2.svg');
+    /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta real de tu imagen */
+    background-size: cover;
+    /* Ajusta la imagen para cubrir todo el fondo */
+    background-repeat: no-repeat;
+    /* Evita que la imagen de fondo se repita */
+}
+
+.titulo-bonito {
+    font-family: 'Arial', sans-serif;
+    /* Cambia la fuente a tu elección */
+    font-size: 2rem;
+    /* Tamaño de fuente más grande */
+    color: #175eaa80;
+    /* Cambia el color del texto */
+    text-transform: uppercase;
+    /* Convierte el texto en mayúsculas */
+    text-shadow: 0 0 2px rgba(27, 27, 27, 0.5);
+    /* Agrega un efecto de sombra al texto */
+}
+
+
+
+.bn6 {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: #4f504f;
+    padding: 0.3em 1.2em;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-weight: 550;
+    color: #ffffff;
+    background-size: 100% 100%;
+    box-shadow: 0 0 0 4px #466978 inset;
+    text-decoration: none;
+}
+
+.bn6:hover {
+    background-image: linear-gradient(55deg,
+            transparent 10%,
+            #161616 10% 20%,
+            transparent 20% 30%,
+            #161616 30% 40%,
+            transparent 40% 50%,
+            #161616 50% 60%,
+            transparent 60% 70%,
+            #161616 70% 80%,
+            transparent 80% 90%,
+            #161616 90% 100%);
+    animation: background 3s linear infinite;
+}
+
+.tabla-estilo {
+    padding: 10px;
+    /* Espaciado interno adecuado */
+    font-size: 19px;
+    /* Tamaño de la fuente */
+    line-height: 1.5;
+    /* Espaciado entre líneas */
+    background: #e0e0e0;
+    /* Fondo sólido o un gradiente */
+    /* border: 1px solid #ccc; */
+    /* Borde con un color más suave */
+
+    /* border-bottom-left-radius: 10px; */
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    /* border-radius: 20px; */
+
+    padding: 5px;
+    /* Reducir el espaciado interno */
+    font-size: 16px;
+    /* Reducir el tamaño de la fuente */
+    line-height: 1.5;
+    margin-left: 15px;
+    /* Agregar margen izquierdo */
+    margin-right: 15px;
+    /* Redondeo de las esquinas */
+    box-shadow: 0 4px 6px rgba(255, 0, 0, 0.1);
+    overflow: hidden;
+    /* Esto oculta los bordes de las celdas que sobresalen */
+}
+
+.tabla-estilo th,
+.tabla-estilo td {
+    padding: 5px;
+    /* Reducir el espaciado interno */
+    text-align: center;
+    color: #464c43;
+    /* border-radius: 5px; */
+    border: none;
+    /* Eliminar el borde en las celdas */
+    /* border: 1px solid #165646; Aumentar el ancho del borde */
+}
+
+.tabla-estilo th {
+    background-color: #346369;
+    font-size: 25px;
+    /* Fondo del encabezado */
+    color: #d9d8d8;
+    /* Color de texto en el encabezado */
+}
+
+.tabla-estilo tr:hover {
+    background-color: rgb(142, 192, 198);
+
+    /* Cambio de color al pasar el ratón */
+    cursor: pointer;
+    /* Cambia el cursor al puntero */
+}
+
+.tabla-estilo tr.selected {
+    background-color: #d9d322;
+    /* Color de selección */
+    color: #333;
+    /* Color de texto en selección */
+}
+
+
+/* Nuevas reglas CSS para redondear las esquinas de la tabla */
+.tabla-estilo-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+/* Estilo para el contenedor de la tabla */
+.tabla-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo para la tabla */
+.tabla-estilo {
+    flex: 1;
+    padding: 10px;
+    /* Resto de estilos para la tabla */
+}
+
+.card {
+    box-shadow: 10px 22px 50px #123aff80;
+    /* Agrega un efecto de sombra brillante */
+    border: 20px solid rgba(255, 255, 255, 0.5);
+    /* Agrega un borde con transparencia */
+}
+
+.mybotton {
+    margin-left: 1150px;
+}
+
+
+
+
+.mat-paginator {
+    
+    background-color: #346369; /* Color de fondo del encabezado de la tabla */
+    color: #d9d8d8; /* Color de texto del encabezado de la tabla */
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 10px;
+    border-top-left-radius: 10px; /* Redondear la parte superior izquierda */
+    border-top-right-radius: 10px; /* Redondear la parte superior derecha */
+  }
+  .boton-personalizado {
+    background-color: #346369; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Elimina el borde */
+    padding: 10px 15px; /* Espaciado interno */
+    border-bottom-left-radius: 0px; /* Redondear la parte inferior izquierda */
+    border-bottom-right-radius: 0px; /* Redondear la parte inferior derecha */
+    cursor: pointer; /* Cambia el cursor al puntero al pasar el ratón */
+    font-size: 16px; /* Tamaño de la fuente */
+  
+  }
+  
+  .boton-personalizado:hover {
+    background-color: #234855; /* Color de fondo al pasar el ratón */
+
+  }
+
+  .boton-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+  }
+
+
+  .bn632-hover {
+    width: 160px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  
+  .bn632-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  
+  .bn632-hover:focus {
+    outline: none;
+  }
+  
+  .bn632-hover.bn23 {
+    background-image: linear-gradient(
+      to right,
+      #009245,
+      #fcee21,
+      #00a8c5,
+      #d9e021
+    );
+    box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
+  }

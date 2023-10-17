@@ -1,13 +1,21 @@
+<body>
+  
+<div class="mybotton">
+  <br>
+  <!-- <p-button class="mybotton" label="Salir" severity="danger"></p-button> -->
+ <button (click)="navegar()" class="bn632-hover bn23">Volver a Home</button>
+</div>
+  
 <div class="row">
   <!-- FORM -->
-  <div class="col-md-3" style="margin-left: 20px; margin-top: 20px;">
+  <div class="col-md-3" style="margin-left: 100px; margin-top: 20px;">
     <div class="card">
       <div class="card-body p-4">
         <!-- FORM -->
         <form #partidoForm="ngForm" (ngSubmit)="agregarPartido(partidoForm)" style="margin-left: 45px;">
-          <h1>Crear Partido</h1>
+          <h1  class="titulo-bonito">Crear Partido</h1>
           <br>
-          <input type="hidden" name="id" #id="ngModel" [(ngModel)]="partido.id">
+          <input type="hidden" name="id" #id="ngModel" [(ngModel)]="partidoService.partido.id">
           <br>
           <div class="form-group" style="width: 250px;">
 
@@ -15,7 +23,7 @@
                 placeholder="Ingrese el horario" class="form-control">
             <select class="form-select" aria-label="Default select example"></select> -->
             <span style="color: rgb(36, 108, 47);">Elige tu Horario</span>
-            <select class="form-select" formControlName="horario" [(ngModel)]="partido.horario" >
+            <select class="form-select" formControlName="horario" [(ngModel)]="partidoService.partido.horario" >
               <option [ngValue]="null" disabled>Horario</option>
               <option *ngFor="let partido of partidoService.partidos" [ngValue]="partidoService.partidos">
                {{ partidoService.partidos }}
@@ -25,30 +33,48 @@
 
           <br>
           <div class="form-group" style="width: 250px;">
-            <input type="date" name="dia" #dia="ngModel" [(ngModel)]="partido.dia" placeholder="Seleccione la fecha"
+            <input type="date" name="dia" #dia="ngModel" [(ngModel)]="partidoService.partido.dia" placeholder="Seleccione la fecha"
               class="form-control">
           </div>
           <br>
           <div class="form-group" style="width: 250px;">
-            <input type="text" name="telefono" #telefono="ngModel" [(ngModel)]="partido.telefono"
+            <input type="text" name="telefono" #telefono="ngModel" [(ngModel)]="partidoService.partido.telefono"
               placeholder="Ingrese el teléfono" class="form-control">
           </div>
           <br>
           <div class="form-group" style="width: 250px;">
-            <input type="text" name="precio" #precio="ngModel" [(ngModel)]="partido.precio"
+            <input type="text" name="precio" #precio="ngModel" [(ngModel)]="partidoService.partido.precio"
               placeholder="Ingrese el precio" class="form-control">
           </div>
           <br>
-          <button class="btn btn-success">Guardar</button>&nbsp;
-          <button class="btn btn-danger mr-2" (click)="resetForm(partidoForm)">Borrar</button>
+          <a href="/buttons/6" type="submit" class="bn6">Guardar</a>
+           <!-- <button class="btn btn-danger mr-2" (click)="resetForm(partidoForm)">Borrar</button> -->
         </form>
       </div>
     </div>
-  </div>
 
+  </div>
+  <div class="col-md-3" style="margin-left: 300px; margin-top: 20px;">
+    <div class="card">
+      <div class="card-body p-4">
+        <h1  class="titulo-bonito">Buscar Partido</h1>
+        <br>
+        <span class="p-input-icon-left">
+        
+          <input type="text" placeholder="Ingrese Nro de Telefono" pInputText /> &nbsp;&nbsp;
+          <button type="button" class="btn btn-secondary" (click)="buscarPartido()">Buscar</button>
+        </span>
+      </div>
+      
+    </div>
+    
+  </div>
+  <h1> &nbsp; </h1>
+  <h1> &nbsp; </h1>
   <!-- TABLE -->
-  <div class="col-md-8">
-    <table class="table table-striped">
+  <div class="tabla-container">
+    
+    <table class="tabla-estilo">
       <thead>
         <th>Horario</th>
         <th>Día</th>
@@ -58,16 +84,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let partido of partidoService.partidos">
-          <td>{{ partido.horario }}</td>
-          <td>{{ partido.dia | date:'shortDate' }}</td>
-          <td>{{ partido.telefono }}</td>
-          <td>{{ partido.precio }}</td>
+          <td>{{ partidoService.partido.horario }}</td>
+          <td>{{ partidoService.partido.dia | date:'shortDate' }}</td>
+          <td>{{ partidoService.partido.telefono }}</td>
+          <td>{{ partidoService.partido.precio }}</td>
           <td>
             <!-- <a (click)="editarPartido(partido)" class="btn btn-secondary btn-sm">
                 <i class="material-icons">edit</i>
               </a> -->
             <br>
-            <a (click)="borrarPartido(partido.id,partidoForm)" class="btn btn-danger btn-sm">
+            <a (click)="borrarPartido(partidoService.partido.id,partidoForm)" class="btn btn-danger btn-sm">
               <i class="material-icons">delete</i>
             </a>
           </td>
@@ -76,3 +102,19 @@
     </table>
   </div>
 </div>
+
+<div class="paginator-container">
+  <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 20, 50]"
+    (page)="onPageChange($event)"></mat-paginator>
+</div>
+<div class="boton-container">
+  <button class="boton-personalizado" style="border-bottom-left-radius: 10px;" (click)="goToFirstPage()">
+    <i class="fa fa-angle-double-left"></i>
+  </button>
+  <button class="boton-personalizado" style="border-bottom-right-radius: 10px;" (click)="goToLastPage()">
+    <i class="fa fa-angle-double-right"></i>
+  </button>
+</div>
+<br>
+
+</body>

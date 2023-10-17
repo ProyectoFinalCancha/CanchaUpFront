@@ -20,6 +20,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {HttpClientModule} from '@angular/common/http';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ComponentModule } from './components/component.module';
+import { EncargadoService } from './services/encargado.service';
 
 @NgModule({
   declarations: [

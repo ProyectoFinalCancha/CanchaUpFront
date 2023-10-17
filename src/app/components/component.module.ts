@@ -8,7 +8,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { SidebarModule } from 'primeng/sidebar';
-import { ButtonModule } from 'primeng/button';
+
 import { VerJugadoresComponent } from './ver-jugadores/ver-jugadores.component';
 import { FormsModule } from '@angular/forms';
 
@@ -31,11 +31,17 @@ import {NgIf} from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select'; 
 
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+
 import { MatDialogModule } from '@angular/material/dialog';
-import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.component'; // Importa MatDialogModule
+import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.component';
+import { LoginEncargadoComponent } from './login-encargado/login-encargado.component'; // Importa MatDialogModule
 
 @NgModule({
   declarations: [
@@ -45,11 +51,12 @@ import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.componen
     SidenavComponent,
     VerJugadoresComponent,
     PartidosComponent,
-    EncargadoComponent,
+     EncargadoComponent,
     DashboardAdminComponent,
     DashboardMatchMakingComponent,
     // PopupComponent,
-    PopupDialogComponent
+    PopupDialogComponent,
+    LoginEncargadoComponent
   
   
   ],
@@ -63,13 +70,18 @@ import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.componen
     MatSidenavModule,
     CardModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    TabMenuModule,
+    TieredMenuModule,
+    MatPaginatorModule
   ],
   exports: [
     VerJugadoresComponent,
     PartidosComponent,
+    DropdownModule
     // PopupComponent
   ],
-  
+  providers: [MatPaginator,  PageEvent],
+  bootstrap: [ComponentModule]
 })
 export class ComponentModule { }

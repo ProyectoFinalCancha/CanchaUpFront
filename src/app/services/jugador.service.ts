@@ -20,16 +20,20 @@ private API_CREATE: string = "http://localhost:8080/restful/services/simple.Juga
 constructor(private http: HttpClient) {
   this.jugador = new Jugador();
  }
+ // Define un encabezado personalizado para enviar el nombre de usuario
+ private headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa('sven:pass'));
 
 
-createJugador(jugador : Jugador){
+ crearJugador(jugador : Jugador){
   const url = `${this.API_CREATE}`;
   return this.http.post(url,jugador);
 }
-getJugador(oid:number){
+
+
+getJugador(id:any){
   
   const headers = new HttpHeaders();
-  const urlWithParams = `${this.API_GET}?objectid=${oid}`;
+  const urlWithParams = `${this.API_GET}?objectid=${id}`;
   
   return this.http.get<Jugador>(urlWithParams, { headers, responseType: 'text' as 'json' })
   
@@ -39,17 +43,16 @@ getJugadores(){
   // let username = "sven";
   // let password = "pass";
 
-  // const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
-  const headers = new HttpHeaders();
-  return this.http.get<Jugador[]>(this.API_GET, {headers, responseType: 'text' as 'json'});
+ // Usa los encabezados personalizados en la solicitud
+ return this.http.get<Jugador[]>(this.API_GET, { headers: this.headers, responseType: 'text' as 'json' });
 }
 
-deleteJugador(oid: number) {
-  return this.http.delete(this.API_DELETE + `/${oid}`);
+deleteJugador(id: number) {
+  return this.http.delete(this.API_DELETE + `/${id}`);
 }
 
 
-
+ 
 }
   // API_SERVER: string = "http://localhost:8080/wicket/wicket/page?5";
   //API_SERVER: string = "http://localhost:8080/restful/objects/simple.Jugador";

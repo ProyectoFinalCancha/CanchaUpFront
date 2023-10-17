@@ -1,98 +1,123 @@
-<div class="row">
-
-  <!-- FORM -->
-  <div class="col-md-3" style="margin-left: 20px; margin-top: 20px;">
-    <div class="card">
-      <div class="card-body p-4">
-
-        <!-- FORM -->
-        <form #jugadorForm="ngForm" (ngSubmit)="agregarJugador(jugadorForm)">
-          <h1>Crear Jugadores</h1>
-          <br>
-          <input type="hidden" name="id" #id="ngModel" [(ngModel)]="jugadorService.jugador.oid">
-
-          <div class="form-group">
-            
-            <input type="text" name="nombre" #name="ngModel" [(ngModel)]="jugadorService.jugador.nombre"
+<body>
+  
+  <div class="mybotton">
+    <br>
+    <button (click)="navegar()" class="bn632-hover bn27">Volver a Home</button>
+  </div>
+    
+  <div class="row">
+    <!-- FORM -->
+    <div class="col-md-3" style="margin-left: 100px; margin-top: 20px;">
+      <div class="card">
+        <div class="card-body p-4">
+          <!-- FORM -->
+          <form #jugadorForm="ngForm" (ngSubmit)="agregarJugador(jugadorForm)" style="margin-left: 45px;">
+            <h1  class="titulo-bonito">Crear Jugadores</h1>
+            <br>
+            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="jugadorService.jugador.oid">
+            <br>
+            <div class="form-group" style="width: 250px;">
+  
+              <!-- <input class="form-select" type="select" name="horario" #horario="ngModel" [(ngModel)]="partido.horario"
+                  placeholder="Ingrese el horario" class="form-control">
+              <select class="form-select" aria-label="Default select example"></select> -->
+              <input type="text" name="nombre" #name="ngModel" [(ngModel)]="jugadorService.jugador.nombre"
               placeholder="Ingrese su nombre" class="form-control">
-          </div>
-<br>
-          <div class="form-group">
-            <div class="input-field col-s12">
-              <input type="text" name="apellido" #name="ngModel" [(ngModel)]="jugadorService.jugador.apellido"
-                placeholder="Ingrese su apellido" class="form-control">
             </div>
-          </div>
-<br>
-          <div class="form-group">
-            <input type="text" name="telefono" #name="ngModel" [(ngModel)]="jugadorService.jugador.telefono"
-              placeholder="Ingrese su telefono" class="form-control">
-          </div>
-<br>
-          <div class="form-group">
-            <div class="input-field col-s12">
-              <input type="text" name="mail" #name="ngModel" [(ngModel)]="jugadorService.jugador.mail"
-                placeholder="Ingrese su mail" class="form-control">
+  
+            <br>
+            <div class="form-group" style="width: 250px;">
+              <input type="text" name="apellido" #name="ngModel" [(ngModel)]="jugadorService.jugador.apellido"
+              placeholder="Ingrese su apellido" class="form-control">
             </div>
             <br>
-
-          </div>
-          <div class="form-group">
-            <div class="input-field col-s12">
+            <div class="form-group" style="width: 250px;">
+              <input type="text" name="telefono" #name="ngModel" [(ngModel)]="jugadorService.jugador.telefono"
+              placeholder="Ingrese su telefono" class="form-control">
+            </div>
+            <br>
+            <div class="form-group" style="width: 250px;">
+              <input type="text" name="mail" #name="ngModel" [(ngModel)]="jugadorService.jugador.mail"
+              placeholder="Ingrese su mail" class="form-control">
+            </div>
+            <div class="form-group" style="width: 250px;">
               <input type="text" name="password" #name="ngModel" [(ngModel)]="jugadorService.jugador.password"
-                placeholder="Ingrese su password" class="form-control">
+              placeholder="Ingrese su password" class="form-control">
             </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <div class="input-field col-s12">
+            <div class="form-group" style="width: 250px;">
               <input type="text" name="username" #name="ngModel" [(ngModel)]="jugadorService.jugador.username"
-                placeholder="Ingrese su username" class="form-control">
+              placeholder="Ingrese su username" class="form-control">
             </div>
-          </div>
-<br><br>  
-          <button class="btn btn-primary">Guardar</button>&nbsp;
-          <button class="btn btn-danger mr-2" (click)="resetForm(jugadorForm)">Borrar</button>
-          <button class="btn btn-danger mr-2" (click)="buscarJugador()">Ver mi Jugador</button>
-      </form>
+            <br>
+            <a href="/buttons/6" type="submit" class="bn6">Guardar</a>
+             <!-- <button class="btn btn-danger mr-2" (click)="resetForm(partidoForm)">Borrar</button> -->
+          </form>
+        </div>
+      </div>
+  
+    </div>
+    <div class="col-md-3" style="margin-left: 300px; margin-top: 20px;">
+      <div class="card">
+        <div class="card-body p-4">
+          <h1  class="titulo-bonito">Buscar Jugador</h1>
+          <br>
+          <span class="p-input-icon-left">
+          
+            <input type="text" placeholder="Ingrese Nro de Telefono" pInputText /> &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" (click)="buscarJugador(id)">Buscar</button>
+          </span>
+        </div>
+        
+      </div>
+      
+    </div>
+    <h1> &nbsp; </h1>
+    <h1> &nbsp; </h1>
+    <!-- TABLE -->
+    <div class="tabla-container">
+      
+      <table class="tabla-estilo">
+        <thead>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Telefono</th>
+          <th>mail</th>
+          <th>password</th>
+          <th>username</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let jugador of jugadorService.jugadores">
+            <td>{{ jugador.nombre}}</td>
+            <td>{{ jugador.apellido }}</td>
+            <td>{{ jugador.telefono }}</td>
+            <td>{{ jugador.mail }}</td>
+            <td>{{ jugador.password }}</td>
+            <td>{{ jugador.username }}</td>
+              <!-- <a (click)="editarPartido(partido)" class="btn btn-secondary btn-sm">
+                  <i class="material-icons">edit</i>
+                </a> -->
+              <br>
+              <a (click)="borrarJugador(jugadorService.jugador.oid,jugadorForm)" class="btn btn-danger btn-sm">
+                <i class="material-icons">delete</i>
+              </a>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
-
-
-<!-- TABLE -->
-<div class="col-md-8">
-  <table class="table table-striped">
-    <thead>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Telefono</th>
-      <th>mail</th>
-      <th>password</th>
-      <th>username</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let jugador of jugadorService.jugadores">
-        <td>{{ jugador.nombre}}</td>
-        <td>{{ jugador.apellido }}</td>
-        <td>{{ jugador.telefono }}</td>
-        <td>{{ jugador.mail }}</td>
-        <td>{{ jugador.password }}</td>
-        <td>{{ jugador.username }}</td>
-        <td>
-          <!-- <a (click)="getJugadores(employee)" class="btn btn-secondary btn-sm">
-            <i class="material-icons">edit</i>
-          </a> -->
-          <a (click)="borrarJugador(jugador.oid, jugadorForm)" class="btn btn-danger btn-sm">
-            <i class="material-icons">Borrar</i>
-
-            
-          </a>
-
-          
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div>
+  
+  <div class="paginator-container">
+    <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 20, 50]"
+      (page)="onPageChange($event)"></mat-paginator>
+  </div>
+  <div class="boton-container">
+    <button class="boton-personalizado" style="border-bottom-left-radius: 10px;" (click)="goToFirstPage()">
+      <i class="fa fa-angle-double-left"></i>
+    </button>
+    <button class="boton-personalizado" style="border-bottom-right-radius: 10px;" (click)="goToLastPage()">
+      <i class="fa fa-angle-double-right"></i>
+    </button>
+  </div>
+  <br>
+  
+  </body>

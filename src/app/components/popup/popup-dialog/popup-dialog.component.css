@@ -1,18 +1,24 @@
 /* Estilo para el contenedor del diálogo */
 .mat-dialog-container {
-  /* border-radius: 50px !important; 
+
   padding: 0px; 
-  background-color: #a44d4d;  */
+ 
+  
+-webkit-box-shadow:0px 0px 105px 45px rgba(45,255,196,0.9);
+-moz-box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
+box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
+
 }
 
 /* Estilo para los campos de formulario dentro del diálogo */
 .mattiDialog {
   width: 400px;
+  
 }
 
 .rounded-dialog-content{
-  border-radius: 10px !important; /* Añadir !important para asegurarse de que los estilos se apliquen */
-  padding: 3px; /* Ajusta el espacio interno del diálogo según tus necesidades */
+  border-radius: 10px !important; 
+  padding: 3px;
   
 }
 
@@ -21,9 +27,50 @@
   /* Estilos para el botón */
 }/* Estilo personalizado para el cuadro de diálogo */
 .custom-dialog-container {
-  border-radius: 5px; /* Ajusta el radio de borde según tus necesidades */
-  margin: 10px; /* Agrega márgenes según tus necesidades */
-  padding: 20px; /* Ajusta el espacio interno del cuadro de diálogo según tus necesidades */
-  box-shadow: 0 29px 12px rgba(0, 0, 0, 0.2), 0 0 16px rgba(0, 0, 0, 0.2); /* Añade un resplandor al cuadro de diálogo con mayor opacidad */
-  background-color: #ffffff; /* Cambia el color de fondo del cuadro de diálogo a uno con contraste */
+  color: #0e0e10;
+  border: 8px solid #00353e; /* Define un borde negro de 2px */
+  border-radius: 15px solid #000000;
+  margin: 10px solid #000000;
+  padding: 20px solid #000000;
+  
 }
+
+
+
+.bn31 {
+  background-image: linear-gradient(to right, #006175 0%, #00a950 100%);
+  border-radius: 40px;
+  box-sizing: border-box;
+  color: #00a84f;
+  display: block;
+  height: 50px;
+  font-size: 1.4em;
+  padding: 4px;
+  position: relative;
+  text-decoration: none;
+  width: 7em;
+  z-index: 2;
+  -webkit-box-shadow:0px 0px 105px 39px rgba(46,255,203,0.83);
+  -moz-box-shadow: 0px 0px 105px 39px rgba(46,255,203,0.83);
+  box-shadow: 0px 0px 105px 39px rgba(46,255,203,0.83);
+}
+
+.bn31:hover {
+  color:#ffffff;
+}
+
+.bn31 .bn31span {
+  align-items: center;
+  background: #0e0e10;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  transition: background 0.5s ease;
+  width: 100%;
+}
+
+.bn31:hover .bn31span {
+  background: transparent;
+}
+

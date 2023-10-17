@@ -9,6 +9,11 @@ import { EncargadoComponent } from './components/encargado/encargado.component';
 // import { PopupComponent } from './components/popup/popup.component';
 import { DashboardMatchMakingComponent } from './components/dashboard/dashboard-match-making/dashboard-match-making.component';
 import { PopupDialogComponent } from './components/popup/popup-dialog/popup-dialog.component';
+import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
+
+import { LoginEncargadoComponent } from './components/login-encargado/login-encargado.component';
+import { AuthGuard } from './guard/Auth.guard'; // Cambiar a 'Auth.guard' a 'Auth.guard' en la importación
+
 
 const routes: Routes = [
   
@@ -20,6 +25,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path:'loginEncargado',
+    component:LoginEncargadoComponent
   },
   {
     path: 'dashboard',
@@ -49,6 +58,11 @@ const routes: Routes = [
   {
     path:'popup',
     component:PopupDialogComponent
+  },
+  {
+    path:'adminDash',
+    component:DashboardAdminComponent,
+    // canActivate: [AuthGuard]
   },
   {
     path: '**',

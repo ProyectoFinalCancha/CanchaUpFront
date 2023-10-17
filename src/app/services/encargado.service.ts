@@ -6,46 +6,60 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EncargadoService {
-
-  ///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  private API_DELETE: string = "http://localhost:8080/restful/objects/simple.Jugador/1/actions/delete/invoke";
-  private API_GET: string = "http://localhost:8080/restful/objects/simple.Jugador";
-  private API_CREATE: string = "http://localhost:8080/restful/services/simple.JugadorServices/actions/crearJugador/invoke"
-  /////////CAMBIAR ESAS URLS Y PONER LAS DEL ENCARGDO 
-  
+  private API_CREATE: string =  "http://localhost:8080/restful/services/simple.EncargadoServices/actions/crearEncargado/invoke"; // Reemplaza con la URL correcta
+  private API_GET: string = "http://localhost:8080/restful/services/simple.EncargadoServices/actions/buscarEncargado/invoke"; // Reemplaza con la URL correcta
+  private API_DELETE: string = "URL_DE_TU_API_DELETE"; // Reemplaza con la URL correcta
+private API_GET_Encargados: string  = "http://localhost:8080/restful/services/simple.EncargadoServices/actions/verEncargados/invoke"
   encargado: Encargado;
-  encargados!: Encargado[];
-  constructor(private http:HttpClient) { 
+  encargados: Encargado[] = [];
+
+  constructor(private http: HttpClient) {
     this.encargado = new Encargado();
   }
 
+  createEncargado(encargado: Encargado) {
+    return this.http.post(this.API_CREATE, encargado);
+  }
+
   
-createEncargado(encargado : Encargado){
-  const url = `${this.API_CREATE}`;
-  return this.http.post(url,encargado);
-}
-getEncargado(){
-  // const url = `${this.API_SERVER}/${id}`;
-  let username = "sven";
-  let password = "pass";
+  verEncargados() {
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2;suppress=all'
+    });
 
-  const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
-  return this.http.get<Encargado>(this.API_GET, {headers, responseType: 'text' as 'json'});
-  // return this.http.get(url);
-}
-getEncargados(){
+    const requestOptions = {
+      headers: headers
+    };
+
+    return this.http.get(this.API_GET_Encargados, { responseType: 'text' });
+  }
+
+ 
+  eliminarEncargado(objectId: string) {
+    const url = `${this.API_DELETE}/${objectId}/actions/eliminarEncargado/invoke`;
+
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2;suppress=all'
+    });
+
+    const requestOptions = { headers };
+
+    return this.http.post(url, null, requestOptions);
+  }
+
+  buscarEncargado(telefono: string) {
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2'
+    });
   
-  let username = "sven";
-  let password = "pass";
-
-  const headers = new HttpHeaders({ Authorization: 'Basic' + btoa(username + ":" + password)})
-
-  return this.http.get<Encargado[]>(this.API_GET, {headers, responseType: 'text' as 'json'});
-}
-
-deleteEncargado(id: number) {
-  return this.http.delete(this.API_DELETE + `/${id}`);
-}
-
-
+    const requestOptions = {
+      headers: headers
+    };
+  
+    return this.http.get(`${this.API_GET}?telefono=${telefono}`, requestOptions);
+  
+  }
 }

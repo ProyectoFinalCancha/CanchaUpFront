@@ -2,7 +2,8 @@
 <div class="limiter">
     <div class="container-login100" style="background-image: url('../../assets/images/footballBackground.jpeg');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form" autocomplete="off">
+            <form class="login100-form" autocomplete="off"
+            #jugadorForm="ngForm" (ngSubmit)="agregarJugador(jugadorForm.value)">
                 <span class="login100-form-title p-b-49">
                    Nuevo Jugador
                 </span>
@@ -13,6 +14,7 @@
                     <input class="input100"
                            type="nombre" 
                            name="nombre" 
+                           ngModel
                            placeholder="Ingrese su nombre">
                     <span class="focus-input100"></span>
                 </div>
@@ -22,7 +24,7 @@
                     <input class="input100"
                            type="apellido"
                            name="apellido" 
-                           
+                           ngModel
                            placeholder="Ingrese su apellido">
                     <span class="focus-input100"></span>
                 </div>
@@ -31,6 +33,7 @@
                     <input class="input100"
                            type="telefono"
                            name="telefono" 
+                           ngModel
                            placeholder="Ingrese su telefono">
                     <span class="focus-input100"></span>
                 </div>
@@ -42,6 +45,7 @@
                     <input class="input100"
                            type="mail"
                            name="mail" 
+                           ngModel
                            placeholder="Ingrese su mail">
                     <span class="focus-input100"></span>
                 </div>
@@ -51,6 +55,7 @@
                     <input class="input100"
                            type="password"
                            name="password" 
+                           ngModel
                            placeholder="Ingrese su password">
                     <span class="focus-input100"></span>
                 </div>
@@ -59,9 +64,10 @@
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <button (click)="IraDash()" class="login100-form-btn">
+                        <button type="submit" class="login100-form-btn">Registrarse</button>
+                        <!-- <button (click)="agregarJugador(jugadorForm)" class="login100-form-btn">
                             Registrarse
-                        </button>
+                        </button> -->
                     </div>
                 </div>
 

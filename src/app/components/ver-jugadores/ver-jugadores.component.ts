@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Jugador } from 'src/app/models/jugador';
 import { JugadorService } from 'src/app/services/jugador.service';
@@ -12,14 +13,30 @@ import { JugadorService } from 'src/app/services/jugador.service';
 })
 export class VerJugadoresComponent {
 
-  jugador!: Jugador; // Define la variable para almacenar los datos del jugador
+  jugadorPorPagina:Jugador[] = [];
+  jugadores!: Jugador[]; // Define la variable para almacenar los datos del jugador
 
-  constructor(public jugadorService: JugadorService) { }
+  constructor(public jugadorService: JugadorService, private router: Router) {
+    this.jugadorService = jugadorService
+   }
 
   ngOnInit() {
     this.getJugadores();
   }
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  goToFirstPage() {
+    this.paginator.firstPage();
+  }
+
+  goToLastPage() {
+    this.paginator.lastPage();
+  }
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.jugadorPorPagina = this.jugadores.slice(startIndex, endIndex);
+  }
 
   getJugadores() {
     this.jugadorService.getJugadores().subscribe((res) => {
@@ -27,9 +44,9 @@ export class VerJugadoresComponent {
     });
   }
 
-  buscarJugador(){
-    const oid = 1;
-    this.jugadorService.getJugador(oid).subscribe(
+  buscarJugador(id:any){
+    const telefono = '1';
+    this.jugadorService.getJugador(id).subscribe(
       (response) =>{
         console.log('Respuesta exitosa:', response);
       },
@@ -40,7 +57,7 @@ export class VerJugadoresComponent {
     )
   }
   agregarJugador(form:NgForm){
-    this.jugadorService.createJugador(form.value).subscribe((res) => {
+    this.jugadorService.crearJugador(form.value).subscribe((res) => {
       this.getJugadores();
       this.resetForm(form);
     })
@@ -60,6 +77,10 @@ export class VerJugadoresComponent {
         this.resetForm(form);
       })
     }
+  }
+
+  navegar(){
+    this.router.navigateByUrl('/adminDash')
   }
 /*
   username!: string;

@@ -8,8 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PartidoService {
 
-  partido!: Partido;
-  partidos!: Partido[];
+  partido: Partido;
+  partidos: Partido[] = [];
                               
   private API_GET: string =  "http://localhost:8080/restful/services/simple.PartidoServices/actions/verPartidos/invoke"
   // private API_CONFIRMARPARTIDO : string = "http://localhost:8080/restful/objects/simple.Partido/1/actions/completar/invoke"   NO VA A FUNCIONAR PORQUE HAY QUE MANDARLE EL ID COMO HEADER EN ESE URL ESTA CON EL ID 1 

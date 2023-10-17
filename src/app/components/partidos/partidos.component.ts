@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { Jugador } from 'src/app/models/jugador';
 import { Partido } from 'src/app/models/partido';
 import { PartidoService } from 'src/app/services/partido.service';
@@ -12,14 +14,37 @@ import { PartidoService } from 'src/app/services/partido.service';
 })
 export class PartidosComponent {
 
-  partido!:Partido;
+  partidos!:Partido[];
+  partidosPorPagina: Partido[] = [];
+
   
-  constructor(public partidoService : PartidoService) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
+
+  goToFirstPage() {
+    this.paginator.firstPage();
+  }
+
+  goToLastPage() {
+    this.paginator.lastPage();
+  }
+
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.partidosPorPagina = this.partidos.slice(startIndex, endIndex);
+  }
+  constructor(public partidoService : PartidoService, private router:Router){
+    this.partidoService = partidoService
+   }
 
   ngOnInit() {
     this.getPartidos();
   }
 
+  navegar(){
+    this.router.navigateByUrl('/adminDash')
+  }
 
   getPartidos() {
     this.partidoService.getPartidos().subscribe((res) => {
@@ -27,6 +52,13 @@ export class PartidosComponent {
     });
   }
 
+  buscarPartido(){
+    const telefono = '1';
+    this.partidoService.getPartido().subscribe(
+      (result) => console.log(result),
+      (error) => console.error('Error:', error)
+    );
+  }
 
   agregarPartido(form:NgForm){
     this.partidoService.createPartido(form.value).subscribe((res) => {
