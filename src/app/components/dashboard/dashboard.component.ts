@@ -38,7 +38,9 @@ abrirPopup(){
   this.sidebarVisible2 = true
 }
 
-
+cerrarSesion(){
+  this.router.navigateByUrl('/login')
+}
 abrirPopupDesdeDashboard(): void {
   // Llama al método del servicio para abrir el popup
   const fechaActual = new Date();
