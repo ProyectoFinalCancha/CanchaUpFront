@@ -32,6 +32,7 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
   border-radius: 15px solid #000000;
   margin: 10px solid #000000;
   padding: 20px solid #000000;
+ 
   
 }
 
@@ -74,3 +75,18 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
   background: transparent;
 }
 
+@media (max-width: 412px) {
+  .mat-dialog-container {
+    background-size: 5%; 
+    width: 100%; /* Cambia el ancho del diálogo para que se ajuste a la pantalla móvil */
+  }
+  .mat-dialog-content{
+   
+  }
+  .mattiDialog {
+   
+    width: 100%; /* Cambia el ancho de los campos de formulario para dispositivos móviles */
+  }
+
+  /* Agrega otros estilos específicos para dispositivos móviles si es necesario */
+}

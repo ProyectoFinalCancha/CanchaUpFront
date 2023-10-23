@@ -65,3 +65,27 @@
   );
   box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
 }
+
+.btn2{
+  margin-left: 80px;
+}
+
+/* Estilos para dispositivos de escritorio */
+@media (min-width: 768px) {
+  .centered-container {
+      /* Estilos específicos para dispositivos de escritorio */
+      /* Por ejemplo, cambia la altura o el tamaño de fuente para dispositivos de escritorio */
+      height: 150vh;
+      font-size: 20px;
+  }
+}
+
+/* Estilos para smartphones */
+@media (max-width: 77px) {
+  .centered-container {
+      /* Estilos específicos para smartphones */
+      /* Por ejemplo, cambia la altura o el tamaño de fuente para smartphones */
+      height: 100vh;
+      font-size: 16px;
+  }
+}

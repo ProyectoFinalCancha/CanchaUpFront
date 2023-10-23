@@ -1,18 +1,7 @@
 
-<!-- <div class="card flex flex-wrap justify-content-center gap-2">
-  <p-sidebar [(visible)]="sidebarVisible1" position="left">
-    <h3>Sacar Turno</h3>
-  </p-sidebar>
-</div>
-<div class="card flex flex-wrap justify-content-center gap-2">
-  <p-sidebar [(visible)]="sidebarVisible2" position="left">
-    <h3>MatchMaking</h3>
-  </p-sidebar>
-</div> -->
-
 <div class="centered-container">
   
-  <br><br><br><br>
+  <br>
   <p-card class="scrollable-card" header="Sacar un Turno" subheader="Recuerda ver antes la disponibilidad de canchas" [style]="{ width: '360px'}">
     <ng-template pTemplate="header">
       <img alt="Card" src="../../../assets/images/imgCard.jpg" loading="lazy"/>
@@ -28,16 +17,11 @@
     <ng-template pTemplate="header">
       <img alt="Card" src="../../../assets/images/matchmaking img.avif" loading="lazy"/>
     </ng-template>
-    <p>
-      El sistema de MatchMaking sirve para buscar algún partido incompleto y ingresar allí, también ingresas en lista de Espera hasta que encuentres un partido
-    </p>
+    
     <ng-template pTemplate="footer">
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <p-button label="Haz Click Aquí" (click)="irAMatch()" styleClass="p-button-outlined p-button-danger"></p-button>
+      <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+      <p-button class="btn2" label="Haz Click Aquí" (click)="irAMatch()" styleClass="p-button-outlined p-button-danger"></p-button>
     </ng-template>
-    <!-- <p-sidebar [(visible)]="sidebarVisible2" position="left">
-      <h1>MatchMaking</h1>
-    </p-sidebar> -->
   </p-card>
 
 

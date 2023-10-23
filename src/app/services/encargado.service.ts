@@ -1,65 +1,80 @@
 import { Injectable } from '@angular/core';
 import { Encargado } from '../models/encargado';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EncargadoService {
-  private API_CREATE: string =  "http://localhost:8080/restful/services/simple.EncargadoServices/actions/crearEncargado/invoke"; // Reemplaza con la URL correcta
-  private API_GET: string = "http://localhost:8080/restful/services/simple.EncargadoServices/actions/buscarEncargado/invoke"; // Reemplaza con la URL correcta
-  private API_DELETE: string = "URL_DE_TU_API_DELETE"; // Reemplaza con la URL correcta
-private API_GET_Encargados: string  = "http://localhost:8080/restful/services/simple.EncargadoServices/actions/verEncargados/invoke"
-  encargado: Encargado;
+
+  private API_GET: string = "http://localhost:8080/restful/services/simple.EncargadoServices/actions/verEncargados/invoke";
+  private API_BUSCAR: string = "http://localhost:8080/restful/services/simple.EncargadoServices/actions/verEncargados/invoke";
+  private API_DELETE: string = "http://localhost:8080/restful/objects/simple.Encargado/";
+
+
   encargados: Encargado[] = [];
 
-  constructor(private http: HttpClient) {
-    this.encargado = new Encargado();
-  }
+  constructor(private http: HttpClient) { }
 
-  createEncargado(encargado: Encargado) {
-    return this.http.post(this.API_CREATE, encargado);
-  }
 
-  
-  verEncargados() {
+  verEncargados(): Observable<Encargado[]> {
     const headers = new HttpHeaders({
-      Authorization: 'Basic c3ZlbjpwYXNz',
-      Accept: 'application/json;profile=urn:org.apache.causeway/v2;suppress=all'
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      'Authorization': 'Basic c3ZlbjpwYXNz'
     });
+    return this.http.get<Encargado[]>(this.API_GET, { headers })
+    .pipe(
+      catchError((error: any) => {
+        console.error('Error en la solicitud:', error);
+        throw error; // Puedes manejar el error aquí o lanzarlo nuevamente para que se maneje en el componente.
+      })
+    );
+  }
 
+  buscarEncargado(telefono: string): Observable<Encargado> {
     const requestOptions = {
-      headers: headers
+      headers: new HttpHeaders({
+        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+      })
     };
 
-    return this.http.get(this.API_GET_Encargados, { responseType: 'text' });
+    // Realiza la solicitud GET al servicio con el número de teléfono
+    return this.http.get<Encargado>(
+      `${this.API_BUSCAR}?telefono=${telefono}`,
+      requestOptions
+    ).pipe(
+      catchError((error: any) => {
+        console.error('Error en la solicitud:', error);
+        throw error; // Puedes manejar el error aquí o lanzarlo nuevamente para que se maneje en el componente.
+      })
+    );
   }
 
- 
-  eliminarEncargado(objectId: string) {
-    const url = `${this.API_DELETE}/${objectId}/actions/eliminarEncargado/invoke`;
 
-    const headers = new HttpHeaders({
-      Authorization: 'Basic c3ZlbjpwYXNz',
-      Accept: 'application/json;profile=urn:org.apache.causeway/v2;suppress=all'
-    });
 
-    const requestOptions = { headers };
 
-    return this.http.post(url, null, requestOptions);
-  }
-
-  buscarEncargado(telefono: string) {
-    const headers = new HttpHeaders({
-      Authorization: 'Basic c3ZlbjpwYXNz',
-      Accept: 'application/json;profile=urn:org.apache.causeway/v2'
-    });
-  
+  borrarEncargado(objectId: string): Observable<any> {
+    const url = `${this.API_DELETE}${objectId}/actions/eliminarEncargado/invoke`;
     const requestOptions = {
-      headers: headers
+      headers: new HttpHeaders({
+        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      })
     };
-  
-    return this.http.get(`${this.API_GET}?telefono=${telefono}`, requestOptions);
-  
+
+    // Realiza la solicitud POST para eliminar el encargado
+    return this.http.post(url, null, requestOptions)
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error en la solicitud:', error);
+          throw error; // Puedes manejar el error aquí o lanzarlo nuevamente para que se maneje en el componente.
+        })
+      );
   }
 }
+
+
+
+

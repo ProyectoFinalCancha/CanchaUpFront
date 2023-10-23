@@ -10,10 +10,86 @@
 
     <!-- FORM -->
     <div class="col-md-3" style="margin-left: 100px; margin-top: 20px;">
+     <!-- <button (click)="getEncargados()">Ver Encargados</button> -->
+
+      <br><br><br><br>
+    </div>
+    <div class="col-md-3" style="margin-left: 300px; margin-top: 20px;">
       <div class="card">
         <div class="card-body p-4">
-          <!-- FORM -->
-          <form #encargadoForm="ngForm" (submit)="agregarEncargado(encargadoForm)">
+          <h1  class="titulo-bonito">Buscar Encargado</h1>
+          <br>
+          <span class="p-input-icon-left">
+          
+            <input type="text" placeholder="Ingrese Nro de Telefono" pInputText /> &nbsp;&nbsp;
+            <!-- <button type="button" class="btn btn-secondary" (click)="buscarEncargado()">Buscar</button> -->
+          </span>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+    <!-- TABLE -->
+    <div class="tabla-container">
+      <table class="tabla-estilo" #tabla>
+        <thead>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Dni</th>
+          <th>Telefono</th>
+          <th>password</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let encargado of encargados">
+            <td>{{ encargado.nombre }}</td>
+            <td>{{ encargado.apellido }}</td>
+            <td>{{ encargado.dni }}</td>
+            <td>{{ encargado.telefono }}</td>
+            <td>{{ encargado.password }}</td>
+            <td>
+              <!-- <a (click)="borrarEncargado(encargado)" class="btn btn-danger btn-sm">
+                <i class="material-icons">Borrar</i> 
+              </a>-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="paginator-container">
+    <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 20, 50]"
+      (page)="onPageChange($event)"></mat-paginator>
+  </div>
+  <div class="boton-container">
+    <button class="boton-personalizado" style="border-bottom-left-radius: 10px;" (click)="goToFirstPage()">
+      <i class="fa fa-angle-double-left"></i>
+    </button>
+    <button class="boton-personalizado" style="border-bottom-right-radius: 10px;" (click)="goToLastPage()">
+      <i class="fa fa-angle-double-right"></i>
+    </button>
+  </div>
+  <br>
+
+
+</body>
+
+
+
+
+
+
+
+
+
+<!-- 
+   <div class="card">
+        <div class="card-body p-4">
+           
+           <form #encargadoForm="ngForm" (submit)="agregarEncargado(encargadoForm)">
             <h1  class="titulo-bonito">Crear Encargado</h1>
             <br>
             <input type="hidden" name="id" #id="ngModel" [(ngModel)]="encargadoService.encargado.id">
@@ -51,74 +127,10 @@
             </div>
             <br><br>
             <a href="/buttons/6" type="submit" class="bn6">Guardar</a>
-            <!-- <button type="button" class="btn btn-danger mr-2" (click)="resetForm(encargadoForm)">Borrar</button> -->
-          </form>
+            <button type="button" class="btn btn-danger mr-2" (click)="resetForm(encargadoForm)">Borrar</button> 
+          </form> 
 
         </div>
 
       </div>
-
-      <br><br><br><br>
-    </div>
-    <div class="col-md-3" style="margin-left: 300px; margin-top: 20px;">
-      <div class="card">
-        <div class="card-body p-4">
-          <h1  class="titulo-bonito">Buscar Encargado</h1>
-          <br>
-          <span class="p-input-icon-left">
-          
-            <input type="text" placeholder="Ingrese Nro de Telefono" pInputText /> &nbsp;&nbsp;
-            <button type="button" class="btn btn-secondary" (click)="buscarEncargado()">Buscar</button>
-          </span>
-        </div>
-        
-      </div>
-      
-    </div>
-    
-
-    <!-- TABLE -->
-    <div class="tabla-container">
-      <table class="tabla-estilo" #tabla>
-        <thead>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Dni</th>
-          <th>Telefono</th>
-          <th>password</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let encargado of encargadoService.encargados">
-            <td>{{ encargado.nombre }}</td>
-            <td>{{ encargado.apellido }}</td>
-            <td>{{ encargado.dni }}</td>
-            <td>{{ encargado.telefono }}</td>
-            <td>{{ encargado.password }}</td>
-            <td>
-              <a (click)="borrarEncargado(encargadoService.eliminarEncargado)" class="btn btn-danger btn-sm">
-                <i class="material-icons">Borrar</i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
-  <div class="paginator-container">
-    <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 20, 50]"
-      (page)="onPageChange($event)"></mat-paginator>
-  </div>
-  <div class="boton-container">
-    <button class="boton-personalizado" style="border-bottom-left-radius: 10px;" (click)="goToFirstPage()">
-      <i class="fa fa-angle-double-left"></i>
-    </button>
-    <button class="boton-personalizado" style="border-bottom-right-radius: 10px;" (click)="goToLastPage()">
-      <i class="fa fa-angle-double-right"></i>
-    </button>
-  </div>
-  <br>
-
-
-</body>
+ -->

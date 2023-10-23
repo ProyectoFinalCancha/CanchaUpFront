@@ -42,6 +42,7 @@ import { ButtonModule } from 'primeng/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.component';
 import { LoginEncargadoComponent } from './login-encargado/login-encargado.component'; // Importa MatDialogModule
+import { EncargadoService } from '../services/encargado.service';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,7 @@ import { LoginEncargadoComponent } from './login-encargado/login-encargado.compo
     DropdownModule
     // PopupComponent
   ],
-  providers: [MatPaginator,  PageEvent],
+  providers: [MatPaginator,  PageEvent, EncargadoService],
   bootstrap: [ComponentModule]
 })
 export class ComponentModule { }

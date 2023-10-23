@@ -79,7 +79,8 @@ section {
 }
 
 section#home {
-    background: url("https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683__340.png");
+    background: url("../../../assets/images/dashboard-admin.jpg");
+    /* background: url("https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683__340.png"); */
     background-repeat: no-repeat;
     background-size: 100% 100%;
     color: #12192c;
@@ -107,7 +108,7 @@ section#home {
 .credit {
     text-align: center;
     font-family: Verdana,Geneva,Tahoma,sans-serif;
-    color: #FFF;
+    color: #060505;
     font-size: 15px;
     padding-top: 500px;
     position: fixed;
@@ -117,7 +118,7 @@ section#home {
 .ml3 {
     font-weight: 900;
     font-size: 1.5em;
-    color: #929292;
+    color: #ffffff;
   }
   .miNav{
     color: #000;

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -11,15 +11,15 @@ import { EncargadoService } from 'src/app/services/encargado.service';
   styleUrls: ['./encargado.component.css'],
   providers: [EncargadoService]
 })
-export class EncargadoComponent {
+export class EncargadoComponent implements OnInit{
 
-  telefono: string = '';
-  
+  encargados: Encargado[] = []
+ 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  encargados!: Encargado[];
+  
   encargadosPorPagina: Encargado[] = [];
- 
+
 
   goToFirstPage() {
     this.paginator.firstPage();
@@ -28,7 +28,7 @@ export class EncargadoComponent {
   goToLastPage() {
     this.paginator.lastPage();
   }
-  
+
   onPageChange(event: PageEvent) {
     const startIndex = event.pageIndex * event.pageSize;
     const endIndex = startIndex + event.pageSize;
@@ -36,112 +36,59 @@ export class EncargadoComponent {
   }
 
 
-[x: string]: any;
-  encargadoService: EncargadoService;
+  constructor(private encargadoService: EncargadoService, private router: Router) {}
 
-  constructor(encargadoService: EncargadoService,private router:Router) {
-    this.encargadoService = encargadoService;
+
+  ngOnInit(): void {
+    this.getEncargados(); 
   }
 
-  navegar(){
+  getEncargados() {
+    this.encargadoService.verEncargados()
+      .subscribe(encargados => {
+        this.encargados = encargados;
+      });
+  }
+
+  navegar() {
     this.router.navigateByUrl("/adminDash")
   }
 
+
+  buscarEncargado(telefono: string) {
+    this.encargadoService.buscarEncargado(telefono)
+      .subscribe(encargado => {
+        if (encargado) {
+          // Hacer algo con el encargado encontrado
+          console.log('Encargado encontrado:', encargado);
+        } else {
+          // El encargado no se encontró, puedes manejarlo aquí
+          console.log('Encargado no encontrado');
+        }
+      });
+  }
+
+  eliminarEncargado(objectId: string) {
+    this.eliminarEncargado("11");
+    this.encargadoService.borrarEncargado(objectId)
+      .subscribe(result => {
+        // Hacer algo con el resultado de la eliminación
+        console.log('Resultado de la eliminación:', result);
+      });
+  }
   
-
-  agregarEncargado(encargadoForm: NgForm) {
-    const nombre = this.encargadoService.encargado.nombre;
-    const apellido = this.encargadoService.encargado.apellido;
-    const dni = this.encargadoService.encargado.dni;
-    const localidad = this.encargadoService.encargado.telefono;
-    const username = this.encargadoService.encargado.username;
-    const password = this.encargadoService.encargado.password;
-
-    var raw = JSON.stringify({
-      nombre: {
-        value: nombre,
-      },
-      apellido: {
-        value: apellido,
-      },
-      dni: {
-        value: dni,
-      },
-      localidad: {
-        value: localidad,
-      },
-      username: {
-        value: username,
-      },
-      password: {
-        value: password,
-      },
-    });
-
-    var requestOptions = {
-      method: "POST",
-      headers: {
-        Authorization: "Basic c3ZlbjpwYXNz",
-        Accept: "application/json;profile=urn:org.apache.causeway/v2;suppress=all",
-        "Content-Type": "application/json",
-      },
-      body: raw,
-    };
-
-    fetch(
-      "http://localhost:8080/restful/services/simple.EncargadoServices/actions/crearEncargado/invoke",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        this.getEncargados(); // Agregar esta función si deseas cargar los encargados después de agregar uno nuevo.
-        this.resetForm(encargadoForm);
-      })
-      .catch((error) => console.log("error", error));
-  }
-
-
-
-
-  getEncargados() {
-    this.encargadoService.verEncargados().subscribe(
-      (result) => console.log(result),
-      (error) => console.error('Error:', error)
-    );
-  }
-
-
-
-
-  resetForm(form: NgForm) {
-    if (form) {
-      form.reset();
-      this.encargadoService.encargado = new Encargado();
-    }
-  }
-
-
+  // ...
   
-  borrarEncargado(objectId: any) {
-    objectId = '11';
-    this.encargadoService.eliminarEncargado(objectId).subscribe(
-      () => console.log('Encargado eliminado exitosamente.'),
-      (error) => console.error('Error:', error)
-    );
-  }
-
-
-
-
-  buscarEncargado() {
-    const telefono = '1';
-    this.encargadoService.buscarEncargado(telefono).subscribe(
-      (result) => console.log(result),
-      (error) => console.error('Error:', error)
-    );
-  }
+  // Ejemplo de cómo llamar a eliminarEncargado con un ID específico
+  
 }
+
+  // resetForm(form: NgForm) {
+  //   if (form) {
+  //     form.reset();
+
+  //   }
+  // }
 
 // encargado!: Encargado;
 // constructor(public encargadoService:EncargadoService){

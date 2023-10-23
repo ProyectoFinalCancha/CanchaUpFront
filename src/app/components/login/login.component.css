@@ -163,6 +163,7 @@
   
   .login100-form {
     width: 100%;
+    align-items: center;
   }
   
   .login100-form-title {
@@ -2906,6 +2907,7 @@
 
 
   .bn30 {
+    margin-top: 20px;
     border: 5em;
     cursor: pointer;
     outline: none;
