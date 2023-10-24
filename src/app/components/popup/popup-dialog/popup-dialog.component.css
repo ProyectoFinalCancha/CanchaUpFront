@@ -1,4 +1,4 @@
-/* Estilo para el contenedor del diálogo */
+
 .mat-dialog-container {
 
   padding: 0px; 
@@ -10,7 +10,7 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
 
 }
 
-/* Estilo para los campos de formulario dentro del diálogo */
+
 .mattiDialog {
   width: 400px;
   
@@ -22,13 +22,13 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
   
 }
 
-/* Estilo para el botón dentro del diálogo */
+
 .mat-dialog-container button.mat-button {
-  /* Estilos para el botón */
-}/* Estilo personalizado para el cuadro de diálogo */
+  
+}
 .custom-dialog-container {
   color: #0e0e10;
-  border: 8px solid #00353e; /* Define un borde negro de 2px */
+  border: 8px solid #00353e; 
   border-radius: 15px solid #000000;
   margin: 10px solid #000000;
   padding: 20px solid #000000;
@@ -78,15 +78,20 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
 @media (max-width: 412px) {
   .mat-dialog-container {
     background-size: 5%; 
-    width: 100%; /* Cambia el ancho del diálogo para que se ajuste a la pantalla móvil */
+    width: 100%; 
   }
   .mat-dialog-content{
    
   }
   .mattiDialog {
    
-    width: 100%; /* Cambia el ancho de los campos de formulario para dispositivos móviles */
+    width: 100%; 
   }
 
-  /* Agrega otros estilos específicos para dispositivos móviles si es necesario */
+  
+}
+
+
+@media(min-with:20px){
+
 }

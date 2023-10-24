@@ -6,19 +6,19 @@
     height: 150vh;
 
 
-    background-image: url('../../../assets/images/dashboradimg.jpeg'); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la URL de tu imagen de fondo */
-    background-size: cover; /* Ajusta el tamaño de la imagen para que cubra todo el contenedor */
-    background-position: center center; /* Ajusta la posición de la imagen de fondo */
-    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+    background-image: url('../../../assets/images/dashboradimg.jpeg'); 
+    background-size: cover; 
+    background-position: center center; 
+    background-repeat: no-repeat; 
    
   }
   
   .scrollable-card {
-    max-height: 80vh; /* Altura máxima del p-card, ajusta según tus necesidades */
-    overflow: auto; /* Habilita el desplazamiento cuando el contenido excede la altura máxima */
-    border: 1px solid #ffffff; /* Puedes ajustar el color y el grosor del borde */
-    border-radius: 5px; /* Puedes ajustar el radio de borde para esquinas redondeadas */
-    padding: 10px; /* Agregar espacio entre el borde y el contenido del p-card */
+    max-height: 80vh; 
+    overflow: auto; 
+    border: 1px solid #ffffff; 
+    border-radius: 5px; 
+    padding: 10px; 
    
  
       
@@ -70,21 +70,20 @@
   margin-left: 80px;
 }
 
-/* Estilos para dispositivos de escritorio */
+
 @media (min-width: 768px) {
   .centered-container {
-      /* Estilos específicos para dispositivos de escritorio */
-      /* Por ejemplo, cambia la altura o el tamaño de fuente para dispositivos de escritorio */
       height: 150vh;
       font-size: 20px;
+      width: 50px;
   }
 }
 
-/* Estilos para smartphones */
+
 @media (max-width: 77px) {
   .centered-container {
-      /* Estilos específicos para smartphones */
-      /* Por ejemplo, cambia la altura o el tamaño de fuente para smartphones */
+      
+      width: 50px;
       height: 100vh;
       font-size: 16px;
   }
