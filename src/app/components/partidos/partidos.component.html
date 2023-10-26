@@ -8,20 +8,18 @@
   
 <div class="row">
   <!-- FORM -->
-  <div class="col-md-3" style="margin-left: 100px; margin-top: 20px;">
+  <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <!-- FORM -->
-        <form #partidoForm="ngForm" (ngSubmit)="agregarPartido(partidoForm)" style="margin-left: 45px;">
+        <form #partidoForm="ngForm" (ngSubmit)="agregarPartido(partidoForm)">
           <h1  class="titulo-bonito">Crear Partido</h1>
           <br>
           <input type="hidden" name="id" #id="ngModel" [(ngModel)]="partidoService.partido.id">
           <br>
-          <div class="form-group" style="width: 250px;">
+          <div class="form-group">
 
-            <!-- <input class="form-select" type="select" name="horario" #horario="ngModel" [(ngModel)]="partido.horario"
-                placeholder="Ingrese el horario" class="form-control">
-            <select class="form-select" aria-label="Default select example"></select> -->
+          
             <span style="color: rgb(36, 108, 47);">Elige tu Horario</span>
             <select class="form-select" formControlName="horario" [(ngModel)]="partidoService.partido.horario" >
               <option [ngValue]="null" disabled>Horario</option>
@@ -48,13 +46,13 @@
           </div>
           <br>
           <a href="/buttons/6" type="submit" class="bn6">Guardar</a>
-           <!-- <button class="btn btn-danger mr-2" (click)="resetForm(partidoForm)">Borrar</button> -->
+         
         </form>
       </div>
     </div>
 
   </div>
-  <div class="col-md-3" style="margin-left: 300px; margin-top: 20px;">
+  <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <h1  class="titulo-bonito">Buscar Partido</h1>
@@ -80,7 +78,7 @@
         <th>Día</th>
         <th>Teléfono</th>
         <th>Precio</th>
-        <th>Acciones</th>
+        <th></th>
       </thead>
       <tbody>
         <tr *ngFor="let partido of partidoService.partidos">
@@ -89,9 +87,7 @@
           <td>{{ partidoService.partido.telefono }}</td>
           <td>{{ partidoService.partido.precio }}</td>
           <td>
-            <!-- <a (click)="editarPartido(partido)" class="btn btn-secondary btn-sm">
-                <i class="material-icons">edit</i>
-              </a> -->
+
             <br>
             <a (click)="borrarPartido(partidoService.partido.id,partidoForm)" class="btn btn-danger btn-sm">
               <i class="material-icons">delete</i>

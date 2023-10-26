@@ -36,7 +36,7 @@ export class EncargadoComponent implements OnInit{
   }
 
 
-  constructor(private encargadoService: EncargadoService, private router: Router) {}
+  constructor(public encargadoService: EncargadoService, private router: Router) {}
 
 
   ngOnInit(): void {
@@ -54,7 +54,9 @@ export class EncargadoComponent implements OnInit{
     this.router.navigateByUrl("/adminDash")
   }
 
+agregarEncargado(form:NgForm){
 
+}
   buscarEncargado(telefono: string) {
     this.encargadoService.buscarEncargado(telefono)
       .subscribe(encargado => {

@@ -23,4 +23,8 @@ cambiarCursor(puntero: boolean) {
 salir(){
   this.router.navigate(['/login']);
 }
+
+volver(){
+  this.router.navigate(['/dashboard'])
+}
 }

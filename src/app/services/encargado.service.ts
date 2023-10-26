@@ -13,6 +13,7 @@ export class EncargadoService {
   private API_DELETE: string = "http://localhost:8080/restful/objects/simple.Encargado/";
 
 
+  encargado!:Encargado
   encargados: Encargado[] = [];
 
   constructor(private http: HttpClient) { }

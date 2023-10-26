@@ -7,21 +7,21 @@
     
   <div class="row">
     <!-- FORM -->
-    <div class="col-md-3" style="margin-left: 100px; margin-top: 20px;">
+    <div class="col-md-3">
       <div class="card">
         <div class="card-body p-4">
           <!-- FORM -->
-          <form #jugadorForm="ngForm" (ngSubmit)="agregarJugador(jugadorForm)" style="margin-left: 45px;">
+          <form #jugadorForm="ngForm" (ngSubmit)="agregarJugador(jugadorForm)">
             <h1  class="titulo-bonito">Crear Jugadores</h1>
             <br>
             <input type="hidden" name="id" #id="ngModel" [(ngModel)]="jugadorService.jugador.oid">
             <br>
-            <div class="form-group" style="width: 250px;">
+            <div class="form-group">
   
               <!-- <input class="form-select" type="select" name="horario" #horario="ngModel" [(ngModel)]="partido.horario"
                   placeholder="Ingrese el horario" class="form-control">
               <select class="form-select" aria-label="Default select example"></select> -->
-              <input type="text" name="nombre" #name="ngModel" [(ngModel)]="jugadorService.jugador.nombre"
+              <input type="text" name="nombre" style="width: 250px;" #name="ngModel" [(ngModel)]="jugadorService.jugador.nombre"
               placeholder="Ingrese su nombre" class="form-control">
             </div>
   
@@ -40,10 +40,12 @@
               <input type="text" name="mail" #name="ngModel" [(ngModel)]="jugadorService.jugador.mail"
               placeholder="Ingrese su mail" class="form-control">
             </div>
+            <br>
             <div class="form-group" style="width: 250px;">
               <input type="text" name="password" #name="ngModel" [(ngModel)]="jugadorService.jugador.password"
               placeholder="Ingrese su password" class="form-control">
             </div>
+            <br>
             <div class="form-group" style="width: 250px;">
               <input type="text" name="username" #name="ngModel" [(ngModel)]="jugadorService.jugador.username"
               placeholder="Ingrese su username" class="form-control">
@@ -56,7 +58,7 @@
       </div>
   
     </div>
-    <div class="col-md-3" style="margin-left: 300px; margin-top: 20px;">
+    <div class="col-md-3">
       <div class="card">
         <div class="card-body p-4">
           <h1  class="titulo-bonito">Buscar Jugador</h1>
@@ -82,8 +84,8 @@
           <th>Apellido</th>
           <th>Telefono</th>
           <th>mail</th>
-          <th>password</th>
-          <th>username</th>
+          <th>pass</th>
+          <th>user</th>
         </thead>
         <tbody>
           <tr *ngFor="let jugador of jugadorService.jugadores">

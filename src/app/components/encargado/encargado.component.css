@@ -212,3 +212,48 @@ body {
   );
   box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
 }
+
+@media (max-width: 768px) {
+
+  .mybotton {
+    margin-left: 115px;
+}
+  .titulo-bonito {
+    
+    font-size: 1.5rem; /* Reducir el tamaño de fuente en dispositivos móviles */
+  }
+
+  .card {
+    margin: 10px; /* Añadir margen para separar las tarjetas en dispositivos móviles */
+    padding: 10px; /* Añadir espacio interno */
+  }
+
+  .card-body {
+    padding: 0.5rem; /* Reducir el espacio interno del cuerpo de la tarjeta */
+  }
+
+  .form-group {
+    width: 100%; /* Asegurarse de que los elementos de entrada ocupen todo el ancho disponible */
+  }
+
+  .bn6 {
+    font-size: 1rem; /* Reducir el tamaño de fuente del botón */
+  }
+
+  .tabla-estilo {
+    font-size: 16px; /* Reducir el tamaño de fuente de la tabla */
+  }
+
+  .tabla-estilo th {
+    font-size: 1rem; /* Reducir el tamaño de fuente de las celdas del encabezado */
+  }
+
+  .tabla-estilo td {
+    font-size: 0.9rem; /* Reducir el tamaño de fuente de las celdas de datos */
+  }
+
+  body {
+    background-size: 100% 100%;
+    /* Utiliza 'contain' para ajustar la imagen de fondo al tamaño de la pantalla, sin cortarla */
+}
+}

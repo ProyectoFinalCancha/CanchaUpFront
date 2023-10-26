@@ -1,5 +1,5 @@
 export class Encargado {
-
+    id!:number;
     telefono!:string;
     apellido!:string;
     dni!:string;

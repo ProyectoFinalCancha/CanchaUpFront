@@ -1,10 +1,9 @@
 <mat-dialog-content style="background-image: url('../../../../assets/images/background-stars.jpg');" class="custom-dialog-container">
   
-  <!-- Coloca tu imagen o contenido personalizado aquí -->
-  <img style="width: 400px;" src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Descripción de la imagen" loading="lazy">
+   <img class="myimg" src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Descripción de la imagen" loading="lazy">
   <br>
 <br>
-  <!-- Campos de formulario y botones -->
+
   <mat-form-field class="mattiDialog">
     <span>
       <FONT COLOR="#5d5def">Ingrese día</FONT>
@@ -17,7 +16,6 @@
     <span>
       <FONT COLOR="#5d5def">Seleccione Horario</FONT>
     </span>
-    <!-- Agrega [disabled] para habilitar o deshabilitar el mat-select según si diaSeleccionado es verdadero -->
     <mat-select [(ngModel)]="partido.horario" [ngModelOptions]="{ standalone: true }" (ngModelChange)="onHorarioSeleccionado()" [disabled]="!diaSeleccionado">
       <mat-option *ngFor="let horarioOption of horarios" [value]="horarioOption">
         {{ horarioOption }}
@@ -26,6 +24,5 @@
   </mat-form-field>
 
   <br>
-  &nbsp; &nbsp;&nbsp;<a class="bn31" style="margin-left:120px;" href="/"><span class="bn31span">Sacar Turno</span></a>
-  <!-- <p-button label="Sacar turno" (click)="guardarPartido()" styleClass="p-button-outlined p-button-help" [disabled]="!(diaSeleccionado && horarioSeleccionado)"></p-button> -->
+  <a class="bn31" href="/"><span class="bn31span">Sacar Turno</span></a>
 </mat-dialog-content>

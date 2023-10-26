@@ -28,7 +28,7 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
 }
 .custom-dialog-container {
   color: #0e0e10;
-  border: 8px solid #00353e; 
+  border: 8px solid #032d34; 
   border-radius: 15px solid #000000;
   margin: 10px solid #000000;
   padding: 20px solid #000000;
@@ -40,6 +40,7 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
 
 .bn31 {
   background-image: linear-gradient(to right, #006175 0%, #00a950 100%);
+  margin-left:120px;
   border-radius: 40px;
   box-sizing: border-box;
   color: #00a84f;
@@ -59,6 +60,9 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
 .bn31:hover {
   color:#ffffff;
 }
+.myimg{
+  width: 400px;
+}
 
 .bn31 .bn31span {
   align-items: center;
@@ -77,7 +81,7 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
 
 @media (max-width: 412px) {
   .mat-dialog-container {
-    background-size: 5%; 
+    background-size: contain;
     width: 100%; 
   }
   .mat-dialog-content{
@@ -88,10 +92,12 @@ box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
     width: 100%; 
   }
 
+  .bn31{
+    margin-left: 40px;
+  }
+
+  .myimg{
+    width: 100%;
+  }
   
-}
-
-
-@media(min-with:20px){
-
 }

@@ -147,6 +147,16 @@ export class DashboardAdminComponent implements OnInit{
     this.router.navigate(['/login']);
   }
 
+  partidos(){
+    this.router.navigate(['/partidos'])
+  }
+  encargados(){
+    this.router.navigate(['/encargados'])
+  }
+
+  jugadores(){
+    this.router.navigate(['/verJugadores'])
+  }
 
 
 }

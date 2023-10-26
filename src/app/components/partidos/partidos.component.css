@@ -1,10 +1,7 @@
 body {
-    background-image: url('../../../assets/images/sun-tornado2.svg');
-    /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta real de tu imagen */
-    background-size: cover;
-    /* Ajusta la imagen para cubrir todo el fondo */
-    background-repeat: no-repeat;
-    /* Evita que la imagen de fondo se repita */
+  background-image: url('../../../assets/images/sun-tornado2.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .titulo-bonito {
@@ -145,6 +142,8 @@ body {
     box-shadow: 10px 22px 50px #123aff80;
     /* Agrega un efecto de sombra brillante */
     border: 20px solid rgba(255, 255, 255, 0.5);
+    margin-left: 60px; 
+    margin-top: 15px;
     /* Agrega un borde con transparencia */
 }
 
@@ -229,3 +228,50 @@ body {
     );
     box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
   }
+
+  /* Media query para dispositivos móviles */
+  @media (max-width: 768px) {
+
+    .mybotton {
+      margin-left: 115px;
+  }
+    .titulo-bonito {
+      
+      font-size: 1.5rem; /* Reducir el tamaño de fuente en dispositivos móviles */
+    }
+  
+    .card {
+      margin: 10px; /* Añadir margen para separar las tarjetas en dispositivos móviles */
+      padding: 10px; /* Añadir espacio interno */
+    }
+  
+    .card-body {
+      padding: 0.5rem; /* Reducir el espacio interno del cuerpo de la tarjeta */
+    }
+  
+    .form-group {
+      width: 100%; /* Asegurarse de que los elementos de entrada ocupen todo el ancho disponible */
+    }
+  
+    .bn6 {
+      font-size: 1rem; /* Reducir el tamaño de fuente del botón */
+    }
+  
+    .tabla-estilo {
+      font-size: 16px; /* Reducir el tamaño de fuente de la tabla */
+    }
+  
+    .tabla-estilo th {
+      font-size: 1rem; /* Reducir el tamaño de fuente de las celdas del encabezado */
+    }
+  
+    .tabla-estilo td {
+      font-size: 0.9rem; /* Reducir el tamaño de fuente de las celdas de datos */
+    }
+
+    body {
+      background-size: 100% 100%;
+      /* Utiliza 'contain' para ajustar la imagen de fondo al tamaño de la pantalla, sin cortarla */
+  }
+  }
+

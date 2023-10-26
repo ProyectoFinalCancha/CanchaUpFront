@@ -40,11 +40,7 @@ html {
 
 
 /*--------------------------BOTON DE LOGIN --------------------------------------------------*/
-@media (max-width: 412px) {
-  .myclass {
-    margin-left: 85px;
-  }
-}
+
 
 .myclass {
   margin-left: 80px;
@@ -235,6 +231,17 @@ button:hover {
   padding: 0 7px 0 43px;
 }
 
+/* Media query para pantallas más pequeñas, ajusta el tamaño de fuente según tus necesidades */
+@media (max-width: 768px) {
+  .login100-form-title {
+      font-size: 30px;
+  }
+  .myclass{
+    margin-left: 11px;
+  }
+}
+
+/* Otra media query para pantallas aún más pequeñas, ajusta el tamaño de fuente según tus necesidades */
 
 /*---------------------------------------------*/
 .focus-input100 {
@@ -9178,6 +9185,7 @@ button:hover {
 }
 
 .bn5 {
+  margin-left: 65px;
   text-decoration: none;
   padding: 0.6em 2em;
   border: none;

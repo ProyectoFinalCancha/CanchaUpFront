@@ -1,35 +1,77 @@
-
 <body>
 
-<div class="mybotton">
-  <br>
-  <!-- <p-button class="mybotton" label="Salir" severity="danger"></p-button> -->
-  <button (click)="navegar()" class="bn632-hover bn26">Volver a Home</button>
-</div>
+  <div class="mybotton">
+    <br>
+    <!-- <p-button class="mybotton" label="Salir" severity="danger"></p-button> -->
+    <button (click)="navegar()" class="bn632-hover bn26">Volver a Home</button>
+  </div>
   <div class="row">
 
     <!-- FORM -->
-    <div class="col-md-3" style="margin-left: 100px; margin-top: 20px;">
-     <!-- <button (click)="getEncargados()">Ver Encargados</button> -->
-
-      <br><br><br><br>
-    </div>
-    <div class="col-md-3" style="margin-left: 300px; margin-top: 20px;">
+    <div class="col-md-3">
       <div class="card">
         <div class="card-body p-4">
-          <h1  class="titulo-bonito">Buscar Encargado</h1>
+          <!-- FORM -->
+          <form #encargadoForm="ngForm" (ngSubmit)="agregarEncargado(encargadoForm)">
+            <h1 class="titulo-bonito">Crear Encargado</h1>
+            <br>
+            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="encargadoService.encargado.id">
+            <br>
+            <div class="form-group">
+              <br>
+              <div class="form-group" style="width: 250px;">
+                <input type="text" name="telefono" #telefono="ngModel" [(ngModel)]="encargadoService.encargado.telefono"
+                  placeholder="Ingrese el teléfono" class="form-control">
+              </div>
+              <br>
+              <div class="form-group" style="width: 250px;">
+                <input type="text" name="apellido" #apellido="ngModel" [(ngModel)]="encargadoService.encargado.apellido"
+                  placeholder="Ingrese el apellido" class="form-control">
+              </div>
+              <br>
+              <div class="form-group" style="width: 250px;">
+                <input type="text" name="dni" #dni="ngModel" [(ngModel)]="encargadoService.encargado.dni"
+                  placeholder="Ingrese el dni" class="form-control">
+              </div>
+              <br>
+              <div class="form-group" style="width: 250px;">
+                <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="encargadoService.encargado.nombre"
+                  placeholder="Ingrese el nombre" class="form-control">
+              </div>
+              <br>
+              <div class="form-group" style="width: 250px;">
+                <input type="text" name="password" #password="ngModel" [(ngModel)]="encargadoService.encargado.password"
+                  placeholder="Ingrese el password" class="form-control">
+              </div>
+              <br>
+              <a href="/buttons/6" type="submit" class="bn6">Guardar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-3">
+      <!-- <button (click)="getEncargados()">Ver Encargados</button> -->
+
+    <br>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body p-4">
+          <h1 class="titulo-bonito">Buscar Encargado</h1>
           <br>
           <span class="p-input-icon-left">
-          
+
             <input type="text" placeholder="Ingrese Nro de Telefono" pInputText /> &nbsp;&nbsp;
             <!-- <button type="button" class="btn btn-secondary" (click)="buscarEncargado()">Buscar</button> -->
           </span>
         </div>
-        
+
       </div>
-      
+
     </div>
-    
+<br>
 
     <!-- TABLE -->
     <div class="tabla-container">
