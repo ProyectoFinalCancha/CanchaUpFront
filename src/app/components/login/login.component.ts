@@ -11,11 +11,32 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
 
 
-  username!: string;
-  password!: string;
+  username = '';
+  password = '';
 
-  constructor(private router: Router) {
+  constructor(private authService: AuthService, private router: Router) { }
 
+  login() {
+    this.authService.loginJugador(this.username, this.password).subscribe(
+      (data: any) => {
+        const valorBooleano = data.result.value;
+
+        if (valorBooleano) {
+          this.router.navigate(['/dashboard']);
+          Swal.fire(
+            '⚽ Bienvenido! ⚽',
+            'Nombre de Usuario: ' + `${this.username}`,
+            'success',
+          );
+        } else {
+          Swal.fire('Error', 'Inicio de sesión fallido', 'error');
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        Swal.fire('Error', 'Inicio de sesión fallido', 'error');
+      }
+    );
   }
 
 
@@ -23,7 +44,7 @@ export class LoginComponent {
     this.router.navigate(['/registro'])
   }
 
-  IraDash() {
+  IraDashSinLoguear() {
     this.router.navigate(['/dashboard'])
     Swal.fire(
       '⚽ Bienvenido! ⚽',
@@ -32,9 +53,17 @@ export class LoginComponent {
     )
   }
 
-  loginEncargado(){
+  IrAloginEncargado(){
     this.router.navigate(['/loginEncargado'])
   }
+
+
+}
+
+
+
+
+
 
   // public loguear() {
   //   let resp = this.authService.getUser(this.username, this.password);
@@ -42,4 +71,3 @@ export class LoginComponent {
   //       console.log(data)
   //   })
   // }
-}
