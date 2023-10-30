@@ -12,12 +12,17 @@ export class EncargadoService {
   private API_BUSCAR: string = "http://localhost:8080/restful/services/simple.EncargadoServices/actions/verEncargados/invoke";
   private API_DELETE: string = "http://localhost:8080/restful/objects/simple.Encargado/";
 
+  private apiUrl = "http://localhost:8080/restful/services/simple.EncargadoServices/actions/crearEncargado/invoke";
 
   encargado!:Encargado
   encargados: Encargado[] = [];
 
   constructor(private http: HttpClient) { }
 
+
+  getEncargados(): Observable<Encargado[]> {
+    return this.http.get<Encargado[]>(this.apiUrl);
+  }
 
   verEncargados(): Observable<Encargado[]> {
     const headers = new HttpHeaders({
@@ -53,6 +58,9 @@ export class EncargadoService {
     );
   }
 
+  crearEncargado(encargadoData: { nombre: string, apellido: string, dni: string, telefono: string, password: string }) {
+    return this.http.post<Encargado>(`${this.apiUrl}/crearEncargado/invoke`, encargadoData);
+  }
 
 
 
@@ -74,6 +82,19 @@ export class EncargadoService {
         })
       );
   }
+
+
+
+
+  ///////////////////////ESTO ES PARA VER SI FUNCIONA CARGAR EN LA TABLA UN ENCARGADO
+  // Método para crear un encargado localmente
+  crearEncargadoLocal(encargado: Encargado): void {
+    const encargados: Encargado[] = JSON.parse(localStorage.getItem('encargados') || '[]');
+    encargados.push(encargado);
+    localStorage.setItem('encargados', JSON.stringify(encargados));
+  }
+
+  borrarEncargadoLocal(){}
 }
 
 

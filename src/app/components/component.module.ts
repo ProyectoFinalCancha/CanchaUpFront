@@ -25,6 +25,7 @@ import { DashboardMatchMakingComponent } from './dashboard/dashboard-match-makin
 
 
 
+
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, } from '@angular/material/dialog';
 import {NgIf} from '@angular/common';
 
@@ -43,6 +44,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.component';
 import { LoginEncargadoComponent } from './login-encargado/login-encargado.component'; // Importa MatDialogModule
 import { EncargadoService } from '../services/encargado.service';
+import { VerEncargadoComponent } from './encargado/ver-encargado/ver-encargado.component';
+
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +62,8 @@ import { EncargadoService } from '../services/encargado.service';
     DashboardMatchMakingComponent,
     // PopupComponent,
     PopupDialogComponent,
-    LoginEncargadoComponent
+    LoginEncargadoComponent,
+    VerEncargadoComponent
   
   
   ],
@@ -74,7 +80,8 @@ import { EncargadoService } from '../services/encargado.service';
     MatSelectModule,
     TabMenuModule,
     TieredMenuModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule
   ],
   exports: [
     VerJugadoresComponent,

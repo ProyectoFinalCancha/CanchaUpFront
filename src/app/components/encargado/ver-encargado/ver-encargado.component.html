@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="encuadre">
+            <img class="myimg" src="../../../../assets/images/encargado-removebg-preview.png" alt="">
+                <h1 class="titulo-bonito">Encargado</h1>
+        </div>
+       
+    </div>
+    <br>
+    <div class="form-group">
+        <mat-form-field style="width: 90%;">
+            <mat-label>Telefono</mat-label>
+            <input matInput placeholder="Ingrese telefono" [(ngModel)]="data.telefono">
+        </mat-form-field>
+
+    </div>
+    <div class="form-group">
+
+        <mat-form-field style="width: 90%;">
+            <mat-label>Apellido</mat-label>
+            <input matInput placeholder="Ingrese apellido" [(ngModel)]="data.apellido">
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <mat-form-field style="width: 90%;">
+            <mat-label>dni</mat-label>
+            <input name="dni" #dni="ngModel" matInput placeholder="Ingrese dni" [(ngModel)]="data.dni">
+        </mat-form-field>
+
+    </div>
+    <div class="form-group">
+        <mat-form-field style="width: 90%;">
+            <mat-label>nombre</mat-label>
+            <input name="nombre" #nombre="ngModel" matInput placeholder="Ingrese nombre" [(ngModel)]="data.nombre">
+        </mat-form-field>
+
+    </div>
+    <br>
+    <button class="bn6" (click)="onSaveChanges()">Guardar</button>
+</div>

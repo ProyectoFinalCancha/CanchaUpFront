@@ -1,8 +1,8 @@
 
 body {
-    background-image: url('../../../assets/images/sun-tornado.svg'); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta real de tu imagen */
+    background-image: url('../../../assets/images/dashboradimg.jpeg'); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta real de tu imagen */
     background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
-    background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+   
   }
 
   .titulo-bonito {
@@ -82,6 +82,7 @@ body {
 }
 /* Estilo para el contenedor de la tabla */
 .tabla-container {
+  
     position: relative;
     display: flex;
     flex-direction: column;
@@ -91,6 +92,8 @@ body {
   .tabla-estilo {
     flex: 1;
     padding: 10px;
+    margin-right: 90px;
+    margin-left: 700px;
     /* Resto de estilos para la tabla */
   }
 
@@ -99,8 +102,8 @@ body {
     
     background-color: #346369; /* Color de fondo del encabezado de la tabla */
     color: #d9d8d8; /* Color de texto del encabezado de la tabla */
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-right: 90px;
+    margin-left: 700px;
     border-radius: 10px;
     border-top-left-radius: 10px; /* Redondear la parte superior izquierda */
     border-top-right-radius: 10px; /* Redondear la parte superior derecha */
@@ -213,6 +216,10 @@ body {
   box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
 }
 
+.resaltado {
+  background-color: yellow; 
+}
+
 @media (max-width: 768px) {
 
   .mybotton {
@@ -257,3 +264,8 @@ body {
     /* Utiliza 'contain' para ajustar la imagen de fondo al tamaño de la pantalla, sin cortarla */
 }
 }
+
+
+
+
+

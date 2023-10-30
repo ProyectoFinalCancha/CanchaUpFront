@@ -1,60 +1,48 @@
 <body>
-
   <div class="mybotton">
     <br>
-    <!-- <p-button class="mybotton" label="Salir" severity="danger"></p-button> -->
     <button (click)="navegar()" class="bn632-hover bn26">Volver a Home</button>
   </div>
   <div class="row">
 
-    <!-- FORM -->
     <div class="col-md-3">
       <div class="card">
         <div class="card-body p-4">
-          <!-- FORM -->
-          <form #encargadoForm="ngForm" (ngSubmit)="agregarEncargado(encargadoForm)">
+
+          <form #encargadoForm="ngForm" (ngSubmit)="agregarEncargadoEnLocalStorage(encargadoForm)">
             <h1 class="titulo-bonito">Crear Encargado</h1>
             <br>
-            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="encargadoService.encargado.id">
+            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="encargado.id">
             <br>
             <div class="form-group">
               <br>
               <div class="form-group" style="width: 250px;">
-                <input type="text" name="telefono" #telefono="ngModel" [(ngModel)]="encargadoService.encargado.telefono"
+                <input type="text" name="telefono" #telefono="ngModel" [(ngModel)]="encargado.telefono"
                   placeholder="Ingrese el teléfono" class="form-control">
               </div>
               <br>
               <div class="form-group" style="width: 250px;">
-                <input type="text" name="apellido" #apellido="ngModel" [(ngModel)]="encargadoService.encargado.apellido"
+                <input type="text" name="apellido" #apellido="ngModel" [(ngModel)]="encargado.apellido"
                   placeholder="Ingrese el apellido" class="form-control">
               </div>
               <br>
               <div class="form-group" style="width: 250px;">
-                <input type="text" name="dni" #dni="ngModel" [(ngModel)]="encargadoService.encargado.dni"
+                <input type="text" name="dni" #dni="ngModel" [(ngModel)]="encargado.dni"
                   placeholder="Ingrese el dni" class="form-control">
               </div>
               <br>
               <div class="form-group" style="width: 250px;">
-                <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="encargadoService.encargado.nombre"
+                <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="encargado.nombre"
                   placeholder="Ingrese el nombre" class="form-control">
               </div>
               <br>
-              <div class="form-group" style="width: 250px;">
-                <input type="text" name="password" #password="ngModel" [(ngModel)]="encargadoService.encargado.password"
-                  placeholder="Ingrese el password" class="form-control">
+              <div class="form-group">
+                <button type="button" (click)="agregarEncargadoEnLocalStorage(encargadoForm)" class="bn6">Guardar</button>
               </div>
-              <br>
-              <a href="/buttons/6" type="submit" class="bn6">Guardar</a>
             </div>
           </form>
         </div>
       </div>
-
-    </div>
-    <div class="col-md-3">
-      <!-- <button (click)="getEncargados()">Ver Encargados</button> -->
-
-    <br>
     </div>
     <div class="col-md-3">
       <div class="card">
@@ -62,49 +50,43 @@
           <h1 class="titulo-bonito">Buscar Encargado</h1>
           <br>
           <span class="p-input-icon-left">
-
-            <input type="text" placeholder="Ingrese Nro de Telefono" pInputText /> &nbsp;&nbsp;
-            <!-- <button type="button" class="btn btn-secondary" (click)="buscarEncargado()">Buscar</button> -->
+            <input type="text" [(ngModel)]="telefonoFiltrado" placeholder="Ingrese Nro de Telefono" />
+            &nbsp;<button type="button" class="btn btn-secondary" (click)="buscarEncargado(telefonoFiltrado)">Buscar</button>
           </span>
         </div>
-
       </div>
-
     </div>
-<br>
-
+    <br>
     <!-- TABLE -->
     <div class="tabla-container">
-      <table class="tabla-estilo" #tabla>
+      <table class="tabla-estilo" #tabla> 
         <thead>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Dni</th>
-          <th>Telefono</th>
-          <th>password</th>
+          <th>DNI</th>
+          <th>Teléfono</th>
+          <th></th>
+          <th></th>
         </thead>
         <tbody>
-          <tr *ngFor="let encargado of encargados">
-            <td>{{ encargado.nombre }}</td>
-            <td>{{ encargado.apellido }}</td>
-            <td>{{ encargado.dni }}</td>
-            <td>{{ encargado.telefono }}</td>
-            <td>{{ encargado.password }}</td>
-            <td>
-              <!-- <a (click)="borrarEncargado(encargado)" class="btn btn-danger btn-sm">
-                <i class="material-icons">Borrar</i> 
-              </a>-->
-            </td>
-          </tr>
+          <ng-container *ngFor="let encargado of encargados">
+            <tr [ngClass]="{'resaltado': isTelefonoResaltado(encargado.telefono)}" *ngIf="encargado.telefono.includes(telefonoFiltrado)">
+              <td>{{ encargado.nombre }}</td>
+              <td>{{ encargado.apellido }}</td>
+              <td>{{ encargado.dni }}</td>
+              <td>{{ encargado.telefono }}</td>
+              <td>
+                <button type="button" class="btn btn-outline-danger"(click)="eliminarEncargadoLocal(encargado)">Eliminar</button>
+                &nbsp;&nbsp;<button type="button" class="btn btn-outline-info" (click)="openEditDialog(encargado)">Ver</button>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>
   </div>
-
-
   <div class="paginator-container">
-    <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 20, 50]"
-      (page)="onPageChange($event)"></mat-paginator>
+    <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 15, 50, 100]" (page)="onPageChange($event)"></mat-paginator>
   </div>
   <div class="boton-container">
     <button class="boton-personalizado" style="border-bottom-left-radius: 10px;" (click)="goToFirstPage()">
@@ -114,17 +96,27 @@
       <i class="fa fa-angle-double-right"></i>
     </button>
   </div>
-  <br>
-
-
-</body>
 
 
 
 
+  <!-- <div class="col-md-3">
+      <button (click)="getEncargados()">Ver Encargados</button>
+
+    <br>
+    </div> -->
+
+<!-- esto va dentro de la tabla de encargado  -->
+           <!-- <a (click)="borrarEncargado(encargado)" class="btn btn-danger btn-sm">
+                <i class="material-icons">Borrar</i> 
+              </a>-->
 
 
-
+              <!-- esto va dentro del form de los inputs  -->
+       <!-- <div class="form-group" style="width: 250px;">
+                <input type="text" name="password" #password="ngModel" [(ngModel)]="encargadoService.encargado.password"
+                  placeholder="Ingrese el password" class="form-control">
+              </div> -->
 
 
 <!-- 
