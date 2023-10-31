@@ -1,0 +1,23 @@
+<div class="solicitudes-container">
+    <h2>Solicitudes de Equipo</h2>
+  
+    <!-- Formulario para crear una solicitud de equipo -->
+    <form (ngSubmit)="crearSolicitud()">
+      <label for="dia">Día:</label>
+      <input type="text" id="dia" name="dia" [(ngModel)]="nuevoDia" required>
+  
+      <label for="telefono">Teléfono:</label>
+      <input type="text" id="telefono" name="telefono" [(ngModel)]="nuevoTelefono" required>
+  
+      <button type="submit">Crear Solicitud</button>
+    </form>
+  
+    <!-- Lista de solicitudes de equipo -->
+    <ul>
+      <li *ngFor="let solicitud of solicitudes">
+        <p>Día: {{ solicitud.dia }}</p>
+        <p>Teléfono: {{ solicitud.telefono }}</p>
+      </li>
+    </ul>
+  </div>
+  

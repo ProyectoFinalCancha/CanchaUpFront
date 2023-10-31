@@ -47,6 +47,9 @@ import { EncargadoService } from '../services/encargado.service';
 import { VerEncargadoComponent } from './encargado/ver-encargado/ver-encargado.component';
 
 import { MatTableModule } from '@angular/material/table';
+import { SolicitudEquipoComponent } from './solicitudes/solicitud-equipo/solicitud-equipo.component';
+import { SolicitudComponent } from './solicitudes/solicitud/solicitud.component';
+import { EquipoComponent } from './equipo/equipo.component';
 
 
 @NgModule({
@@ -63,7 +66,10 @@ import { MatTableModule } from '@angular/material/table';
     // PopupComponent,
     PopupDialogComponent,
     LoginEncargadoComponent,
-    VerEncargadoComponent
+    VerEncargadoComponent,
+    SolicitudEquipoComponent,
+    SolicitudComponent,
+    EquipoComponent
   
   
   ],

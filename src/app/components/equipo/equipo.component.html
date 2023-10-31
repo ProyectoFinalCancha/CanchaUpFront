@@ -1,0 +1,19 @@
+<div>
+    <h2>Crear Equipo</h2>
+    <input [(ngModel)]="nombre" placeholder="Nombre" />
+    <input [(ngModel)]="telefono" placeholder="Teléfono" />
+    <button (click)="crearEquipo()">Crear Equipo</button>
+</div>
+
+<div>
+    <h2>Ver Equipos</h2>
+    <button (click)="verEquipos()">Ver Equipos</button>
+    <ul>
+        <li *ngFor="let equipo of equipos">{{ equipo.nombre }}</li>
+    </ul>
+</div>
+<div>
+    <h2>Buscar Equipo por Teléfono</h2>
+    <input [(ngModel)]="telefono" placeholder="Teléfono" />
+    <button (click)="buscarEquipo()">Buscar Equipo</button>
+</div>
