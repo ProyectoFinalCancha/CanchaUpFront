@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PopCrearEquipoComponent } from '../components/popup/pop-crear-equipo/pop-crear-equipo.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Equipo } from '../models/equipo';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,7 @@ export class EquipoService {
   private apiUrl_buscar = 'http://localhost:8080/restful/services/simple.EquipoServices';
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private dialog: MatDialog) {}
 
   crearEquipo(nombre: string, telefono: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -28,4 +31,16 @@ export class EquipoService {
     const body = { telefono };
     return this.http.post(this.apiUrl_buscar + '/actions/buscarEquipo/invoke', body, { headers });
   }
+
+  abrirPopupCrearEquipo(equipoData: Equipo): void {
+    const dialogRef2 = this.dialog.open(PopCrearEquipoComponent, {
+      width:'450px',
+      height:'450px',
+        data: equipoData
+    });
+    dialogRef2.afterClosed().subscribe(result => {
+        // Maneja el resultado si es necesario
+    });
+}
+
 }

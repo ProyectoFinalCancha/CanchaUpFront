@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { EquipoService } from 'src/app/services/equipo.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-equipo',
@@ -11,7 +12,7 @@ export class EquipoComponent {
   telefono: string = '';
   equipos: any[] = [];
 
-  constructor(private equipoService: EquipoService) {}
+  constructor(private equipoService: EquipoService, private sharedService:SharedService) {}
 
   ngOnInit() {}
 
@@ -24,6 +25,7 @@ export class EquipoComponent {
   verEquipos() {
     this.equipoService.verEquipos().subscribe((response) => {
       this.equipos = response.value.collection;
+      this.equipos = this.sharedService.jugadores;
       // Manejar la respuesta de la solicitud aquí
     });
   }

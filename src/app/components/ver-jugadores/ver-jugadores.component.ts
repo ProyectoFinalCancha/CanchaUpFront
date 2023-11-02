@@ -4,6 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Jugador } from 'src/app/models/jugador';
 import { JugadorService } from 'src/app/services/jugador.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-ver-jugadores',
@@ -16,7 +17,7 @@ export class VerJugadoresComponent {
   jugadorPorPagina:Jugador[] = [];
   jugadores!: Jugador[]; // Define la variable para almacenar los datos del jugador
 
-  constructor(public jugadorService: JugadorService, private router: Router) {
+  constructor(public jugadorService: JugadorService, private router: Router, private sharedService: SharedService) {
     this.jugadorService = jugadorService
    }
 
@@ -40,7 +41,8 @@ export class VerJugadoresComponent {
 
   getJugadores() {
     this.jugadorService.getJugadores().subscribe((res) => {
-      this.jugadorService.jugadores = res;
+      // this.jugadorService.jugadores = res;
+      this.sharedService.jugadores = res;
     });
   }
 

@@ -1,19 +1,29 @@
-<div>
-    <h2>Crear Equipo</h2>
-    <input [(ngModel)]="nombre" placeholder="Nombre" />
-    <input [(ngModel)]="telefono" placeholder="Teléfono" />
-    <button (click)="crearEquipo()">Crear Equipo</button>
-</div>
-
-<div>
-    <h2>Ver Equipos</h2>
-    <button (click)="verEquipos()">Ver Equipos</button>
-    <ul>
-        <li *ngFor="let equipo of equipos">{{ equipo.nombre }}</li>
-    </ul>
-</div>
-<div>
-    <h2>Buscar Equipo por Teléfono</h2>
-    <input [(ngModel)]="telefono" placeholder="Teléfono" />
-    <button (click)="buscarEquipo()">Buscar Equipo</button>
+<div class="card">
+    <div class="card-header">
+        <h2>Mi Equipo</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Telefono</th>
+                    <th>Mail</th>
+                    <th>Pass</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let jugador of equipos">
+                    <td>{{ jugador.nombre }}</td>
+                    <td>{{ jugador.apellido }}</td>
+                    <td>{{ jugador.telefono }}</td>
+                    <td>{{ jugador.mail }}</td>
+                    <td>{{ jugador.password }}</td>
+                    <td>{{ jugador.username }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

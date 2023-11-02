@@ -1,0 +1,20 @@
+<mat-dialog-content>
+    <br>
+    <div class="seven">
+        <h1>Crear Equipo</h1>
+      </div>
+      <hr>
+    <mat-form-field class="mattiDialog">
+        <span>Nombre</span>
+        <input matInput type="text" placeholder="Ingrese Nombre" [(ngModel)]="equipo.nombre">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="mattiDialog">
+        <span>Telefono</span>
+        <input matInput type="text" placeholder="Ingrese Telefono" [(ngModel)]="equipo.telefono">
+    </mat-form-field>
+    <br>
+    <br>    
+    <button mat-button class="mybutton" (click)="crearEquipo()"><span>Crear Equipo</span></button>
+ 
+</mat-dialog-content>

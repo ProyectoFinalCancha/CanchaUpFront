@@ -50,6 +50,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SolicitudEquipoComponent } from './solicitudes/solicitud-equipo/solicitud-equipo.component';
 import { SolicitudComponent } from './solicitudes/solicitud/solicitud.component';
 import { EquipoComponent } from './equipo/equipo.component';
+import { PopCrearEquipoComponent } from './popup/pop-crear-equipo/pop-crear-equipo.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { EquipoComponent } from './equipo/equipo.component';
     VerEncargadoComponent,
     SolicitudEquipoComponent,
     SolicitudComponent,
-    EquipoComponent
+    EquipoComponent,
+    PopCrearEquipoComponent
   
   
   ],

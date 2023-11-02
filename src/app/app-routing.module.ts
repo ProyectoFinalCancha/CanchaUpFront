@@ -13,6 +13,10 @@ import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-
 
 import { LoginEncargadoComponent } from './components/login-encargado/login-encargado.component';
 import { AuthGuard } from './guard/Auth.guard'; // Cambiar a 'Auth.guard' a 'Auth.guard' en la importación
+import { SolicitudEquipoComponent } from './components/solicitudes/solicitud-equipo/solicitud-equipo.component';
+import { SolicitudComponent } from './components/solicitudes/solicitud/solicitud.component';
+import { EquipoComponent } from './components/equipo/equipo.component';
+import { PopCrearEquipoComponent } from './components/popup/pop-crear-equipo/pop-crear-equipo.component';
 
 
 const routes: Routes = [
@@ -32,7 +36,19 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent 
+  },
+  {
+    path:'equipo',
+    component:PopCrearEquipoComponent
+  },
+  {
+    path:'solicitudes',
+    component:SolicitudComponent
+  },
+  {
+    path:'solicitudes-equipo',
+    component:SolicitudEquipoComponent
   },
   {
     path: 'registro',
