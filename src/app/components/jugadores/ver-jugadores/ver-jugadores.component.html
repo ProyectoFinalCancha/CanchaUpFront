@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+      <div class="encuadre">
+        <img class="myimg" src="../../../../assets/images/encargado-removebg-preview.png" alt="">
+        <h1 class="titulo-bonito">Editar Jugador</h1>
+      </div>
+    </div>
+    <br>
+    <div class="form-group">
+      <mat-form-field style="width: 90%;">
+        <mat-label>Nombre</mat-label>
+        <input required matInput placeholder="Ingrese nombre" [(ngModel)]="data.nombre">
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field style="width: 90%;">
+        <mat-label>Apellido</mat-label>
+        <input required matInput placeholder="Ingrese apellido" [(ngModel)]="data.apellido">
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field style="width: 90%;">
+        <mat-label>Telefono</mat-label>
+        <input required matInput placeholder="Ingrese telefono" [(ngModel)]="data.telefono">
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field style="width: 90%;">
+        <mat-label>Mail</mat-label>
+        <input required matInput placeholder="Ingrese mail" [(ngModel)]="data.mail">
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field style="width: 90%;">
+        <mat-label>Password</mat-label>
+        <input required matInput placeholder="Ingrese password" [(ngModel)]="data.password">
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field style="width: 90%;">
+        <mat-label>Username</mat-label>
+        <input required matInput placeholder="Ingrese username" [(ngModel)]="data.username">
+      </mat-form-field>
+    </div>
+    <br>
+    <button class="bn6" (click)="onSaveChanges()">Guardar</button>
+  </div>
+  

@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RegistoComponent } from './registo/registo.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { SidebarModule } from 'primeng/sidebar';
 
-import { VerJugadoresComponent } from './ver-jugadores/ver-jugadores.component';
+
 import { FormsModule } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
@@ -20,18 +19,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { CardModule } from 'primeng/card';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { DashboardMatchMakingComponent } from './dashboard/dashboard-match-making/dashboard-match-making.component';
-// import { PopupComponent } from './popup/popup.component';
 
-
-
-
-
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, } from '@angular/material/dialog';
-import {NgIf} from '@angular/common';
-
-
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select'; 
 
@@ -50,7 +38,8 @@ import { MatTableModule } from '@angular/material/table';
 import { SolicitudEquipoComponent } from './solicitudes/solicitud-equipo/solicitud-equipo.component';
 import { SolicitudComponent } from './solicitudes/solicitud/solicitud.component';
 import { EquipoComponent } from './equipo/equipo.component';
-import { PopCrearEquipoComponent } from './popup/pop-crear-equipo/pop-crear-equipo.component';
+import { JugadoresComponent } from './jugadores/jugadores.component';
+import { VerJugadoresComponent } from './jugadores/ver-jugadores/ver-jugadores.component';
 
 
 @NgModule({
@@ -58,7 +47,7 @@ import { PopCrearEquipoComponent } from './popup/pop-crear-equipo/pop-crear-equi
     RegistoComponent,
     DashboardComponent,
     LoginComponent,
-    SidenavComponent,
+   
     VerJugadoresComponent,
     PartidosComponent,
      EncargadoComponent,
@@ -71,8 +60,12 @@ import { PopCrearEquipoComponent } from './popup/pop-crear-equipo/pop-crear-equi
     SolicitudEquipoComponent,
     SolicitudComponent,
     EquipoComponent,
-    PopCrearEquipoComponent
+    
+    
   
+
+    JugadoresComponent,
+    
   
   ],
   imports: [
@@ -89,10 +82,12 @@ import { PopCrearEquipoComponent } from './popup/pop-crear-equipo/pop-crear-equi
     TabMenuModule,
     TieredMenuModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+   
   ],
   exports: [
     VerJugadoresComponent,
+    EquipoComponent,
     PartidosComponent,
     DropdownModule
     // PopupComponent

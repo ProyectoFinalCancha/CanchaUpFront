@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PopCrearEquipoComponent } from '../components/popup/pop-crear-equipo/pop-crear-equipo.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Equipo } from '../models/equipo';
 
@@ -32,15 +31,15 @@ export class EquipoService {
     return this.http.post(this.apiUrl_buscar + '/actions/buscarEquipo/invoke', body, { headers });
   }
 
-  abrirPopupCrearEquipo(equipoData: Equipo): void {
-    const dialogRef2 = this.dialog.open(PopCrearEquipoComponent, {
-      width:'450px',
-      height:'450px',
-        data: equipoData
-    });
-    dialogRef2.afterClosed().subscribe(result => {
-        // Maneja el resultado si es necesario
-    });
-}
+//   abrirPopupCrearEquipo(equipoData: Equipo): void {
+//     const dialogRef2 = this.dialog.open(PopCrearEquipoComponent, {
+//       width:'450px',
+//       height:'450px',
+//         data: equipoData
+//     });
+//     dialogRef2.afterClosed().subscribe(result => {
+//         // Maneja el resultado si es necesario
+//     });
+// }
 
 }

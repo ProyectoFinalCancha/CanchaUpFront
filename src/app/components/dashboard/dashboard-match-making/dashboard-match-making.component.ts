@@ -32,14 +32,7 @@ export class DashboardMatchMakingComponent {
   }
 
 
-  abrirPopupCrearEquipo(): void {
-    // Crea un objeto Equipo con nombre y teléfono
-    const equipoData: Equipo = {
-      nombre: '',
-      telefono: ''
-    };
-    
-    // Llama al método del servicio para abrir el popup con el objeto Equipo
-    this.equipoService.abrirPopupCrearEquipo(equipoData);
+  equipos(): void {
+    this.router.navigate(['/equipos']);
   }
 }

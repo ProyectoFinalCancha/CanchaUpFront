@@ -155,8 +155,10 @@ export class DashboardAdminComponent implements OnInit{
   }
 
   jugadores(){
-    this.router.navigate(['/verJugadores'])
+    this.router.navigate(['/jugadores'])
   }
+
+  
 
 
 }

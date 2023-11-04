@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegistoComponent } from './components/registo/registo.component';
-import { VerJugadoresComponent } from './components/ver-jugadores/ver-jugadores.component';
+
 import { PartidosComponent } from './components/partidos/partidos.component';
 import { EncargadoComponent } from './components/encargado/encargado.component';
 // import { PopupComponent } from './components/popup/popup.component';
@@ -16,7 +16,10 @@ import { AuthGuard } from './guard/Auth.guard'; // Cambiar a 'Auth.guard' a 'Aut
 import { SolicitudEquipoComponent } from './components/solicitudes/solicitud-equipo/solicitud-equipo.component';
 import { SolicitudComponent } from './components/solicitudes/solicitud/solicitud.component';
 import { EquipoComponent } from './components/equipo/equipo.component';
-import { PopCrearEquipoComponent } from './components/popup/pop-crear-equipo/pop-crear-equipo.component';
+
+import { VerEncargadoComponent } from './components/encargado/ver-encargado/ver-encargado.component';
+import { JugadoresComponent } from './components/jugadores/jugadores.component';
+import { VerJugadoresComponent } from './components/jugadores/ver-jugadores/ver-jugadores.component';
 
 
 const routes: Routes = [
@@ -39,10 +42,6 @@ const routes: Routes = [
     component: DashboardComponent 
   },
   {
-    path:'equipo',
-    component:PopCrearEquipoComponent
-  },
-  {
     path:'solicitudes',
     component:SolicitudComponent
   },
@@ -56,8 +55,13 @@ const routes: Routes = [
   },
 
   {
-    path: 'verJugadores',
-    component: VerJugadoresComponent
+    path: 'jugadores',
+    component: JugadoresComponent
+  },
+  {
+    //////////////////////////POPUP DE JUGADORES
+    path:'verJugadores',
+    component:VerJugadoresComponent
   },
   {
     path: 'partidos',
@@ -72,12 +76,23 @@ const routes: Routes = [
     component: EncargadoComponent
   },
   {
+    ////////////////POPUP DE ENCARGADO 
+    path:'verEncargados',
+    component:VerEncargadoComponent
+  },
+  {
+    //////POPUP DEL DASHBOARD DE USUARIO 
     path:'popup',
     component:PopupDialogComponent
   },
   {
     path:'adminDash',
     component:DashboardAdminComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path:'equipos',
+    component:EquipoComponent,
     // canActivate: [AuthGuard]
   },
   {

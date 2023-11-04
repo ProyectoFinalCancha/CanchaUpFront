@@ -1,0 +1,65 @@
+.titulo-bonito {
+    font-family: 'Arial', sans-serif;
+    font-size: 2rem;
+    color: #20848b;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 3px rgba(3, 2, 2, 0.5);
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-left: 20px;
+}
+
+
+.bn6 {
+    margin-left: 140px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: #4f504f;
+    padding: 0.3em 1.2em;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-weight: 550;
+    color: #ffffff;
+    background-size: 100% 100%;
+    box-shadow: 0 0 0 4px #466978 inset;
+    text-decoration: none;
+}
+
+.bn6:hover {
+    background-image: linear-gradient(55deg,
+            transparent 10%,
+            #161616 10% 20%,
+            transparent 20% 30%,
+            #161616 30% 40%,
+            transparent 40% 50%,
+            #161616 50% 60%,
+            transparent 60% 70%,
+            #161616 70% 80%,
+            transparent 80% 90%,
+            #161616 90% 100%);
+    animation: background 3s linear infinite;
+}
+
+.myimg {
+    margin-top: 10px;
+    margin-right: 30px;
+    width: 50px;
+    height: 50px;
+}
+
+
+.encuadre {
+    display: flex; 
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    /* border: 1px solid #ccc; */
+    border-radius: 0px;
+    border: 3px solid #20848b;
+    /* margin: 10px auto; */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}

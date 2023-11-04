@@ -1,0 +1,105 @@
+<body>
+  <div class="mybotton">
+    <br>
+    <button (click)="navegar()" class="bn632-hover bn27">Volver a Home</button>
+  </div>
+  <div class="row">
+    <!-- FORM -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body p-4">
+          <!-- FORM -->
+          <form #jugadorForm="ngForm" (ngSubmit)="agregarJugadorLocal(jugadorForm)">
+            <h1 class="titulo-bonito">Crear Jugadores</h1>
+            <br>
+            <input required type="hidden" name="id" #id="ngModel" [(ngModel)]="nuevoJugador.id">
+            <br>
+            <div class="form-group">
+              <input required type="text" name="nombre" style="width: 250px;" #name="ngModel" [(ngModel)]="nuevoJugador.nombre"
+                placeholder="Ingrese su nombre" class="form-control">
+            </div>
+            <br>
+            <div class="form-group" style="width: 250px;">
+              <input required type="text" name="apellido" #name="ngModel" [(ngModel)]="nuevoJugador.apellido"
+                placeholder="Ingrese su apellido" class="form-control">
+            </div>
+            <br>
+            <div class="form-group" style="width: 250px;">
+              <input required type="text" name="telefono" #name="ngModel" [(ngModel)]="nuevoJugador.telefono"
+                placeholder="Ingrese su telefono" class="form-control">
+            </div>
+            <br>
+            <div class="form-group" style="width: 250px;">
+              <input required type="text" name="mail" #name="ngModel" [(ngModel)]="nuevoJugador.mail"
+                placeholder="Ingrese su mail" class="form-control">
+            </div>
+            <br>
+            <div class="form-group" style="width: 250px;">
+              <input required type="text" name="password" #name="ngModel" [(ngModel)]="nuevoJugador.password"
+                placeholder="Ingrese su password" class="form-control">
+            </div>
+            <br>
+            <div class="form-group" style="width: 250px;">
+              <input required type="text" name="username" #name="ngModel" [(ngModel)]="nuevoJugador.username"
+                placeholder="Ingrese su username" class="form-control">
+            </div>
+            <br>
+            <button type="submit" class="bn6">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body p-4">
+          <h1 class="titulo-bonito">Buscar Jugador</h1>
+          <br>
+          <span class="p-input-icon-left">
+          
+            <input required type="text" [(ngModel)]="telefonoFiltrado"
+              (ngModelChange)="buscarJugadorPorTelefono(telefonoFiltrado)" placeholder="Ingrese Nro de Telefono"
+              pInputText />
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary"
+              (click)="buscarJugadorPorTelefono(telefonoFiltrado)">Buscar</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <h1> &nbsp; </h1>
+    <h1> &nbsp; </h1>
+    <!-- TABLE -->
+    <div class="tabla-container">
+      <table class="tabla-estilo" #jugadoresTable>
+        <thead>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Telefono</th>
+          <th>mail</th>
+          <th>pass</th>
+          <th>user</th>
+          <Th></Th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let jugador of nuevoJugadores">
+            <td>{{ jugador.nombre }}</td>
+            <td>{{ jugador.apellido }}</td>
+            <td>{{ jugador.telefono }}</td>
+            <td>{{ jugador.mail }}</td>
+            <td>{{ jugador.password }}</td>
+            <td>{{ jugador.username }}</td>
+            
+            <td>
+              <a (click)="borrarJugadorLocal(jugador.id, jugadorForm)" class="btn btn-danger btn-sm">
+                <i class="material-icons">delete</i>
+              </a>
+              <a>
+                &nbsp;&nbsp;<button type="button" class="btn btn-outline-info" (click)="openEditDialog(jugador)">Ver</button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>

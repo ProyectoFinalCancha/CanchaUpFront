@@ -29,18 +29,16 @@
     </p-card>
 
 
-    <p-card class="scrollable-card" header="Crear Equipo" subheader="Crear Equipo" [style]="{ width: '360px' }">
+    <p-card class="scrollable-card" header="Mi Equipo" subheader="Ver y agregar jugadores a mi Equipo" [style]="{ width: '360px' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../../../assets/images/futbol-equipo.webp" loading="lazy" />
       </ng-template>
      
       <ng-template pTemplate="footer">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <p-button label="Haz Click Aquí" (click)="abrirPopupCrearEquipo()" styleClass="p-button-outlined p-button-success"></p-button>
+        <p-button label="Haz Click Aquí" (click)="equipos()" styleClass="p-button-outlined p-button-success"></p-button>
       </ng-template>
-      <p-sidebar [(visible)]="sidebarVisible2" position="left">
-        <h1>MatchMaking</h1>
-      </p-sidebar>
+    
     </p-card>
 
     <button (click)="volver()" class="bn632-hover bn25">volver</button>

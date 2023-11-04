@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PopupDialogComponent } from '../components/popup/popup-dialog/popup-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PopCrearEquipoComponent } from '../components/popup/pop-crear-equipo/pop-crear-equipo.component';
 
 @Injectable({
   providedIn: 'root'

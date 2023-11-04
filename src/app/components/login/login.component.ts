@@ -58,6 +58,17 @@ export class LoginComponent {
   }
 
 
+  irAJugadores(){
+    this.router.navigate(['jugadores'])
+  }
+
+  irAEquipos(){
+    this.router.navigate(['equipos'])
+  }
+
+  irAPartidos(){
+    this.router.navigate(['partidos'])
+  }
 }
 
 
