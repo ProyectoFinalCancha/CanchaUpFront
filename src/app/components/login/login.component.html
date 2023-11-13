@@ -1,3 +1,4 @@
+<!-- login.component.html -->
 
 <div class="limiter">
     <div class="container-login100" style="background-image: url('../../assets/images/canchitaBackground.jpeg');">
@@ -8,18 +9,18 @@
                     <img src="../../../assets/images/canchaUpBall.png" style="height: 47px; width: 47px;" alt="">Cancha UP!<img src="../../../assets/images/canchaUpBall.png" style="height: 47px; width: 47px;" alt="">
                 </span>
                 <div class="wrap-input100 m-b-23">
-                    <span class="label-input100">Username</span>
+                    <span class="label-input100">Teléfono</span>
                     <input class="input100"
                            type="text" 
-                           name="username" 
-                           [(ngModel)]="username"
-                           id="username"
-                           placeholder="Ingrese su email">
+                           name="telefono" 
+                           [(ngModel)]="telefono"
+                           id="telefono"
+                           placeholder="Ingrese su teléfono">
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100">
-                    <span class="label-input100">Password</span>
+                    <span class="label-input100">Contraseña</span>
                     <input class="input100"
                            type="password"
                            name="password" 
@@ -59,6 +60,8 @@
     </div>
 </div>
 
+<button (click)="irADashComun()">IR A dash</button><br>
+<button (click)="irADashMatchmaking()">IR A Matchmaking</button><br>
 <button (click)="irAPartidos()">IR A PARTIDOS</button><br>
 <button (click)="irAJugadores()">IR A JUGADORES</button><br>
 <button (click)="irAEquipos()">IR A EQUIPOS</button>

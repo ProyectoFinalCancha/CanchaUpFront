@@ -64,7 +64,7 @@ import { VerJugadoresComponent } from './jugadores/ver-jugadores/ver-jugadores.c
     
   
 
-    JugadoresComponent,
+    JugadoresComponent
     
   
   ],

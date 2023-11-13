@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Encargado } from 'src/app/models/encargado';
@@ -14,66 +14,66 @@ import { MatDialog } from '@angular/material/dialog';
   providers: [EncargadoService]
 })
 export class EncargadoComponent implements OnInit{
+  
+  encargadoForm!: FormGroup;
+  encargados: Encargado[] = [];
+  telefonoFiltrado: string = '';
 
-  telefonoResaltado: string = ''; // Variable para almacenar el número de teléfono a resaltar
-  telefonoFiltrado: string = ''; // Variable para almacenar el número de teléfono a filtrar
-
-  encargados: Encargado[] = []
-  encargado: Encargado = {
-    id: 0,
-    telefono: '',
-    apellido: '',
-    dni: '',
-    nombre: '',
-    password: ''
-  };
- 
+  constructor(private fb: FormBuilder,private encargadoService: EncargadoService,private router:Router,  public dialog: MatDialog) {}
+  pageSizeOptions: number[] = [5, 15, 50, 100];
+  pageSize: number = this.pageSizeOptions[0];
+  pageIndex: number = 0;
+  totalItems: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
- 
-  encargadosPorPagina: Encargado[] = [];
 
 
-  goToFirstPage() {
-    this.paginator.firstPage();
+
+
+  ngOnInit() {
+    this.encargadoForm = this.fb.group({
+      id: [null],
+      telefono: ['', Validators.required],
+      apellido: ['', Validators.required],
+      dni: ['', Validators.required],
+      nombre: ['', Validators.required],
+    });
+    this.obtenerEncargados();
   }
 
-  goToLastPage() {
-    this.paginator.lastPage();
-  }
 
   onPageChange(event: PageEvent) {
-    const startIndex = event.pageIndex * event.pageSize;
-    const endIndex = startIndex + event.pageSize;
-    this.encargadosPorPagina = this.encargados.slice(startIndex, endIndex);
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.obtenerEncargados();
+  }
+  
+  goToFirstPage() {
+    this.pageIndex = 0;
+    this.obtenerEncargados();
+  }
+  
+  goToLastPage() {
+    this.pageIndex = Math.floor(this.totalItems / this.pageSize);
+    this.obtenerEncargados();
   }
 
-
-  constructor(public encargadoService: EncargadoService, private router: Router,  public dialog: MatDialog) {}
-
-
-  ngOnInit(): void {
-    // this.getEncargados();
-    this.getEncargadosLocalStorage(); ////////////////////////////////////////////////////LOCAL STORAGE 
-    if (this.paginator) {
-      this.paginator._intl.itemsPerPageLabel = 'Elementos por página:';
-    }
+  isTelefonoResaltado(telefono: string): boolean {
+    return telefono.includes(this.telefonoFiltrado);
   }
-
-  getEncargados() {
-    this.encargadoService.verEncargados()
-      .subscribe(encargados => {
-        this.encargados = encargados;
-      });
+  
+  obtenerEncargados() {
+    const offset = this.pageIndex * this.pageSize;
+  
+    this.encargadoService.getEncargados(offset, this.pageSize)
+      .subscribe(
+        (result: any) => {
+          this.encargados = result.elements;
+          this.totalItems = result.totalSize;
+        },
+        error => console.log('Error al obtener encargados', error)
+      );
   }
-
- 
-
-  navegar() {
-    this.router.navigateByUrl("/adminDash")
-  }
-
-
 
   openEditDialog(encargado: Encargado): void {
     const dialogRef = this.dialog.open(VerEncargadoComponent, {
@@ -89,147 +89,48 @@ export class EncargadoComponent implements OnInit{
     });
   }
 
-
-
- 
-
-  agregarEncargado(form: NgForm) {
-    const encargadoData = {
-      nombre: form.value.nombre,
-      apellido: form.value.apellido,
-      dni: form.value.dni,
-      telefono: form.value.telefono,
-      password: 'string' // Puedes proporcionar un valor para la propiedad "password" aquí
-    };
+  crearEncargado() {
+    // Obtener los valores del formulario
+    const nombre = this.encargadoForm.get('nombre')?.value;
+    const apellido = this.encargadoForm.get('apellido')?.value;
+    const dni = this.encargadoForm.get('dni')?.value;
+    const telefono = this.encargadoForm.get('telefono')?.value;
+    const password = 'luca1234';  // No está claro de dónde proviene el valor de la contraseña
   
-    this.encargadoService.crearEncargado(encargadoData)
+    // Llamar al servicio para crear el encargado
+    this.encargadoService.crearEncargado(nombre, apellido, dni, telefono, password)
       .subscribe(
-        (nuevoEncargado) => {
-          // Manejar la respuesta exitosa
-        },
-        (error) => {
-          // Manejar errores
-        }
+        result => console.log(result),
+        error => console.log('error', error)
       );
   }
-  
-  
-  buscarEncargado(telefono: string) {
-    this.encargadoService.buscarEncargado(telefono)
-      .subscribe(encargado => {
-        if (encargado) {
-          // Hacer algo con el encargado encontrado
-          console.log('Encargado encontrado:', encargado);
-        } else {
-          // El encargado no se encontró, puedes manejarlo aquí
-          console.log('Encargado no encontrado');
-        }
-      });
+  buscarEncargadoPorTelefono() {
+    this.encargadoService.buscarEncargadoPorTelefono(this.telefonoFiltrado)
+      .subscribe(
+        result => {
+          // Asignar los resultados de la búsqueda a encargados
+          this.encargados = result;
+        },
+        error => console.log('Error al buscar encargado por teléfono', error)
+      );
   }
-
-  eliminarEncargado(objectId: string) {
-    this.eliminarEncargado("11");
-    this.encargadoService.borrarEncargado(objectId)
-      .subscribe(result => {
-        // Hacer algo con el resultado de la eliminación
-        console.log('Resultado de la eliminación:', result);
-      });
-  }
-
-
-
-
-    ///////////////////////////////////////                          ///////////////////////////
-    ///////////////////////////////////////    LOCAL STORAGE        ///////////////////////////
-  ///////////////////////////////////////                            ///////////////////////////
-
-  agregarEncargadoEnLocalStorage(form: NgForm){
-    const encargadoData = {
-      nombre: form.value.nombre,
-      apellido: form.value.apellido,
-      dni: form.value.dni,
-      telefono: form.value.telefono,
-      password: 'string' // Puedes proporcionar un valor para la propiedad "password" aquí
-    };
-
-    // Agregar el encargado localmente
-    this.encargadoService.crearEncargadoLocal(encargadoData);
-
-    // Actualizar la lista de encargados en el componente
-    this.getEncargadosLocalStorage()
-    // Recargar la página para ver los datos actualizados
-  window.location.reload();
-  }
-
-
-  getEncargadosLocalStorage() {
-    // Recuperar encargados almacenados en el localStorage
-    const encargados = JSON.parse(localStorage.getItem('encargados') || '[]');
-    this.encargados = encargados;
-    console.log('Encargados cargados desde localStorage:', this.encargados)
-  }
-
-
-  
-  eliminarEncargadoLocal(encargado: Encargado) {
-    const telefonoABuscar = encargado.telefono;  
-    // Busca el encargado por número de teléfono
-    const index = this.encargados.findIndex(e => e.telefono === telefonoABuscar);
-    if (index !== -1) {
-      this.encargados.splice(index, 1);
-      localStorage.setItem('encargados', JSON.stringify(this.encargados)); // Actualiza el almacenamiento local
+  eliminarEncargado(encargado: Encargado) {
+    const objectId = encargado.id?.toString(); // Suponiendo que el id es un número
+    if (objectId) {
+      this.encargadoService.eliminarEncargado(objectId)
+        .subscribe(
+          result => {
+            console.log(result);
+            // Luego de eliminar el encargado, actualiza la lista de encargados
+            this.obtenerEncargados();
+          },
+          error => console.log('Error al eliminar encargado', error)
+        );
     }
   }
   
 
-   // Método para resaltar registros
-   isTelefonoResaltado(encargadoTelefono: string): boolean {
-    return encargadoTelefono === this.telefonoResaltado;
+  navegar(){
+    this.router.navigate(['dashboard'])
   }
 }
-
-  // resetForm(form: NgForm) {
-  //   if (form) {
-  //     form.reset();
-
-  //   }
-  // }
-
-// encargado!: Encargado;
-// constructor(public encargadoService:EncargadoService){
-
-// }
-// ngOnInit() {
-//   this.getEncargados();
-// }
-// getEncargados(){
-//   this.encargadoService.getEncargados().subscribe((res) => {
-//     this.encargadoService.encargados = res;
-//   });
-// }
-
-
-// agregarEncargado(form:NgForm){
-//   this.encargadoService.createEncargado(form.value).subscribe((res) => {
-//     this.getEncargados();
-//     this.resetForm(form);
-//   })
-// }
-
-// resetForm(form:NgForm){
-//   if(form){
-//     form.reset();
-//     this.encargadoService.encargado = new Encargado()
-//   }
-// }
-
-// borrarEncargado(id:number,form:NgForm){
-//   if(confirm("Estas seguro de borrar el Encargado?")){
-//     this.encargadoService.deleteEncargado(id).subscribe((res) =>{
-//       this.getEncargados();
-//       this.resetForm(form);
-//     })
-//   }
-// }
-
-

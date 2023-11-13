@@ -1,31 +1,42 @@
+.background-container {
+  background-image: url('../../../assets/images/dashboradimg.jpeg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
 .centered-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 150vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
 
+.scrollable-card {
+  width: 80%;
+  height: auto;
+  max-width: 400px; /* Set a maximum width for the cards */
+  margin: 10px; /* Add some margin to space out the cards */
+  overflow: auto;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+  animation: bounceInUp;
+  animation-duration: 2s;
+}
 
-    background-image: url('../../../assets/images/dashboradimg.jpeg'); 
-    background-size: cover; 
-    background-position: center center; 
-    background-repeat: no-repeat; 
-   
-  }
-  
-  .scrollable-card {
-    max-height: 80vh; 
-    overflow: auto; 
-    border: 1px solid #ffffff; 
-    border-radius: 5px; 
-    padding: 10px; 
-   
- 
-      
+.scrollable-card img,
+.miImagen {
+  width: 100%;
+  height: 100%; /* Allow the height to adjust proportionally */
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
 }
 
 .bn632-hover {
- 
+
   width: 160px;
   font-size: 16px;
   font-weight: 600;
@@ -33,7 +44,7 @@
   cursor: pointer;
   margin: 20px;
   height: 55px;
-  text-align:center;
+  text-align: center;
   border: none;
   background-size: 300% 100%;
   border-radius: 50px;
@@ -56,35 +67,40 @@
 }
 
 .bn632-hover.bn25 {
-  background-image: linear-gradient(
-    to right,
-    #29323c,
-    #485563,
-    #2b5876,
-    #4e4376
-  );
+  background-image: linear-gradient(to right,
+      #29323c,
+      #485563,
+      #2b5876,
+      #4e4376);
   box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
 }
 
-.btn2{
+.btn2 {
   margin-left: 80px;
 }
 
-/* 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+
   .centered-container {
-      height: 150vh;
-      font-size: 20px;
-      width: 50px;
+    max-width: 90%;
+    margin-left: 20px;
+    height: 99%;
+
+  }
+
+  .miImagen{
+    width: 95%;
+  
+  }
+  .btn2 {
+    margin-left: 40px;
+  }
+  .scrollable-card {
+    max-height: 45vh;
+  }
+
+
+  .scrollable-card img {
+    max-width: 100%;
   }
 }
-
-
-@media (max-width: 77px) {
-  .centered-container {
-      
-      width: 50px;
-      height: 100vh;
-      font-size: 16px;
-  }
-} */

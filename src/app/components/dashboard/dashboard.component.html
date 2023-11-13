@@ -1,31 +1,17 @@
-
-<div class="centered-container">
+<div class="background-container">
+  <div class="centered-container">
+    <button (click)="cerrarSesion()" class="bn632-hover bn25">Cerrar Sesión</button>
+    <br>
+    <p-card class="scrollable-card clickable-card" header="Sacar un Turno" subheader="Recuerda ver antes la disponibilidad de canchas" (click)="abrirPopupDesdeDashboard()">
+      <ng-template pTemplate="header">
+        <img class="miImagen" alt="Card" src="../../../assets/images/imgCard.jpg" loading="lazy"/>
+      </ng-template>
+    </p-card>
+    <p-card class="scrollable-card clickable-card" header="Match Making" subheader="Toca para ver Encontrar un partido" (click)="irAMatch()">
+      <ng-template pTemplate="header">
+        <img class="miImagen" alt="Card" src="../../../assets/images/matchmaking img.avif" loading="lazy"/>
+      </ng-template>
+    </p-card>
+  </div>
   
-  <br>
-  <p-card class="scrollable-card" header="Sacar un Turno" subheader="Recuerda ver antes la disponibilidad de canchas" [style]="{ width: '360px'}">
-    <ng-template pTemplate="header">
-      <img alt="Card" src="../../../assets/images/imgCard.jpg" loading="lazy"/>
-    </ng-template>
-    <ng-template pTemplate="footer">
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <p-button label="Haz Click Aquí" (click)="abrirPopupDesdeDashboard()" styleClass="p-button-outlined p-button-help"></p-button>
-    </ng-template>
-   
-  </p-card>
-
-  <p-card class="scrollable-card" header="Match Making" subheader="Ingresa para ver Encontrar un partido" [style]="{ width: '360px' }">
-    <ng-template pTemplate="header">
-      <img alt="Card" src="../../../assets/images/matchmaking img.avif" loading="lazy"/>
-    </ng-template>
-    
-    <ng-template pTemplate="footer">
-      <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-      <p-button class="btn2" label="Haz Click Aquí" (click)="irAMatch()" styleClass="p-button-outlined p-button-danger"></p-button>
-    </ng-template>
-  </p-card>
-
-
-  <button (click)="cerrarSesion()" class="bn632-hover bn25">Cerrar Sesión</button>
 </div>
-
-

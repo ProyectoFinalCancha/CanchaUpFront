@@ -16,6 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 import {MatSidenavModule} from '@angular/material/sidenav'; 
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import {HttpClientModule} from '@angular/common/http';
 import { ComponentModule } from './components/component.module';
@@ -34,8 +35,8 @@ import { EncargadoService } from './services/encargado.service';
     ButtonModule,
     SidebarModule,
     ComponentModule,
-    NgbModule
-
+    NgbModule,
+    MatPaginatorModule
     
 
     

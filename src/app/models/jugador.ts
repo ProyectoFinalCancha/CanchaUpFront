@@ -1,5 +1,5 @@
 export class Jugador{
-    id?:number;
+    id?:string;
     nombre!: string;
     apellido!: string;
     telefono!: string;

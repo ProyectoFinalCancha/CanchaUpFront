@@ -22,26 +22,27 @@ export class VerJugadoresComponent {
 
   onSaveChanges(): void {
     if (this.isValid(this.data)) {
+      // Llama al servicio para actualizar el jugador
+      this.jugadorService.actualizarJugador(this.data).subscribe(
+        updatedJugador => {
+          // Actualiza la referencia al objeto en el componente principal
+          this.data = updatedJugador;
 
-      this.jugadorService.actualizarJugadorLocal(this.data);
-
-      const jugadoresActualizados = this.jugadorService.getJugadoresLocalStorage();
-
-      this.sharedService.actualizarJugadores(jugadoresActualizados);
-
-      this.dialogRef.close(this.data);
-
+          // Cierra el diálogo y pasa el jugador actualizado
+          this.dialogRef.close(this.data);
+        },
+        error => {
+          console.log('Error al actualizar jugador', error);
+        }
+      );
     } else {
       console.log('Error: Datos incompletos o inválidos.');
     }
   }
 
   isValid(data: Jugador): boolean {
-    if (!data.nombre || !data.apellido || !data.telefono || !data.mail || !data.password || !data.username) {
-      return false;
-    }
-
-    return true;
+    // Valida la información según tus criterios
+    return !!(data.nombre && data.apellido && data.telefono && data.mail && data.password && data.username);
   }
 
 }

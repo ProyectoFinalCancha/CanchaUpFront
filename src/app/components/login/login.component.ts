@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/shared/auth.service';
+import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,47 +12,46 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
 
 
-  username = '';
-  password = '';
+  
+  telefono: string = "";
+  password: string = "";
 
-  constructor(private authService: AuthService, private router: Router) { }
 
-  login() {
-    this.authService.loginJugador(this.username, this.password).subscribe(
-      (data: any) => {
+ 
+
+  constructor(private loginService: LoginService,private router: Router) { }
+
+  login(): void {
+    this.loginService.login(this.telefono, this.password)
+      .subscribe(data => {
+        this.router.navigate(['/dashboard']);
+        Swal.fire(
+          '⚽ Bienvenido! ⚽',
+          'Nombre de Usuario: ' + `${this.telefono}`,
+          'success',
+        );
         const valorBooleano = data.result.value;
-
-        if (valorBooleano) {
-          this.router.navigate(['/dashboard']);
-          Swal.fire(
-            '⚽ Bienvenido! ⚽',
-            'Nombre de Usuario: ' + `${this.username}`,
-            'success',
-          );
-        } else {
-          Swal.fire('Error', 'Inicio de sesión fallido', 'error');
-        }
-      },
-      (error) => {
-        console.error('Error:', error);
+        console.log(valorBooleano);
+      }, error => {
         Swal.fire('Error', 'Inicio de sesión fallido', 'error');
-      }
-    );
+        console.log('Error', error);
+      });
   }
+
 
 
   IraRegistro() {
     this.router.navigate(['/registro'])
   }
 
-  IraDashSinLoguear() {
-    this.router.navigate(['/dashboard'])
-    Swal.fire(
-      '⚽ Bienvenido! ⚽',
-      'Nombre de Usuario:  '+ `${this.username}`,
-      'success',
-    )
-  }
+  // IraDashSinLoguear() {
+  //   this.router.navigate(['/dashboard'])
+  //   Swal.fire(
+  //     '⚽ Bienvenido! ⚽',
+  //     'Nombre de Usuario:  '+ `${this.username}`,
+  //     'success',
+  //   )
+  // }
 
   IrAloginEncargado(){
     this.router.navigate(['/loginEncargado'])
@@ -68,6 +68,13 @@ export class LoginComponent {
 
   irAPartidos(){
     this.router.navigate(['partidos'])
+  }
+  irADashComun(){
+    this.router.navigate(['dashboard'])
+  }
+
+  irADashMatchmaking(){
+    this.router.navigate(['match'])
   }
 }
 

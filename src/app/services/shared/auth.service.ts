@@ -16,54 +16,6 @@ export class AuthService {
   //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  private apiUrl = "http://localhost:8080/restful/services/simple.LoginAdmin/actions/LoginAdmin/invoke";
-
-  // FALTA EL apiUlr para el login de JUGADOR 
-
-  constructor(private http: HttpClient) { }
-
-  loginJugador(telefono: string, password: string): Observable<any> {
-    const body = {
-      telefono: {
-        value: telefono
-      },
-      password: {
-        value: password
-      }
-    };
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic c3ZlbjpwYXNz'
-    });
-
-    return this.http.post(this.apiUrl, body, { headers });
-  }
-
-
-
-
-  loginEncargado(telefono: string, password: string): Observable<any> {
-    const body = {
-      telefono: {
-        value: telefono
-      },
-      password: {
-        value: password
-      }
-    };
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic c3ZlbjpwYXNz'
-    });
-    return this.http.post(this.apiUrl,body, {headers})
-
-  }
-
-  // Método para cerrar la sesión.
-  logout(): void {
-    this.isAuthenticated = false;
-  }
 
 }
 

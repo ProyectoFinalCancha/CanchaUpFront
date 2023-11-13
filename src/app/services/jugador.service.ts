@@ -9,129 +9,71 @@ import { SharedService } from './shared/shared.service';
 })
 export class JugadorService {
 
+  private apiUrl = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke';
+  private api_DELETE = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke';
 
-  jugador: Jugador;
-  jugadores: Jugador[] = [];
 
-  constructor(private http: HttpClient, private sharedService:SharedService) {
-    this.jugador = new Jugador();
 
+  constructor(private http: HttpClient) { }
+
+  obtenerJugadores(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all'
+    });
+
+    return this.http.get(this.apiUrl, { headers });
   }
 
-  getJugadoresEnSharedService() {
-    return this.sharedService.jugadores$;
-  }
-  actualizarJugadoresEnSharedService(jugadores: Jugador[]) {
-    this.sharedService.actualizarJugadores(jugadores);
-  }
+  actualizarJugador(jugador: Jugador): Observable<any> {
+    const url = `${this.apiUrl}/${jugador.id}`;
 
- ////////////////////////////////////////////    LOCAL STORAGE
-///////////////////////////////////////////////////////////////////////////////////////////
- crearJugadorLocal(jugador: Jugador): void {
-  const jugadores: Jugador[] = JSON.parse(localStorage.getItem('jugadores') || '[]');
-  jugadores.push(jugador);
-  localStorage.setItem('jugadores', JSON.stringify(jugadores));
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
 
-  console.log('Jugador creado localmente:', jugador);
-    console.log('Jugadores en el Local Storage:', jugadores);
-
-  this.actualizarJugadoresEnSharedService(jugadores);
-}
-
-// Función para borrar un jugador localmente y actualizar el local storage
-borrarJugadorLocal(id: number): void {
-  const jugadores: Jugador[] = JSON.parse(localStorage.getItem('jugadores') || '[]');
-  const index = jugadores.findIndex((jugador) => jugador.id === id);
-  if (index !== -1) {
-    jugadores.splice(index, 1);
-    localStorage.setItem('jugadores', JSON.stringify(jugadores));
-
-    this.actualizarJugadoresEnSharedService(jugadores);
-  }
-}
-
-getJugadoresLocalStorage(): Jugador[] {
-  const jugadores: Jugador[] = JSON.parse(localStorage.getItem('jugadores') || '[]');
-  return jugadores;
-}
-
-buscarJugadorPorTelefono(telefono: string): Jugador[] {
-  const jugadores: Jugador[] = JSON.parse(localStorage.getItem('jugadores') || '[]');
-  return jugadores.filter((jugador) => jugador.telefono === telefono);
-}
-
-
-
-actualizarJugadorLocal(jugadorActualizado: Jugador): void {
-  const jugadores: Jugador[] = JSON.parse(localStorage.getItem('jugadores') || '[]');
-  const index = jugadores.findIndex((jugador) => jugador.id === jugadorActualizado.id);
-  if (index !== -1) {
-    jugadores[index] = jugadorActualizado;
-    localStorage.setItem('jugadores', JSON.stringify(jugadores));
-
-    // Actualiza también el servicio compartido
-    this.actualizarJugadoresEnSharedService(jugadores);
-  }
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-private API_DELETE: string = "http://localhost:8080/restful/objects/simple.Jugador/1/actions/delete/invoke";
-private API_GET: string = "http://localhost:8080/restful/objects/simple.Jugador";
-private API_CREATE: string = "http://localhost:8080/restful/services/simple.JugadorServices/actions/crearJugador/invoke"
-
-
-  // Define un encabezado personalizado para enviar el nombre de usuario
-  private headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa('sven:pass'));
-
-
-  crearJugador(jugador: Jugador) {
-    const url = `${this.API_CREATE}`;
-    return this.http.post(url, jugador);
+    // Asegúrate de que el objeto 'jugador' tenga las propiedades correctas según tu backend
+    return this.http.put(url, jugador, { headers });
   }
 
 
-  getJugador(id: any) {
-
-    const headers = new HttpHeaders();
-    const urlWithParams = `${this.API_GET}?objectid=${id}`;
-
-    return this.http.get<Jugador>(urlWithParams, { headers, responseType: 'text' as 'json' })
-
-  }
-  getJugadores() {
-
-    // let username = "sven";
-    // let password = "pass";
-
-    // Usa los encabezados personalizados en la solicitud
-    return this.http.get<Jugador[]>(this.API_GET, { headers: this.headers, responseType: 'text' as 'json' });
+  buscarJugadorPorTelefono(telefono: string): Observable<any> {
+    const requestOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Accept': 'application/json;profile=urn:org.apache.causeway/v2'
+      })
+    };
+  
+    const apiUrl = `http://localhost:8080/restful/services/simple.JugadorServices/actions/buscarJugador/invoke?telefono=${telefono}`;
+  
+    return this.http.get(apiUrl, requestOptions);
   }
 
-  deleteJugador(id: number) {
-    return this.http.delete(this.API_DELETE + `/${id}`);
+  crearJugador(nuevoJugador: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      'Content-Type': 'application/json'
+    });
+  
+    const apiUrl = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/crearJugador/invoke';
+  
+    return this.http.post(apiUrl, nuevoJugador, { headers });
   }
 
- 
+  eliminarJugador(objectId: string): Observable<any> {
+    const url = `http://localhost:8080/restful/objects/simple.Jugador/${objectId}/actions/eliminarJugador/invoke`;
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json'
+    });
+
+    return this.http.post(url, null, { headers });
+  }
+
+  
 }
