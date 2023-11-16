@@ -15,34 +15,34 @@
           <h1 class="titulo-bonito">Crear Jugadores</h1>
           <br>
           <div class="form-group">
-            <input required type="text" name="nombre" style="width: 250px;" #name="ngModel" [(ngModel)]="nuevoJugador.nombre"
-              placeholder="Ingrese su nombre" class="form-control">
+            <input required type="text" name="nombre" style="width: 250px;" #name="ngModel"
+              [(ngModel)]="nuevoJugador.nombre" placeholder="Ingrese su nombre" class="form-control">
           </div>
           <br>
           <div class="form-group">
-            <input required type="text" name="apellido" style="width: 250px;" #name="ngModel" [(ngModel)]="nuevoJugador.apellido"
-              placeholder="Ingrese su apellido" class="form-control">
+            <input required type="text" name="apellido" style="width: 250px;" #name="ngModel"
+              [(ngModel)]="nuevoJugador.apellido" placeholder="Ingrese su apellido" class="form-control">
           </div>
           <br>
           <div class="form-group">
-            <input required type="text" name="telefono" style="width: 250px;" #name="ngModel" [(ngModel)]="nuevoJugador.telefono"
-              placeholder="Ingrese su teléfono" class="form-control">
+            <input required type="text" name="telefono" style="width: 250px;" #name="ngModel"
+              [(ngModel)]="nuevoJugador.telefono" placeholder="Ingrese su teléfono" class="form-control">
           </div>
           <br>
           <div class="form-group">
-            <input required type="text" name="mail" style="width: 250px;" #name="ngModel" [(ngModel)]="nuevoJugador.mail"
-              placeholder="Ingrese su correo electrónico" class="form-control">
+            <input required type="text" name="mail" style="width: 250px;" #name="ngModel"
+              [(ngModel)]="nuevoJugador.mail" placeholder="Ingrese su correo electrónico" class="form-control">
           </div>
           <br>
           <div class="form-group">
-            <input required type="password" name="password" style="width: 250px;" #name="ngModel" [(ngModel)]="nuevoJugador.password"
-              placeholder="Ingrese su contraseña" class="form-control">
+            <input required type="password" name="password" style="width: 250px;" #name="ngModel"
+              [(ngModel)]="nuevoJugador.password" placeholder="Ingrese su contraseña" class="form-control">
           </div>
           <br>
           <div class="form-group">
             <input required type="text" name="fechaDeNacimientoString" style="width: 250px;" #name="ngModel"
-              [(ngModel)]="nuevoJugador.fechaDeNacimientoString" placeholder="Ingrese su fecha de nacimiento (YYYY-MM-DD)"
-              class="form-control">
+              [(ngModel)]="nuevoJugador.fechaDeNacimientoString"
+              placeholder="Ingrese su fecha de nacimiento (YYYY-MM-DD)" class="form-control">
           </div>
           <br>
           <!-- Otros campos del formulario según tu estructura -->
@@ -74,44 +74,56 @@
 
   <!-- TABLE -->
   <div class="tabla-container">
-    <table mat-table [dataSource]="jugadores" class="tabla-estilo" matSort matSortActive="nombre" matSortDirection="asc" matPaginator #paginator>
+    <table mat-table [dataSource]="jugadores" class="tabla-estilo" matSort matSortActive="nombre" matSortDirection="asc"
+      matPaginator #paginator>
 
-      <thead>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Telefono</th>
-        <th>mail</th>
-        <th>pass</th>
-        <th>user</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let jugador of jugadores">
-          <td>{{ jugador.nombre }}</td>
-          <td>{{ jugador.apellido }}</td>
-          <td>{{ jugador.telefono }}</td>
-          <td>{{ jugador.mail }}</td>
-          <td>{{ jugador.password }}</td>
-          <td>{{ jugador.username }}</td>
-          <td>
-            <a (click)="eliminarJugadorLocal(jugador?.id)" class="btn btn-danger btn-sm">
-              <i class="material-icons">delete</i>
-            </a>
-            <a>
-              &nbsp;&nbsp;<button type="button" class="btn btn-outline-info" (click)="openEditDialog(jugador)">Ver</button>
-            </a>
-          </td>
-          
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="7"> <!-- Colspan igual al número de columnas en tu tabla -->
-            <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-          </td>
-        </tr>
-      </tfoot>
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let jugador">{{ jugador?.nombre }}</td>
+      </ng-container>
 
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let jugador">{{ jugador?.apellido }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef>Telefono</th>
+        <td mat-cell *matCellDef="let jugador">{{ jugador?.telefono }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mail">
+        <th mat-header-cell *matHeaderCellDef>Mail</th>
+        <td mat-cell *matCellDef="let jugador">{{ jugador?.mail }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="pass">
+        <th mat-header-cell *matHeaderCellDef>Contraseña</th>
+        <td mat-cell *matCellDef="let jugador">{{ jugador?.password }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+        <td mat-cell *matCellDef="let jugador">{{ jugador?.username }}</td>
+      </ng-container>
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let jugador">
+          <a (click)="eliminarJugadorLocal(jugador?.id)" class="btn btn-danger btn-sm">
+            <i class="material-icons">delete</i>
+          </a>
+          <a>
+            &nbsp;&nbsp;<button type="button" class="btn btn-outline-info"
+              (click)="openEditDialog(jugador)">Ver</button>
+          </a>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['nombre', 'apellido', 'telefono', 'mail', 'pass', 'user', 'acciones']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['nombre', 'apellido', 'telefono', 'mail', 'pass', 'user', 'acciones']">
+      </tr>
     </table>
-    
+    <div class="paginator-container">
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
   </div>
+</div>

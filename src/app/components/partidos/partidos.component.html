@@ -21,11 +21,12 @@
             <span style="color: rgb(36, 108, 47);">Elige tu Horario</span>
             <select class="form-select" formControlName="horario">
               <option [ngValue]="null" disabled>Horario</option>
-              <option *ngFor="let partido of partidoService.partidos" [ngValue]="partido">
-                {{ partido }}
-              </option>
+              <option *ngFor="let horario of getHorarios()">{{ horario }}</option>
             </select>
           </div>
+          
+          
+          
         
           <br>
           <div class="form-group" style="width: 250px;">
@@ -58,9 +59,9 @@
           <input type="text" placeholder="Ingrese Nro de Telefono" pInputText [(ngModel)]="telefono" /> &nbsp;&nbsp;
           <button type="button" class="btn btn-secondary" (click)="buscarPartido()">Buscar</button>
         </span>
-        <select [(ngModel)]="selectedEstado" class="form-control">
+        <!-- <select [(ngModel)]="selectedEstado" class="form-control">
           <option *ngFor="let estado of estadosPartidoArray" [value]="estado.value">{{ estado.label }}</option>
-        </select>
+        </select> -->
         
 
       </div>

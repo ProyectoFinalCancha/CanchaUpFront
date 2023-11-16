@@ -76,13 +76,12 @@ export class PartidoService {
     );
   }
   
-
   crearPartido(horario: string, dia: string, telefono: string, precio: string): void {
     const raw = {
-      horarioSting: {
+      horario: {
         value: horario,
       },
-      diaString: {
+      dia: {
         value: dia,
       },
       telefono: {
@@ -92,7 +91,7 @@ export class PartidoService {
         value: precio,
       },
     };
-
+  
     const requestOptions = {
       headers: new HttpHeaders({
         'Authorization': 'Basic c3ZlbjpwYXNz',
@@ -100,7 +99,7 @@ export class PartidoService {
         'Content-Type': 'application/json',
       })
     };
-
+  
     this.http.post(
       'http://localhost:8080/restful/services/simple.PartidoServices/actions/crearPartido/invoke',
       raw,
@@ -111,11 +110,11 @@ export class PartidoService {
         console.log(result);
       },
       (error) => {
-        console.log('Error', error);
+        console.error('Error', error);
       }
     );
   }
-
+  
 
 
   rechazarPartido(objectId: string): Observable<any> {

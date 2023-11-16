@@ -1,5 +1,5 @@
-import { EstadosPartido } from "./estadosPartido";
-import { Horarios } from "./horarios.enum";
+
+
 
 export class Partido {
     
@@ -11,4 +11,19 @@ export class Partido {
     precio!: string;
     estado!: EstadosPartido;
 
+}
+
+
+export enum EstadosPartido{
+    'ESPERA','RECHAZADO','CONFIRMADO','COMPLETADO','MATCHMAKING'
+}
+
+
+export enum Horarios{
+    '18 hs' = '18 hs',
+    '19 hs' = '19 hs',
+    '20 hs' = '20 hs',
+    '21 hs' = '21 hs',
+    '22 hs' = '22 hs',
+    '23 hs' = '23 hs'
 }

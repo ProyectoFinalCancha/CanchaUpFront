@@ -63,10 +63,17 @@ export class JugadoresComponent {
   }
   
   totalPages(): number {
-    // Lógica para calcular el total de páginas
-    // Puedes ajustar esto según tus necesidades
-    return Math.ceil(this.jugadores.length / this.paginator!.pageSize);
+    if (this.paginator) {
+      // Obtener el número total de elementos desde el paginador
+      const totalItems = this.paginator.length || 0;
+  
+      // Calcular el número total de páginas
+      return Math.ceil(totalItems / this.paginator.pageSize);
+    }
+  
+    return 0; // o algún valor predeterminado si el paginador no está disponible
   }
+  
 
 
   ngOnInit(): void {
@@ -80,11 +87,12 @@ export class JugadoresComponent {
   obtenerJugadores(): void {
     this.jugadorService.obtenerJugadores()
       .subscribe(data => {
-        this.jugadores = data.result.value;
+        this.jugadores = data; // Cambiar de data.result.value a data
       }, error => {
         console.log('Error', error);
       });
   }
+  
 
   buscarJugadorPorTelefono(telefono: string): void {
     this.jugadorService.buscarJugadorPorTelefono(telefono)

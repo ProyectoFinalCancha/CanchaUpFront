@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Horarios } from 'src/app/models/horarios.enum';
-import { Partido } from 'src/app/models/partido';
+
+import { Horarios, Partido } from 'src/app/models/partido';
 import { MatDialog } from '@angular/material/dialog';
 
 

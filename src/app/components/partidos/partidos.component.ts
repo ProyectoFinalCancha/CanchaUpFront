@@ -2,13 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { EstadosPartido } from 'src/app/models/estadosPartido';
 import { Jugador } from 'src/app/models/jugador';
-import { Partido } from 'src/app/models/partido';
+import { EstadosPartido, Horarios, Partido } from 'src/app/models/partido';
 import { PartidoService } from 'src/app/services/partido.service';
 
-
-type EstadosPartidoString = keyof typeof EstadosPartido;
 
 @Component({
   selector: 'app-partidos',
@@ -21,7 +18,8 @@ export class PartidosComponent {
   partidoForm!: FormGroup;
   telefono: string = '';
 
-  partidos = Partido;
+  partidos: Partido[] = [];
+  horarios = Horarios;
   selectedEstado: string = '';  // Declara la propiedad aquí
 
 
@@ -29,14 +27,7 @@ export class PartidosComponent {
   pageIndex = 0; // Índice de la página
 
 
-  estadosPartido = EstadosPartido;
-  estadosPartidoArray: { value: EstadosPartido; label: EstadosPartidoString }[] = [
-    { value: EstadosPartido.ESPERA, label: 'ESPERA' },
-    { value: EstadosPartido.RECHAZADO, label: 'RECHAZADO' },
-    { value: EstadosPartido.CONFIRMADO, label: 'CONFIRMADO' },
-    { value: EstadosPartido.COMPLETADO, label: 'COMPLETADO' },
-    { value: EstadosPartido.MATCHMAKING, label: 'MATCHMAKING' },
-  ];
+
 
   constructor(private router:Router,public partidoService: PartidoService, private fb: FormBuilder) { }
 
@@ -150,11 +141,13 @@ export class PartidosComponent {
     );
   }
 
-
+  getHorarios() {
+    return Object.values(this.horarios);
+  }
 
   crearPartido() {
     const { horario, dia, telefono, precio } = this.partidoForm.value;
-
+  
     // Verifica si el formulario es válido antes de llamar al servicio
     if (this.partidoForm.valid) {
       this.partidoService.crearPartido(horario, dia, telefono, precio);
@@ -162,6 +155,7 @@ export class PartidosComponent {
       console.log('Formulario no válido. Por favor, complete todos los campos requeridos.');
     }
   }
+  
 
   confirmarPartido() {
     // Obtener el ID del partido
