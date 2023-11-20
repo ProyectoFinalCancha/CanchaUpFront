@@ -10,6 +10,19 @@ import { JugadorService } from 'src/app/services/jugador.service';
   styleUrls: ['./registo.component.css']
 })
 export class RegistoComponent {
+
+
+  nuevoJugador: Jugador = {
+    nombre: '',
+    apellido: '',
+    telefono: '',
+    mail: '',
+    password: '',
+    username: '',
+    fechaDeNacimiento: new Date() 
+  };
+
+
   constructor(private router:Router,
     private jugadorService:JugadorService){
 
@@ -17,20 +30,31 @@ export class RegistoComponent {
 
   // jugador!:Jugador;
 
-agregarJugador(jugador: Jugador){
-  this.jugadorService.crearJugador(jugador).subscribe(
-    (response) => {
-      // La petición se completó con éxito, puedes manejar la respuesta aquí
-      console.log('Jugador creado:', response);
-      // Redirige a la página deseada después de un registro exitoso
-      this.router.navigate(['/login']);
-    },
-    (error) => {
-      // Si ocurre un error, puedes manejarlo aquí
-      console.error('Error al crear el jugador:', error);
+  crearJugador(jugadorForm: NgForm): void {
+    if (jugadorForm.valid) {
+      this.jugadorService.crearJugador(this.nuevoJugador)
+        .subscribe(
+          data => {
+            console.log('Jugador creado:', data);
+           
+            jugadorForm.resetForm();
+            this.nuevoJugador = {
+              nombre: '',
+              apellido: '',
+              telefono: '',
+              mail: '',
+              password: '',
+              username: '',
+              fechaDeNacimiento: new Date() 
+            };
+          },
+          error => {
+            console.error('Error al crear jugador:', error);
+            // Puedes mostrar un mensaje de error o realizar acciones específicas aquí
+          }
+        );
     }
-  );
-}
+  }
 
 
 

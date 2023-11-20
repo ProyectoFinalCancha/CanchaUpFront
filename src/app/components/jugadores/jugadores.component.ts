@@ -8,24 +8,7 @@ import { VerJugadoresComponent } from './ver-jugadores/ver-jugadores.component';
 import { MatDialog } from '@angular/material/dialog';
 
 
-class CustomPaginatorIntl extends MatPaginatorIntl {
-  override itemsPerPageLabel = 'Items por página';
-  override nextPageLabel = 'Siguiente';
-  override previousPageLabel = 'Anterior';
-  override firstPageLabel = 'Primera página';
-  override lastPageLabel = 'Última página';
-  override getRangeLabel = (page: number, pageSize: number, length: number) => {
-    if (length === 0 || pageSize === 0) {
-      return `0 de ${length}`;
-    }
-    length = Math.max(length, 0);
-    const startIndex = page * pageSize;
-    const endIndex = startIndex < length ?
-      Math.min(startIndex + pageSize, length) :
-      startIndex + pageSize;
-    return `${startIndex + 1} - ${endIndex} de ${length}`;
-  };
-}
+
 
 
 @Component({
@@ -38,40 +21,48 @@ export class JugadoresComponent {
 
   jugadores: Jugador[] = [];
   telefonoFiltrado: string = ''; // Asegúrate de declarar la propiedad
-  nuevoJugador: any = {};
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
-  paginatorIntl = new CustomPaginatorIntl();
+  nuevoJugador: Jugador = {
+    nombre: '',
+    apellido: '',
+    telefono: '',
+    mail: '',
+    password: '',
+    username: '',
+    fechaDeNacimiento: new Date() 
+  };
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+
 
   constructor(private jugadorService: JugadorService, private router: Router, public dialog: MatDialog) { }
 
 
   currentPage = 1;
+  pageSize = 10; // Ajusta el tamaño de la página según tus necesidades
+  totalItems = 0;
 
-  previousPage() {
+  previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.paginator?.previousPage();
     }
   }
-  
-  nextPage() {
+
+  nextPage(): void {
     if (this.currentPage < this.totalPages()) {
       this.currentPage++;
       this.paginator?.nextPage();
     }
   }
-  
+
   totalPages(): number {
     if (this.paginator) {
-      // Obtener el número total de elementos desde el paginador
-      const totalItems = this.paginator.length || 0;
-  
-      // Calcular el número total de páginas
-      return Math.ceil(totalItems / this.paginator.pageSize);
+      this.totalItems = this.paginator.length || 0;
+      return Math.ceil(this.totalItems / this.pageSize);
     }
-  
-    return 0; // o algún valor predeterminado si el paginador no está disponible
+    return 0;
   }
   
 
@@ -87,11 +78,13 @@ export class JugadoresComponent {
   obtenerJugadores(): void {
     this.jugadorService.obtenerJugadores()
       .subscribe(data => {
-        this.jugadores = data; // Cambiar de data.result.value a data
+        console.log('Datos del servidor:', data); // Agregado para depurar
+        this.jugadores = data; 
       }, error => {
         console.log('Error', error);
       });
   }
+  
   
 
   buscarJugadorPorTelefono(telefono: string): void {
@@ -102,20 +95,26 @@ export class JugadoresComponent {
         console.log('Error', error);
       });
   }
-  agregarJugadorLocal(jugadorForm: NgForm): void {
+
+  crearJugador(jugadorForm: NgForm): void {
     if (jugadorForm.valid) {
       this.jugadorService.crearJugador(this.nuevoJugador)
-        .subscribe(data => {
-          console.log('Jugador creado:', data);
-          // Actualizar la lista de jugadores después de la creación
-          this.obtenerJugadores();
-          // Limpiar el formulario
-          jugadorForm.resetForm();
-        }, error => {
-          console.log('Error al crear jugador', error);
-        });
+        .subscribe(
+          () => {
+            console.log('Jugador creado exitosamente');
+            this.obtenerJugadores();
+            jugadorForm.resetForm();
+            this.nuevoJugador = new Jugador(); // Crear una nueva instancia de Jugador
+          },
+          (error) => {
+            console.error('Error al crear jugador:', error);
+            // Puedes mostrar un mensaje de error o realizar acciones específicas aquí
+          }
+        );
     }
   }
+  
+  
 
 
   eliminarJugadorLocal(objectId: string | number | undefined): void {

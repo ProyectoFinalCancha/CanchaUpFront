@@ -6,4 +6,5 @@ export class Jugador{
     mail!: string;
     password!: string;
     username!: string;
+    fechaDeNacimiento!: Date
 }

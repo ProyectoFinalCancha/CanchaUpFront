@@ -10,34 +10,20 @@ import { SharedService } from './shared/shared.service';
 export class JugadorService {
 
   private apiUrl = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke';
- 
-
+  private baseUrl = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/';
+  jugador: Jugador[] = [];
 
   constructor(private http: HttpClient) { }
 
   obtenerJugadores(): Observable<any> {
     const headers = new HttpHeaders({
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
       'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all'
     });
-  
-    return this.http.get(this.apiUrl, { headers }).pipe(
-      tap(response => console.log('Respuesta del servidor:', response)), // Agregado para imprimir la respuesta
-      map((response: any) => {
-        if (response.result && response.result.value) {
-          return response.result.value;
-        } else {
-          console.error('Estructura de respuesta inesperada:', response);
-          throw new Error('La estructura de la respuesta del servidor no es la esperada.');
-        }
-      }),
-      catchError((error: any) => {
-        console.error('Error en la solicitud:', error);
-        return throwError('Error al obtener jugadores. Consulta la consola para más detalles.');
-      })
-    );
+
+    return this.http.get<any>(this.apiUrl, { headers });
   }
-  
+
 
   actualizarJugador(jugador: Jugador): Observable<any> {
     const url = `${this.apiUrl}/${jugador.id}`;
@@ -60,24 +46,38 @@ export class JugadorService {
         'Accept': 'application/json;profile=urn:org.apache.causeway/v2'
       })
     };
-  
+
     const apiUrl = `http://localhost:8080/restful/services/simple.JugadorServices/actions/buscarJugador/invoke?telefono=${telefono}`;
-  
+
     return this.http.get(apiUrl, requestOptions);
   }
 
-  crearJugador(nuevoJugador: any): Observable<any> {
+  crearJugador(nuevoJugador: Jugador): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
       'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
       'Content-Type': 'application/json'
     });
-  
-    const apiUrl = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/crearJugador/invoke';
-  
-    return this.http.post(apiUrl, nuevoJugador, { headers });
+
+    const requestBody = {
+      nombre: { value: nuevoJugador.nombre },
+      apellido: { value: nuevoJugador.apellido },
+      telefono: { value: nuevoJugador.telefono },
+      mail: { value: nuevoJugador.mail },
+      password: { value: nuevoJugador.password },
+      fechaDeNacimientoString: { value: nuevoJugador.fechaDeNacimiento instanceof Date ? nuevoJugador.fechaDeNacimiento.toISOString() : '' },
+    };
+
+    return this.http.post(this.baseUrl + 'crearJugador/invoke', requestBody, { headers }).pipe(
+      catchError(this.handleError)
+    );
   }
 
+  private handleError(error: any): Observable<any> {
+    console.error('Error en la solicitud:', error);
+    return throwError('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.'); // Utiliza throwError para devolver un Observable con el error
+  }
+  
   eliminarJugador(objectId: string): Observable<any> {
     const url = `http://localhost:8080/restful/objects/simple.Jugador/${objectId}/actions/eliminarJugador/invoke`;
 
@@ -89,5 +89,5 @@ export class JugadorService {
     return this.http.post(url, null, { headers });
   }
 
-  
+
 }

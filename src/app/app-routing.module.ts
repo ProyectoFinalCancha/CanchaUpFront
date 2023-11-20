@@ -12,7 +12,7 @@ import { PopupDialogComponent } from './components/popup/popup-dialog/popup-dial
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
 
 import { LoginEncargadoComponent } from './components/login-encargado/login-encargado.component';
-import { AuthGuard } from './guard/Auth.guard'; // Cambiar a 'Auth.guard' a 'Auth.guard' en la importación
+import { ValidarEncargadoGuard } from './guard/validar-encargado.guard'; // Cambiar a 'Auth.guard' a 'Auth.guard' en la importación
 import { SolicitudEquipoComponent } from './components/solicitudes/solicitud-equipo/solicitud-equipo.component';
 import { SolicitudComponent } from './components/solicitudes/solicitud/solicitud.component';
 import { EquipoComponent } from './components/equipo/equipo.component';
@@ -20,6 +20,7 @@ import { EquipoComponent } from './components/equipo/equipo.component';
 import { VerEncargadoComponent } from './components/encargado/ver-encargado/ver-encargado.component';
 import { JugadoresComponent } from './components/jugadores/jugadores.component';
 import { VerJugadoresComponent } from './components/jugadores/ver-jugadores/ver-jugadores.component';
+import { ValidarUsuarioGuard } from './guard/validar-usuario.guard';
 
 
 const routes: Routes = [
@@ -39,7 +40,8 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent 
+    component: DashboardComponent ,
+    canActivate: [ValidarUsuarioGuard] 
   },
   {
     path:'solicitudes',
@@ -88,7 +90,7 @@ const routes: Routes = [
   {
     path:'adminDash',
     component:DashboardAdminComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [ValidarEncargadoGuard] 
   },
   {
     path:'equipos',
