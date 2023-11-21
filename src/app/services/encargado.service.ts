@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Encargado } from '../models/encargado';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class EncargadoService {
  
   private apiEliminarEncargado = 'http://localhost:8080/restful/objects/simple.Encargado/';
 
+  encargado : Encargado[] = [];
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -25,29 +26,41 @@ export class EncargadoService {
 
   constructor(private http: HttpClient) { }
 
-  crearEncargado(nombre: string, apellido: string, dni: string, telefono: string, password: string): Observable<any> {
+  crearEncargado(nuevoEncargado:Encargado): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      'Content-Type': 'application/json',
+    });
+
     const body = {
-      nombre: { value: nombre },
-      apellido: { value: apellido },
-      dni: { value: dni },
-      telefono: { value: telefono },
-      password: { value: password }
+      nombre: { value: nuevoEncargado.nombre },
+      apellido: { value: nuevoEncargado.apellido },
+      dni: { value: nuevoEncargado.dni },
+      telefono: { value: nuevoEncargado.telefono },
+      password: { value: nuevoEncargado.password }
     };
 
-    return this.http.post(this.apiUrl, body, { headers: this.headers });
+    return this.http.post(this.apiUrl, body, { headers})
+    .pipe(
+      catchError(this.handleError)
+    );;
+  }
+
+  private handleError(error: any): Observable<any> {
+    console.error('Error en la solicitud:', error);
+    return throwError('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
   }
 
 
 
-  getEncargados(offset: number, limit: number): Observable<any> {
-    const requestOptions = {
-      headers: this.headers,
-      params: new HttpParams()
-        .set('offset', offset.toString())
-        .set('limit', limit.toString())
-    };
-  
-    return this.http.get(`${this.api_GET}`, requestOptions);
+
+  getEncargados(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+    });
+    return this.http.get<any>(this.api_GET, { headers });
   }
 
   buscarEncargadoPorTelefono(telefono: string): Observable<any> {
@@ -59,15 +72,19 @@ export class EncargadoService {
   }
 
   
-  eliminarEncargado(objectId: string): Observable<any> {
-    const url = `${this.apiEliminarEncargado}${objectId}/actions/eliminarEncargado/invoke`;
+  eliminarEncargado(instanceId: string): Observable<any> {
+    const url = `${this.apiEliminarEncargado}${instanceId}/actions/eliminarEncargado/invoke`;
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json'
+    });
 
-    const requestOptions = {
-      method: 'POST',
-      headers: this.headers
-    };
-
-    return this.http.post(url, null, requestOptions);
+    return this.http.post(url, null, { headers }).pipe(
+      catchError(error => {
+        console.error('Error en la solicitud HTTP:', error);
+        throw error;
+      })
+    );
   }
 }
 

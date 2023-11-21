@@ -1,10 +1,10 @@
 export class Jugador{
-    id?:string;
+    id?: number
     nombre!: string;
     apellido!: string;
     telefono!: string;
     mail!: string;
     password!: string;
     username!: string;
-    fechaDeNacimiento!: Date
+    fechaDeNacimiento!: Date;
 }

@@ -6,6 +6,7 @@ import { Jugador } from 'src/app/models/jugador';
 import { JugadorService } from 'src/app/services/jugador.service';
 import { VerJugadoresComponent } from './ver-jugadores/ver-jugadores.component';
 import { MatDialog } from '@angular/material/dialog';
+import { finalize } from 'rxjs/operators';
 
 
 
@@ -21,22 +22,27 @@ export class JugadoresComponent {
 
   jugadores: Jugador[] = [];
   telefonoFiltrado: string = ''; // Asegúrate de declarar la propiedad
+  nuevoJugador! : Jugador
+ 
 
-  nuevoJugador: Jugador = {
-    nombre: '',
-    apellido: '',
-    telefono: '',
-    mail: '',
-    password: '',
-    username: '',
-    fechaDeNacimiento: new Date() 
-  };
+
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
 
-  constructor(private jugadorService: JugadorService, private router: Router, public dialog: MatDialog) { }
+  constructor(private jugadorService: JugadorService, private router: Router, public dialog: MatDialog) { 
+    this.nuevoJugador = {
+      nombre: '',
+      apellido: '',
+      telefono: '',
+      mail: '',
+      password: '',
+      username: '',
+      fechaDeNacimiento: new Date(),
+    };
+  }
 
 
   currentPage = 1;
@@ -75,61 +81,88 @@ export class JugadoresComponent {
     this.router.navigate(['dashboard'])
   }
 
+
   obtenerJugadores(): void {
-    this.jugadorService.obtenerJugadores()
-      .subscribe(data => {
-        console.log('Datos del servidor:', data); // Agregado para depurar
-        this.jugadores = data; 
-      }, error => {
+    this.jugadorService.obtenerJugadores().subscribe(
+      (data: Jugador[]) => {
+        this.jugadores = [...data];  // Copia directa del arreglo
+        console.log('Datos del servidor:', data);
+      },
+      error => {
         console.log('Error', error);
-      });
+      }
+    );
   }
   
   
 
+
+
+  
   buscarJugadorPorTelefono(telefono: string): void {
     this.jugadorService.buscarJugadorPorTelefono(telefono)
       .subscribe(data => {
         console.log(data);
+        if (telefono.trim() !== '') {
+          // Si hay un teléfono especificado en el filtro, mostrar los resultados filtrados
+          this.jugadores = Array.isArray(data) ? data : [data];
+        } else {
+          // Si no hay teléfono especificado, mostrar todos los jugadores
+          this.obtenerJugadores();
+        }
+        this.totalItems = this.jugadores.length;
+        this.currentPage = 1;
+        this.paginator?.firstPage();
       }, error => {
         console.log('Error', error);
       });
   }
+  
+  
+  
+  
+  
 
   crearJugador(jugadorForm: NgForm): void {
     if (jugadorForm.valid) {
       this.jugadorService.crearJugador(this.nuevoJugador)
+        .pipe(finalize(() => {
+          this.obtenerJugadores();
+          this.nuevoJugador = new Jugador();
+        }))
         .subscribe(
-          () => {
-            console.log('Jugador creado exitosamente');
-            this.obtenerJugadores();
-            jugadorForm.resetForm();
-            this.nuevoJugador = new Jugador(); // Crear una nueva instancia de Jugador
-          },
-          (error) => {
-            console.error('Error al crear jugador:', error);
-            // Puedes mostrar un mensaje de error o realizar acciones específicas aquí
-          }
+          () => console.log('Jugador creado exitosamente'),
+          error => console.error('Error al crear jugador:', error)
         );
     }
   }
   
-  
-
-
-  eliminarJugadorLocal(objectId: string | number | undefined): void {
-    if (objectId !== undefined) {
-      this.jugadorService.eliminarJugador(objectId.toString())
+  eliminarJugadorLocal(instanceId: string | undefined): void {
+    if (instanceId !== undefined) {
+      this.jugadorService.eliminarJugador(instanceId)
         .subscribe(data => {
           console.log('Jugador eliminado:', data);
           this.obtenerJugadores();
         }, error => {
-          console.log('Error al eliminar jugador', error);
+          console.error('Error al eliminar jugador', error);
         });
     } else {
-      console.log('objectId es undefined. No se puede eliminar el jugador.');
+      console.log('El $$instanceId es undefined.');
     }
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 
 

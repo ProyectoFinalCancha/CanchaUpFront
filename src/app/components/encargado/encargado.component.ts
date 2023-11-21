@@ -6,6 +6,7 @@ import { Encargado } from 'src/app/models/encargado';
 import { EncargadoService } from 'src/app/services/encargado.service';
 import { VerEncargadoComponent } from './ver-encargado/ver-encargado.component';
 import { MatDialog } from '@angular/material/dialog';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-encargado',
@@ -19,11 +20,22 @@ export class EncargadoComponent implements OnInit{
   encargados: Encargado[] = [];
   telefonoFiltrado: string = '';
 
-  constructor(private fb: FormBuilder,private encargadoService: EncargadoService,private router:Router,  public dialog: MatDialog) {}
-  pageSizeOptions: number[] = [5, 15, 50, 100];
-  pageSize: number = this.pageSizeOptions[0];
-  pageIndex: number = 0;
-  totalItems: number = 0;
+  nuevoEncargado!:Encargado
+
+  constructor(private fb: FormBuilder,private encargadoService: EncargadoService,private router:Router,  public dialog: MatDialog) {
+
+    this.nuevoEncargado = {
+      nombre: '',
+      apellido: '',
+      dni: '',
+      telefono: '',
+      password: '',
+     
+    }
+  }
+  currentPage = 1;
+  pageSize = 10; // Ajusta el tamaño de la página según tus necesidades
+  totalItems = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -31,48 +43,45 @@ export class EncargadoComponent implements OnInit{
 
 
   ngOnInit() {
-    this.encargadoForm = this.fb.group({
-      id: [null],
-      telefono: ['', Validators.required],
-      apellido: ['', Validators.required],
-      dni: ['', Validators.required],
-      nombre: ['', Validators.required],
-    });
+ 
     this.obtenerEncargados();
   }
 
-
-  onPageChange(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.pageIndex = event.pageIndex;
-    this.obtenerEncargados();
-  }
-  
-  goToFirstPage() {
-    this.pageIndex = 0;
-    this.obtenerEncargados();
-  }
-  
-  goToLastPage() {
-    this.pageIndex = Math.floor(this.totalItems / this.pageSize);
-    this.obtenerEncargados();
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.paginator?.previousPage();
+    }
   }
 
+  nextPage(): void {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+      this.paginator?.nextPage();
+    }
+  }
+
+  totalPages(): number {
+    if (this.paginator) {
+      this.totalItems = this.paginator.length || 0;
+      return Math.ceil(this.totalItems / this.pageSize);
+    }
+    return 0;
+  }
   isTelefonoResaltado(telefono: string): boolean {
     return telefono.includes(this.telefonoFiltrado);
   }
   
   obtenerEncargados() {
-    const offset = this.pageIndex * this.pageSize;
-  
-    this.encargadoService.getEncargados(offset, this.pageSize)
-      .subscribe(
-        (result: any) => {
-          this.encargados = result.elements;
-          this.totalItems = result.totalSize;
-        },
-        error => console.log('Error al obtener encargados', error)
-      );
+    this.encargadoService.getEncargados().subscribe(
+      (data: Encargado[]) => {
+        this.encargados = [...data];  // Copia directa del arreglo
+        console.log('Datos del servidor:', data);
+      },
+      error => {
+        console.log('Error', error);
+      }
+    );
   }
 
   openEditDialog(encargado: Encargado): void {
@@ -89,43 +98,55 @@ export class EncargadoComponent implements OnInit{
     });
   }
 
-  crearEncargado() {
-    // Obtener los valores del formulario
-    const nombre = this.encargadoForm.get('nombre')?.value;
-    const apellido = this.encargadoForm.get('apellido')?.value;
-    const dni = this.encargadoForm.get('dni')?.value;
-    const telefono = this.encargadoForm.get('telefono')?.value;
-    const password = 'luca1234';  // No está claro de dónde proviene el valor de la contraseña
-  
-    // Llamar al servicio para crear el encargado
-    this.encargadoService.crearEncargado(nombre, apellido, dni, telefono, password)
-      .subscribe(
-        result => console.log(result),
-        error => console.log('error', error)
-      );
-  }
-  buscarEncargadoPorTelefono() {
-    this.encargadoService.buscarEncargadoPorTelefono(this.telefonoFiltrado)
-      .subscribe(
-        result => {
-          // Asignar los resultados de la búsqueda a encargados
-          this.encargados = result;
-        },
-        error => console.log('Error al buscar encargado por teléfono', error)
-      );
-  }
-  eliminarEncargado(encargado: Encargado) {
-    const objectId = encargado.id?.toString(); // Suponiendo que el id es un número
-    if (objectId) {
-      this.encargadoService.eliminarEncargado(objectId)
+  crearEncargado(encargadoForm:NgForm) {
+    if (encargadoForm.valid) {
+      this.encargadoService.crearEncargado(this.nuevoEncargado)
+        .pipe(finalize(() => {
+          this.obtenerEncargados();
+          this.nuevoEncargado = new Encargado();
+        }))
         .subscribe(
-          result => {
-            console.log(result);
-            // Luego de eliminar el encargado, actualiza la lista de encargados
-            this.obtenerEncargados();
-          },
-          error => console.log('Error al eliminar encargado', error)
+          () => console.log('Jugador creado exitosamente'),
+          error => console.error('Error al crear jugador:', error)
         );
+    }
+  }
+
+
+
+  buscarEncargadoPorTelefono(telefono:string) {
+    this.encargadoService.buscarEncargadoPorTelefono(telefono)
+    .subscribe(data => {
+      console.log(data);
+      if (telefono.trim() !== '') {
+        // Si hay un teléfono especificado en el filtro, mostrar los resultados filtrados
+        this.encargados = Array.isArray(data) ? data : [data];
+      } else {
+        // Si no hay teléfono especificado, mostrar todos los jugadores
+        this.obtenerEncargados();
+      }
+      this.totalItems = this.encargados.length;
+      this.currentPage = 1;
+      this.paginator?.firstPage();
+    }, error => {
+      console.log('Error', error);
+    });
+  }
+
+
+
+
+  eliminarEncargado(instanceId: string | undefined) {
+    if (instanceId !== undefined) {
+      this.encargadoService.eliminarEncargado(instanceId)
+        .subscribe(data => {
+          // console.log('Jugador eliminado:', data);
+          this.obtenerEncargados();
+        }, error => {
+          // console.error('Error al eliminar jugador', error);
+        });
+    } else {
+      console.log('El $$instanceId es undefined.');
     }
   }
   

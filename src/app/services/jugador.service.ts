@@ -15,14 +15,7 @@ export class JugadorService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerJugadores(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
-      'Authorization': 'Basic c3ZlbjpwYXNz',
-    });
-
-    return this.http.get<any>(this.apiUrl, { headers });
-  }
+ 
 
 
   actualizarJugador(jugador: Jugador): Observable<any> {
@@ -52,11 +45,21 @@ export class JugadorService {
     return this.http.get(apiUrl, requestOptions);
   }
 
+  
+  obtenerJugadores(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+    });
+
+    return this.http.get<any>(this.apiUrl, { headers });
+  }
+
   crearJugador(nuevoJugador: Jugador): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
       'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     });
 
     const requestBody = {
@@ -65,29 +68,40 @@ export class JugadorService {
       telefono: { value: nuevoJugador.telefono },
       mail: { value: nuevoJugador.mail },
       password: { value: nuevoJugador.password },
-      fechaDeNacimientoString: { value: nuevoJugador.fechaDeNacimiento instanceof Date ? nuevoJugador.fechaDeNacimiento.toISOString() : '' },
+      fechaDeNacimientoString: { value: nuevoJugador.fechaDeNacimiento },
     };
 
-    return this.http.post(this.baseUrl + 'crearJugador/invoke', requestBody, { headers }).pipe(
-      catchError(this.handleError)
-    );
+    return this.http.post(this.baseUrl + 'crearJugador/invoke', requestBody, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: any): Observable<any> {
     console.error('Error en la solicitud:', error);
-    return throwError('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.'); // Utiliza throwError para devolver un Observable con el error
+    return throwError('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
   }
-  
-  eliminarJugador(objectId: string): Observable<any> {
-    const url = `http://localhost:8080/restful/objects/simple.Jugador/${objectId}/actions/eliminarJugador/invoke`;
+
+
+  eliminarJugador(instanceId: string): Observable<any> {
+    const url = `http://localhost:8080/restful/objects/simple.Jugador/${instanceId}/actions/eliminarJugador/invoke`;
 
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
       'Accept': 'application/json'
     });
 
-    return this.http.post(url, null, { headers });
+    return this.http.post(url, null, { headers }).pipe(
+      catchError(error => {
+        console.error('Error en la solicitud HTTP:', error);
+        throw error;
+      })
+    );
   }
+  
+  
+  
 
-
+  
 }
+  

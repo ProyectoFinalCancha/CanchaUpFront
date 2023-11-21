@@ -8,7 +8,7 @@
     <div class="col-md-3">
       <div class="card">
         <div class="card-body p-4">
-          <form [formGroup]="encargadoForm" (ngSubmit)="crearEncargado()">
+          <form #encargadoForm="ngForm" (ngSubmit)="crearEncargado(encargadoForm)">
 
             <h1 class="titulo-bonito">Crear Encargado</h1>
             <br>
@@ -18,19 +18,25 @@
             <div class="form-group">
               <br>
               <div class="form-group" style="width: 250px;">
-                <input type="text" formControlName="telefono" placeholder="Ingrese el teléfono" class="form-control">
+                <input type="text" formControlName="telefono"
+                [(ngModel)]="nuevoEncargado.telefono"
+                placeholder="Ingrese el teléfono" class="form-control">
               </div>
               <br>
               <div class="form-group" style="width: 250px;">
-                <input type="text" formControlName="apellido" placeholder="Ingrese el apellido" class="form-control">
+                <input type="text" formControlName="apellido"
+                [(ngModel)]="nuevoEncargado.apellido" placeholder="Ingrese el apellido" class="form-control">
               </div>
               <br>
               <div class="form-group" style="width: 250px;">
-                <input type="text" formControlName="dni" placeholder="Ingrese el dni" class="form-control">
+                <input type="text" formControlName="dni"
+                [(ngModel)]="nuevoEncargado.dni" placeholder="Ingrese el dni" class="form-control">
               </div>
               <br>
               <div class="form-group" style="width: 250px;">
-                <input type="text" formControlName="nombre" placeholder="Ingrese el nombre" class="form-control">
+                <input type="text" 
+                [(ngModel)]="nuevoEncargado.nombre" 
+                formControlName="nombre" placeholder="Ingrese el nombre" class="form-control">
               </div>
               <br>
               <div class="form-group">
@@ -48,51 +54,39 @@
           <h1 class="titulo-bonito">Buscar Encargado</h1>
           <br>
           <span class="p-input-icon-left">
-            <input type="text" [(ngModel)]="telefonoFiltrado" placeholder="Ingrese Nro de Telefono" />
-            &nbsp;<button type="button" class="btn btn-secondary" (click)="buscarEncargadoPorTelefono()">Buscar</button>
+            <input required type="text" [(ngModel)]="telefonoFiltrado" placeholder="Ingrese Nro de Telefono" pInputText />
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary"
+              (click)="buscarEncargadoPorTelefono(telefonoFiltrado)">Buscar</button>
           </span>
         </div>
-        
-        
       </div>
     </div>
     <br>
     <!-- TABLE -->
-    <div class="tabla-container">
-      <table class="tabla-estilo" #tabla> 
-        <thead>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>DNI</th>
-          <th>Teléfono</th>
-          <th></th>
-          <th></th>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let encargado of encargados">
-            <tr [ngClass]="{'resaltado': isTelefonoResaltado(encargado.telefono)}">
-              <td>{{ encargado.nombre }}</td>
-              <td>{{ encargado.apellido }}</td>
-              <td>{{ encargado.dni }}</td>
-              <td>{{ encargado.telefono }}</td>
-              <td>
-                <button type="button" class="btn btn-outline-danger" (click)="eliminarEncargado(encargado)">Eliminar</button>
-                &nbsp;&nbsp;<button type="button" class="btn btn-outline-info" (click)="openEditDialog(encargado)">Ver</button>
-              </td>
-            </tr>
-          </ng-container>
-        </tbody>
-        
-      </table>
+    <table mat-table [dataSource]="encargados" class="tabla-estilo" matSort matPaginator #paginator>
+      <ng-container *ngFor="let columna of ['nombre', 'apellido', 'telefono', 'mail', 'pass', 'user']" [matColumnDef]="columna">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
+        <td mat-cell *matCellDef="let encargado">{{ encargado[columna] }}</td>
+      </ng-container>
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let encargado">
+          <button (click)="eliminarEncargado(encargado.$$instanceId)" class="btn btn-danger btn-sm">
+            <i class="material-icons">delete</i>
+          </button>
+          
+          
+          
+          
+          <button type="button" class="btn btn-outline-info" (click)="openEditDialog(encargado)">Ver</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['nombre', 'dni', 'telefono', 'apellido', 'pass', 'user', 'acciones']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['nombre',  'dni', 'telefono', 'apellido', 'pass', 'user', 'acciones']"></tr>
+    </table>
+    <div class="paginator-container">
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
-  </div>
-  <div class="paginator-container">
-    <mat-paginator class="mat-paginator"
-                   [length]="totalItems"
-                   [pageSizeOptions]="pageSizeOptions"
-                   [pageSize]="pageSize"
-                   [pageIndex]="pageIndex"
-                   (page)="onPageChange($event)"></mat-paginator>
-  </div>
 
 
