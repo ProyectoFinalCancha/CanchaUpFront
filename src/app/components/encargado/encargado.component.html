@@ -10,39 +10,84 @@
         <div class="card-body p-4">
           <form #encargadoForm="ngForm" (ngSubmit)="crearEncargado(encargadoForm)">
 
+        
             <h1 class="titulo-bonito">Crear Encargado</h1>
-            <br>
-            <input type="hidden" formControlName="id">
             <br>
           
             <div class="form-group">
-              <br>
-              <div class="form-group" style="width: 250px;">
-                <input type="text" formControlName="telefono"
-                [(ngModel)]="nuevoEncargado.telefono"
-                placeholder="Ingrese el teléfono" class="form-control">
-              </div>
-              <br>
-              <div class="form-group" style="width: 250px;">
-                <input type="text" formControlName="apellido"
-                [(ngModel)]="nuevoEncargado.apellido" placeholder="Ingrese el apellido" class="form-control">
-              </div>
-              <br>
-              <div class="form-group" style="width: 250px;">
-                <input type="text" formControlName="dni"
-                [(ngModel)]="nuevoEncargado.dni" placeholder="Ingrese el dni" class="form-control">
-              </div>
-              <br>
-              <div class="form-group" style="width: 250px;">
-                <input type="text" 
+              <label for="nombre">Nombre:</label>
+              <input 
+                required 
+                type="text" 
+                id="nombre" 
+                name="nombre" 
                 [(ngModel)]="nuevoEncargado.nombre" 
-                formControlName="nombre" placeholder="Ingrese el nombre" class="form-control">
-              </div>
-              <br>
-              <div class="form-group">
-                <button type="submit">Crear Encargado</button>
-              </div>
+                placeholder="Ingrese su nombre" 
+                class="form-control"
+              >
             </div>
+          
+            <div class="form-group">
+              <label for="apellido">Apellido:</label>
+              <input 
+                required 
+                type="text" 
+                id="apellido" 
+                name="apellido" 
+                [(ngModel)]="nuevoEncargado.apellido" 
+                placeholder="Ingrese su apellido" 
+                class="form-control"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="dni">Dni:</label>
+              <input 
+                required 
+                type="text" 
+                id="dni" 
+                name="dni" 
+                [(ngModel)]="nuevoEncargado.dni" 
+                placeholder="Ingrese su correo dni" 
+                class="form-control"
+              >
+            </div>
+          
+            <div class="form-group">
+              <label for="telefono">Teléfono:</label>
+              <input 
+                required 
+                type="text" 
+                id="telefono" 
+                name="telefono" 
+                [(ngModel)]="nuevoEncargado.telefono" 
+                placeholder="Ingrese su teléfono" 
+                class="form-control"
+              >
+            </div>
+          
+          
+          
+           
+          
+            <div class="form-group">
+              <label for="password">Contraseña:</label>
+              <input 
+                required 
+                type="password" 
+                id="password" 
+                name="password" 
+                [(ngModel)]="nuevoEncargado.password" 
+                placeholder="Ingrese su contraseña" 
+                class="form-control"
+              >
+            </div>
+          
+          
+          
+            <!-- Otros campos del formulario según tu estructura -->
+          
+            <button type="submit" class="bn6">Guardar</button>
           </form>
           
         </div>
@@ -65,7 +110,7 @@
     <br>
     <!-- TABLE -->
     <table mat-table [dataSource]="encargados" class="tabla-estilo" matSort matPaginator #paginator>
-      <ng-container *ngFor="let columna of ['nombre', 'apellido', 'telefono', 'mail', 'pass', 'user']" [matColumnDef]="columna">
+      <ng-container *ngFor="let columna of ['nombre', 'apellido', 'dni', 'telefono', 'pass']" [matColumnDef]="columna">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
         <td mat-cell *matCellDef="let encargado">{{ encargado[columna] }}</td>
       </ng-container>
@@ -82,8 +127,8 @@
           <button type="button" class="btn btn-outline-info" (click)="openEditDialog(encargado)">Ver</button>
         </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="['nombre', 'dni', 'telefono', 'apellido', 'pass', 'user', 'acciones']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['nombre',  'dni', 'telefono', 'apellido', 'pass', 'user', 'acciones']"></tr>
+      <tr mat-header-row *matHeaderRowDef="['nombre', 'apellido', 'dni', 'telefono', 'pass', 'acciones']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['nombre', 'apellido', 'dni', 'telefono', 'pass', 'acciones']"></tr>
     </table>
     <div class="paginator-container">
       <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

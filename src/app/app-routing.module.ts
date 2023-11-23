@@ -93,6 +93,10 @@ const routes: Routes = [
     canActivate: [ValidarEncargadoGuard] 
   },
   {
+    path:'admin2Dash',
+    component:DashboardAdminComponent
+  },
+  {
     path:'equipos',
     component:EquipoComponent,
     // canActivate: [AuthGuard]

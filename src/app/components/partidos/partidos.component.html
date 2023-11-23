@@ -1,51 +1,55 @@
-<body>
-  
 <div class="mybotton">
   <br>
   <!-- <p-button class="mybotton" label="Salir" severity="danger"></p-button> -->
- <button (click)="navegar()" class="bn632-hover bn23">Volver a Home</button>
+  <button (click)="navegar()" class="bn632-hover bn23">Volver a Home</button>
 </div>
-  
+
 <div class="row">
   <!-- FORM -->
   <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <!-- FORM -->
-        <form [formGroup]="partidoForm" (ngSubmit)="crearPartido()">
+        <form #partidoForm="ngForm" (ngSubmit)="crearPartido(partidoForm)">
           <h1 class="titulo-bonito">Crear Partido</h1>
           <br>
-          <input type="hidden" formControlName="id">
-          <br>
           <div class="form-group">
-            <span style="color: rgb(36, 108, 47);">Elige tu Horario</span>
-            <select class="form-select" formControlName="horario">
-              <option [ngValue]="null" disabled>Horario</option>
-              <option *ngFor="let horario of getHorarios()">{{ horario }}</option>
+            <label for="horario">Horario:</label>
+            <select id="horario" name="horario" [(ngModel)]="nuevoPartido.horario" class="form-control">
+              <option value="18 hs">18 hs</option>
+              <option value="19 hs">19 hs</option>
+              <option value="20 hs">20 hs</option>
+              <option value="21 hs">21 hs</option>
+              <option value="22 hs">22 hs</option>
+              <option value="23 hs">23 hs</option>
             </select>
           </div>
-          
-          
+
+          <div class="form-group">
+            <label for="dia">Día:</label>
+            <!-- Cambia el tipo de input a "date" -->
+            <input required type="date" id="dia" name="dia" [(ngModel)]="nuevoPartido.dia" class="form-control">
+          </div>
           
         
-          <br>
-          <div class="form-group" style="width: 250px;">
-            <input type="date" formControlName="dia" placeholder="Seleccione la fecha" class="form-control">
+
+          <div class="form-group">
+            <label for="telefono">telefono:</label>
+            <input required type="text" id="telefono" name="telefono" [(ngModel)]="nuevoPartido.telefono"
+              placeholder="Ingrese su telefono" class="form-control">
           </div>
-          <br>
-          <div class="form-group" style="width: 250px;">
-            <input type="text" formControlName="telefono" placeholder="Ingrese el teléfono" class="form-control">
+
+          <div class="form-group">
+            <label for="precio">precio:</label>
+            <input required type="text" id="precio" name="precio" [(ngModel)]="nuevoPartido.precio"
+              placeholder="Ingrese su precio" class="form-control">
           </div>
-          <br>
-          <div class="form-group" style="width: 250px;">
-            <input type="text" formControlName="precio" placeholder="Ingrese el precio" class="form-control">
-          </div>
-          <br>
+
           <button type="submit" class="bn6">Guardar</button>
 
-        
+
         </form>
-        
+
       </div>
     </div>
 
@@ -53,80 +57,128 @@
   <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
-        <h1 class="titulo-bonito">Buscar Partido</h1>
+        <h1 class="titulo-bonito">Sacar Turno</h1>
         <br>
         <span class="p-input-icon-left">
-          <input type="text" placeholder="Ingrese Nro de Telefono" pInputText [(ngModel)]="telefono" /> &nbsp;&nbsp;
-          <button type="button" class="btn btn-secondary" (click)="buscarPartido()">Buscar</button>
+          &nbsp;&nbsp;
+          <button type="button" class="btn btn-primary" (click)="sacarTurno()">Sacar Turno</button>
         </span>
-        <!-- <select [(ngModel)]="selectedEstado" class="form-control">
-          <option *ngFor="let estado of estadosPartidoArray" [value]="estado.value">{{ estado.label }}</option>
-        </select> -->
-        
-
       </div>
     </div>
   </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body p-4">
+        <h1 class="titulo-bonito">Buscar Partido</h1>
+        <br>
+
+        <div class="form-group">
+          <label for="horario">Horario:</label>
+          <select id="horario" name="horario" [(ngModel)]="nuevoPartido.horario" class="form-control">
+            <option value="18 hs">18 hs</option>
+            <option value="19 hs">19 hs</option>
+            <option value="20 hs">20 hs</option>
+            <option value="21 hs">21 hs</option>
+            <option value="22 hs">22 hs</option>
+            <option value="23 hs">23 hs</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dia">Día:</label>
+          <input type="date" class="form-control" id="dia" [(ngModel)]="nuevoPartido.dia"
+            placeholder="Seleccione el día">
+        </div>
+
+        <div class="form-group">
+          <label for="numeroCancha">Número de Cancha:</label>
+          <select id="numeroCancha" name="numeroCancha" [(ngModel)]="nuevoPartido.numeroCancha" class="form-control">
+            <option value="UNO">UNO</option>
+            <option value="DOS">DOS</option>
+            <option value="TRES">TRES</option>
+
+          </select>
+        </div>
+
+        <span class="p-input-icon-left">
+          &nbsp;&nbsp;
+          <button type="button" class="btn btn-secondary" (click)="buscarPartido()">Buscar</button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body p-4">
+        <h1 class="titulo-bonito">Buscar Partido por Estado</h1>
+        <br>
+
+        <div class="form-group">
+          <label for="estado">Seleccionar Estado:</label>
+          <select class="form-control" id="estado" [(ngModel)]="selectedEstado">
+            <!-- Agrega opciones de estados según tu lógica de negocio -->
+            <option value="ESPERA">En Espera</option>
+            <option value="CONFIRMADO">Confirmado</option>
+            <option value="COMPLETADO">Completado</option>
+            <option value="MATCHMAKING">Matchmaking</option>
+            <option value="RECHAZADO">Rechazado</option>
+            <!-- Agrega más opciones según sea necesario -->
+          </select>
+        </div>
+
+        <span class="p-input-icon-left">
+          &nbsp;&nbsp;
+          <button type="button" class="btn btn-secondary" (click)="buscarPartidoPorEstado()">Buscar</button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body p-4">
+        <h1 class="titulo-bonito">Buscar Partido por Representante</h1>
+        <br>
+
+        <div class="form-group">
+          <label for="telefono">Número de Teléfono del Representante:</label>
+          <input type="text" class="form-control" id="telefono" [(ngModel)]="telefono"
+            placeholder="Ingrese el número de teléfono">
+        </div>
+
+        <span class="p-input-icon-left">
+          &nbsp;&nbsp;
+          <button type="button" class="btn btn-secondary" (click)="buscarPartidoPorRepresentante()">Buscar</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
   <h1> &nbsp; </h1>
   <h1> &nbsp; </h1>
   <!-- TABLE -->
-  <div class="tabla-container">
-    
-    <table class="tabla-estilo">
-      <thead>
-        <th></th>
-        <th>Horario</th>
-        <th>Día</th>
-        <th>Teléfono</th>
-        <th>Precio</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let partido of partidoService.partidos">
-          <td>  
-            <button type="button" class="bn6" (click)="confirmarPartido()">Confirmar Partido</button>
-          </td>
-          <td>
-            <button type="button" class="bn6" (click)="completar()">Confirmar Partido</button>
-          </td>
-          <td>{{ partido.horario }}</td>
-          <td>{{ partido.dia | date:'shortDate' }}</td>
-          <td>{{ partido.telefono }}</td>
-          <td>{{ partido.precio }}</td>
-          <td>{{ getNombreEstado(partido.estado) }}</td>
-          <td>
-            <br>
-            <a (click)="rechazarPartido(partido.id.toString())" class="btn btn-danger btn-sm">
-              <i class="material-icons">delete</i>
-            </a>
-          </td>
-          <td>
-           
-            <button (click)="darDeBaja(partido.id.toString())" class="btn btn-warning btn-sm">
-              Dar de Baja
-            </button>
-          </td>
-        </tr>
-        
-        
-      </tbody>
-    </table>
+
+  <table mat-table [dataSource]="partidos" class="tabla-estilo" matSort matPaginator #paginator>
+    <ng-container *ngFor="let columna of ['horario', 'dia', 'telefono', 'precio']" [matColumnDef]="columna">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
+      <td mat-cell *matCellDef="let partido">{{ partido[columna] }}</td>
+    </ng-container>
+
+    <!-- Definir la columna "acciones" una sola vez -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let partido">
+        <button (click)="rechazarPartido(partido.$$instanceId)" class="btn btn-danger btn-sm">
+          <i class="material-icons">delete</i>
+        </button>
+        <button (click)="confirmarPartido(partido.$$instanceId)">Confirmar</button>
+        <button (click)="darDeBaja(partido.$$instanceId)">Dar de Baja</button>
+        <button (click)="completarPartido(partido.$$instanceId)">Completar</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['horario', 'dia', 'telefono', 'precio','acciones']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['horario', 'dia', 'telefono', 'precio','acciones']"></tr>
+  </table>
+  <div class="paginator-container">
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
-</div>
-<div class="paginator-container">
-  <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 20, 50]"
-    [pageSize]="pageSize" [pageIndex]="pageIndex" [length]="partidos.length"
-    (page)="onPageChange($event)"></mat-paginator>
-</div>
-<div class="boton-container">
-  <button class="boton-personalizado" style="border-bottom-left-radius: 10px;" (click)="goToFirstPage()">
-    <i class="fa fa-angle-double-left"></i>
-  </button>
-  <button class="boton-personalizado" style="border-bottom-right-radius: 10px;" (click)="goToLastPage()">
-    <i class="fa fa-angle-double-right"></i>
-  </button>
-</div>
-
-<br>
-
-</body>

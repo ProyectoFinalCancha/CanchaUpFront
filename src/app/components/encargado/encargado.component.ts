@@ -21,6 +21,9 @@ export class EncargadoComponent implements OnInit{
   telefonoFiltrado: string = '';
 
   nuevoEncargado!:Encargado
+  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
   constructor(private fb: FormBuilder,private encargadoService: EncargadoService,private router:Router,  public dialog: MatDialog) {
 
@@ -37,15 +40,8 @@ export class EncargadoComponent implements OnInit{
   pageSize = 10; // Ajusta el tamaño de la página según tus necesidades
   totalItems = 0;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
-
-
-  ngOnInit() {
- 
-    this.obtenerEncargados();
-  }
 
   previousPage(): void {
     if (this.currentPage > 1) {
@@ -68,6 +64,14 @@ export class EncargadoComponent implements OnInit{
     }
     return 0;
   }
+
+
+  ngOnInit() {
+    this.obtenerEncargados();
+  }
+
+
+
   isTelefonoResaltado(telefono: string): boolean {
     return telefono.includes(this.telefonoFiltrado);
   }
@@ -152,6 +156,6 @@ export class EncargadoComponent implements OnInit{
   
 
   navegar(){
-    this.router.navigate(['dashboard'])
+    this.router.navigate(['/admin2Dash'])
   }
 }

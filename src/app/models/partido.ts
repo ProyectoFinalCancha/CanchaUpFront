@@ -1,15 +1,19 @@
+import { Jugador } from "./jugador";
 
 
 
 export class Partido {
-    
+
    
     id!:number;
-    horario!: Horarios;
-    dia!: Date | null;
-    telefono!: string;
+    dia!: Date;
+    estado!: string | null;
+    horario!: string;
+    numeroCancha!:string | null;
     precio!: string;
-    estado!: EstadosPartido;
+    telefono!:string;
+    representante?:Jugador | null;// Puede ser Jugador o null  el ? siginifica que es opcional 
+   
 
 }
 
@@ -20,10 +24,10 @@ export enum EstadosPartido{
 
 
 export enum Horarios{
-    '18 hs' = '18 hs',
-    '19 hs' = '19 hs',
-    '20 hs' = '20 hs',
-    '21 hs' = '21 hs',
-    '22 hs' = '22 hs',
-    '23 hs' = '23 hs'
+    '18 hs' ,
+    '19 hs' ,
+    '20 hs' ,
+    '21 hs' ,
+    '22 hs' ,
+    '23 hs' 
 }

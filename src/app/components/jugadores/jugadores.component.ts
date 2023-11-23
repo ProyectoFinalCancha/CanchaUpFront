@@ -78,7 +78,7 @@ export class JugadoresComponent {
   }
 
   navegar() {
-    this.router.navigate(['dashboard'])
+    this.router.navigate(['/admin2Dash'])
   }
 
 
@@ -178,7 +178,7 @@ export class JugadoresComponent {
   
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        // Aquí puedes manejar los datos actualizados si es necesario
+      
         console.log('Encargado editado:', result);
       }
     });

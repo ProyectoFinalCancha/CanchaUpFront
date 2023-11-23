@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Partido } from '../models/partido';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, tap } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -18,29 +18,24 @@ export class PartidoService {
 
   private apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/buscarPartidoPorRepresentante/invoke';
 
-  private baseUrl_ver = 'http://localhost:8080/restful/services/simple.PartidoServices/actions';
+  private baseUrl_ver = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/verPartidos/invoke';
 
 
-  
+
   constructor(private http: HttpClient) { }
-  
+
 
   verPartidos(): Observable<any> {
-    const url = `${this.baseUrl_ver}/verPartidos/invoke`;
-    
-    // Configurar las cabeceras
+
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
       'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
-      'Content-Type': 'application/json',
     });
-
-    // Realizar la solicitud GET
-    return this.http.get(url, { headers });
+    return this.http.get<any>(this.baseUrl_ver, { headers });
   }
 
 
-  sacarTurno(horario: string, dia: string, telefono: string): void {
+  sacarTurno(horario: string, dia: string, telefono: string): Observable<any> {
     const raw = JSON.stringify({
       horarioSting: {
         value: horario,
@@ -58,98 +53,80 @@ export class PartidoService {
         'Authorization': 'Basic c3ZlbjpwYXNz',
         'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
         'Content-Type': 'application/json',
-      })
+      }),
     };
 
-    this.http.post(
+    // Devuelve el observable resultante de la solicitud HTTP
+    return this.http.post(
       'http://localhost:8080/restful/services/simple.PartidoServices/actions/sacarTurno/invoke',
       raw,
       requestOptions
-    )
-    .subscribe(
-      (result) => {
-        console.log(result);
-      },
-      (error) => {
-        console.log('Error', error);
-      }
     );
   }
-  
-  crearPartido(horario: string, dia: string, telefono: string, precio: string): void {
-    const raw = {
-      horario: {
-        value: horario,
-      },
-      dia: {
-        value: dia,
-      },
-      telefono: {
-        value: telefono,
-      },
-      precio: {
-        value: precio,
-      },
+
+  crearPartido(nuevoPartido: Partido): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      'Content-Type': 'application/json',
+    });
+    const requestBody = {
+      horarioSting: { value: nuevoPartido.horario },
+      diaString: { value: nuevoPartido.dia }, // Asegúrate de formatear correctamente la fecha
+      telefono: { value: nuevoPartido.telefono },
+      precio: { value: nuevoPartido.precio },
     };
-  
-    const requestOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Basic c3ZlbjpwYXNz',
-        'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
-        'Content-Type': 'application/json',
-      })
-    };
-  
-    this.http.post(
+    return this.http.post(
       'http://localhost:8080/restful/services/simple.PartidoServices/actions/crearPartido/invoke',
-      raw,
-      requestOptions
-    )
-    .subscribe(
-      (result) => {
-        console.log(result);
-      },
-      (error) => {
-        console.error('Error', error);
-      }
-    );
+      requestBody,
+     {headers})
+     .pipe(
+      catchError(this.handleError)
+     );
   }
-  
 
 
-  rechazarPartido(objectId: string): Observable<any> {
-    const url = `http://localhost:8080/restful/objects/simple.Partido/${objectId}/actions/rechazar/invoke`;
+  private handleError(error: any): Observable<any> {
+    console.error('Error en la solicitud:', error);
+    return throwError('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
+  }
+
+
+  rechazarPartido(instanceId: string): Observable<any> {
+    const url = `http://localhost:8080/restful/objects/simple.Partido/${instanceId}/actions/rechazar/invoke`;
 
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
       'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
-    return this.http.put(url, {}, { headers });
+    return this.http.put(url, null, { headers });
   }
 
 
-  darDeBaja(objectId: string): Observable<any> {
-    const url = `http://localhost:8080/restful/objects/simple.Partido/${objectId}/actions/darDeBaja/invoke`;
+
+
+  darDeBaja(instanceId: string): Observable<any> {
+    const url = `http://localhost:8080/restful/objects/simple.Partido/${instanceId}/actions/darDeBaja/invoke`;
 
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
       'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
-    return this.http.post(url, {}, { headers });
+    return this.http.post(url, null, { headers });
   }
 
 
-  confirmarPartido(objectId: string): Observable<any> {
-    const url = `${this.url_Confirmar}${objectId}/actions/confirmar/invoke`;
+  confirmarPartido(instanceId: string): Observable<any> {
+    const url = `${this.url_Confirmar}${instanceId}/actions/confirmar/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2'
     });
 
-    return this.http.put(url, {}, { headers });
+    return this.http.put(url, null, { headers });
   }
 
 
@@ -158,30 +135,19 @@ export class PartidoService {
 
 
 
-  completar(objectId: string): Observable<any> {
-    const urlCompleta = `${this.url_Confirmar}${objectId}/actions/completar/invoke`;
+  completar(instanceId: string): Observable<any> {
+    const urlCompleta = `${this.url_Confirmar}${instanceId}/actions/completar/invoke`;
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Basic c3ZlbjpwYXNz',
-        'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
-      })
-    };
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
+    });
 
-    return this.http.put<any>(urlCompleta, {}, httpOptions)
-      .pipe(
-        tap(result => console.log(result)),
-        catchError(this.handleError<any>('completar'))
-      );
+    return this.http.put<any>(urlCompleta, null, {headers})
+      
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      console.log(`${operation} failed: ${error.message}`);
-      return new Observable<T>();
-    };
-  }
+
 
 
 
@@ -209,38 +175,28 @@ export class PartidoService {
     });
 
     return this.http.get(url, { headers })
-      .pipe(
-        tap((result) => console.log(result)),
-        catchError(this.handleError('buscarPartidoEstado', []))
-      );
+     
   }
 
-
-
-  buscarPartido(): Observable<any> {
-    const horarioSting = "_18_HS";
-    const diaString = "2020-10-10";
-    const numeroCanchaSting = "DOS";
-
-    const body = {
-      horarioSting: {
-        value: horarioSting,
-      },
-      diaString: {
-        value: diaString,
-      },
-      numeroCanchaSting: {
-        value: numeroCanchaSting,
-      },
-    };
+  buscarPartido(horario: string, dia: string, numeroCancha: string): Observable<any> {
+    const url = `${this.baseUrl}actions/buscarPartido/invoke`;
 
     const headers = new HttpHeaders({
-      'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
+      'Content-Type': 'application/json', // Indica que el cuerpo de la solicitud es JSON
     });
 
-    return this.http.post<any>(this.apiUrl, body, { headers });
+    const body = {
+      horarioSting: { value: horario },
+      diaString: { value: dia },
+      numeroCanchaSting: { value: numeroCancha },
+    };
+
+    return this.http.post(url, body, { headers });
   }
+
+  
 
 
 }
