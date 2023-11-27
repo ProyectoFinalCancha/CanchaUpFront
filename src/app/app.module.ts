@@ -24,7 +24,7 @@ import { EncargadoService } from './services/encargado.service';
 
 @NgModule({
   declarations: [
-    AppComponent,    
+    AppComponent,
   ],
   imports: [
     BrowserModule,

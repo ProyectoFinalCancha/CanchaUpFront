@@ -27,7 +27,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-
+import {MatDatepickerModule} from '@angular/material/datepicker'; 
 import { MatDialogModule } from '@angular/material/dialog';
 import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.component';
 import { LoginEncargadoComponent } from './login-encargado/login-encargado.component'; // Importa MatDialogModule
@@ -40,6 +40,9 @@ import { SolicitudComponent } from './solicitudes/solicitud/solicitud.component'
 import { EquipoComponent } from './equipo/equipo.component';
 import { JugadoresComponent } from './jugadores/jugadores.component';
 import { VerJugadoresComponent } from './jugadores/ver-jugadores/ver-jugadores.component';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
 
 
 @NgModule({
@@ -60,7 +63,6 @@ import { VerJugadoresComponent } from './jugadores/ver-jugadores/ver-jugadores.c
     SolicitudEquipoComponent,
     SolicitudComponent,
     EquipoComponent,
-    
     
   
 
@@ -83,13 +85,15 @@ import { VerJugadoresComponent } from './jugadores/ver-jugadores/ver-jugadores.c
     TieredMenuModule,
     MatPaginatorModule,
     MatTableModule,
-   
+    MatDatepickerModule,
+    MatNativeDateModule,
+  //  EnumStringPipe
   ],
   exports: [
     VerJugadoresComponent,
     EquipoComponent,
     PartidosComponent,
-    DropdownModule
+    DropdownModule,
     // PopupComponent
   ],
   providers: [MatPaginator,  PageEvent, EncargadoService],

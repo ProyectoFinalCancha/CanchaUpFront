@@ -8,10 +8,10 @@ export class Partido {
     id!:number;
     dia!: Date;
     estado!: string | null;
-    horario!: string;
+    horario!: Horarios;
     numeroCancha!:string | null;
-    precio!: string;
-    telefono!:string;
+    precio!: number;
+    telefono!:string | null;
     representante?:Jugador | null;// Puede ser Jugador o null  el ? siginifica que es opcional 
    
 
@@ -23,11 +23,13 @@ export enum EstadosPartido{
 }
 
 
-export enum Horarios{
-    '18 hs' ,
-    '19 hs' ,
-    '20 hs' ,
-    '21 hs' ,
-    '22 hs' ,
-    '23 hs' 
-}
+export enum Horarios {
+    _18_HS = '_18_HS',
+    _19_HS = '_19_HS',
+    _20_HS = '_20_HS',
+    _21_HS = '_21_HS',
+    _22_HS = '_22_HS',
+    _23_HS = '_23_HS',
+  }
+  
+  

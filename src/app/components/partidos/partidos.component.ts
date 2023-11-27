@@ -8,7 +8,6 @@ import { Jugador } from 'src/app/models/jugador';
 import { EstadosPartido, Horarios, Partido } from 'src/app/models/partido';
 import { PartidoService } from 'src/app/services/partido.service';
 
-
 @Component({
   selector: 'app-partidos',
   templateUrl: './partidos.component.html',
@@ -20,7 +19,11 @@ export class PartidosComponent {
 
   telefono: string = '';
   partidos: Partido[] = [];
-  horarios = Horarios;
+  horarios: string[] = Object.values(Horarios) as string[];
+
+
+
+
   selectedEstado: string = '';  // Declara la propiedad aquí
   nuevoPartido!: Partido
 
@@ -38,17 +41,51 @@ export class PartidosComponent {
     this.nuevoPartido = {
       id: 0,
       dia: new Date(),
-      estado: null, // o proporciona un valor de string
-      horario: '18:00',
-      numeroCancha: null, // o proporciona un valor de string
-      precio: '100',
-      telefono: '123456789',
-      representante: null
-    }
+      estado: null,
+      horario: Horarios['_18_HS'], // Inicializa con un valor del enum
+      numeroCancha: null,
+      precio: 0,
+      telefono: null,
+      representante: null,
+    };
   }
 
 
+  ngOnInit(): void {
 
+    this.obtenerPartidos();
+    // this.buscarPartidoEstado();
+  }
+
+  getHorariosArray(): string[] {
+    return Object.values(this.horarios) as string[];
+  }
+
+  getHorarioValue(columna: string, partido: any): Horarios | null {
+    if (columna === 'horario') {
+      return partido[columna] as Horarios;
+    }
+    // Si no es 'horario', puedes manejar otros casos aquí si es necesario
+    return null;
+  }
+  
+
+  crearPartido(partidoForm: NgForm): void {
+    if (partidoForm.valid) {
+      this.partidoService
+        .crearPartido(this.nuevoPartido)
+        .pipe(
+          finalize(() => {
+            this.obtenerPartidos();
+            this.nuevoPartido = new Partido();
+          })
+        )
+        .subscribe(
+          () => console.log('partido creado exitosamente'),
+          (error) => console.error('Error al crear partido:', error)
+        );
+    }
+  }
 
   previousPage(): void {
     if (this.currentPage > 1) {
@@ -73,15 +110,10 @@ export class PartidosComponent {
   }
 
 
-  ngOnInit(): void {
-
-    this.obtenerPartidos();
-    // this.buscarPartidoEstado();
-  }
-
+ 
 
   navegar() {
-    this.router.navigate(['dashboard'])
+    this.router.navigate(['admin2Dash'])
   }
 
 
@@ -89,7 +121,7 @@ export class PartidosComponent {
     const { horario, dia, telefono } = this.nuevoPartido;
 
     // Llama a la función sacarTurno del servicio
-    this.partidoService.sacarTurno(horario, dia.toISOString(), telefono).subscribe(
+    this.partidoService.sacarTurno(horario, dia.toISOString(), telefono!).subscribe(
       (result) => {
         console.log('Turno sacado con éxito:', result);
         // Actualiza cualquier otra lógica necesaria después de sacar el turno
@@ -104,14 +136,15 @@ export class PartidosComponent {
   obtenerPartidos(): void {
     this.partidoService.verPartidos().subscribe(
       (data: Partido[]) => {
-        this.partidos = [...data];  // Copia directa del arreglo
         console.log('Datos del servidor:', data);
+        this.partidos = [...data];
       },
       error => {
-        console.log('Error', error);
+        console.log('Error al obtener partidos:', error);
       }
     );
   }
+  
 
 
 
@@ -121,6 +154,7 @@ export class PartidosComponent {
     this.partidoService.rechazarPartido(instanceId).subscribe(
       (result) => {
         console.log('Partido rechazado con éxito:', result);
+        this.obtenerPartidos();
         // Puedes hacer algo aquí después de que el partido se ha rechazado, como actualizar la lista de partidos
         // this.actualizarListaDePartidos(); // Asume que tienes un método para actualizar la lista de partidos
       },
@@ -136,6 +170,7 @@ export class PartidosComponent {
     this.partidoService.darDeBaja(instanceId).subscribe(
       (result) => {
         console.log('Partido dado de baja con éxito:', result);
+        this.obtenerPartidos();
         // Puedes hacer algo aquí después de que el partido se ha dado de baja, como actualizar la lista de partidos
         // this.actualizarListaDePartidos(); // Asume que tienes un método para actualizar la lista de partidos
       },
@@ -145,23 +180,7 @@ export class PartidosComponent {
       }
     );
   }
-
-  getHorarios() {
-
-  }
-
-  crearPartido(partidoForm: NgForm): void {
-    this.partidoService.crearPartido(this.nuevoPartido)
-    .pipe(finalize(() => {
-      this.obtenerPartidos();
-      this.nuevoPartido = new Partido();
-    }))
-    .subscribe(
-      () => console.log('partido creado exitosamente'),
-      error => console.error('Error al crear partido:', error)
-    );
-  }
-  
+ 
   
   
   
@@ -173,6 +192,7 @@ export class PartidosComponent {
     this.partidoService.confirmarPartido(instanceId).subscribe(
       (result) => {
         console.log('Partido confirmado con éxito:', result);
+        this.obtenerPartidos();
         // Puedes hacer algo aquí después de que el partido se ha confirmado, como actualizar la lista de partidos
         // this.actualizarListaDePartidos(); // Asume que tienes un método para actualizar la lista de partidos
       },
@@ -187,6 +207,7 @@ export class PartidosComponent {
     this.partidoService.completar(instanceId).subscribe(
       (result) => {
         console.log('Partido completado con éxito:', result);
+        this.obtenerPartidos();
         // Puedes hacer algo aquí después de que el partido se ha completado, como actualizar la lista de partidos
         // this.actualizarListaDePartidos(); // Asume que tienes un método para actualizar la lista de partidos
       },

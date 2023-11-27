@@ -1,28 +1,31 @@
 <mat-dialog-content style="background-image: url('../../../../assets/images/background-stars.jpg');" class="custom-dialog-container">
-  
-   <img class="myimg" src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Descripción de la imagen" loading="lazy">
+  <img class="myimg" src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Descripción de la imagen" loading="lazy">
   <br>
-<br>
+  <br>
 
   <mat-form-field class="mattiDialog">
     <span>
       <FONT COLOR="#5d5def">Ingrese día</FONT>
     </span>
-    <input matInput type="date" placeholder="Día" [(ngModel)]="partido.dia" [ngModelOptions]="{ standalone: true }" (change)="onDiaSeleccionado()">
+    <input matInput [matDatepicker]="picker" placeholder="Día" [(ngModel)]="partido.dia">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  
   <br>
 
   <mat-form-field class="mattiDialog">
     <span>
       <FONT COLOR="#5d5def">Seleccione Horario</FONT>
     </span>
-    <mat-select [(ngModel)]="partido.horario" [ngModelOptions]="{ standalone: true }" (ngModelChange)="onHorarioSeleccionado()" [disabled]="!diaSeleccionado">
+    <mat-select [(ngModel)]="horario" [ngModelOptions]="{ standalone: true }">
       <mat-option *ngFor="let horarioOption of horarios" [value]="horarioOption">
         {{ horarioOption }}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  
 
   <br>
-  <a class="bn31" href="/"><span class="bn31span">Sacar Turno</span></a>
+  <button mat-button class="bn31" (click)="sacarTurno()">Sacar Turno</button>
 </mat-dialog-content>

@@ -16,22 +16,21 @@
           <div class="form-group">
             <label for="horario">Horario:</label>
             <select id="horario" name="horario" [(ngModel)]="nuevoPartido.horario" class="form-control">
-              <option value="18 hs">18 hs</option>
-              <option value="19 hs">19 hs</option>
-              <option value="20 hs">20 hs</option>
-              <option value="21 hs">21 hs</option>
-              <option value="22 hs">22 hs</option>
-              <option value="23 hs">23 hs</option>
+              <option *ngFor="let horario of horarios" [value]="horario">{{ horario }}</option>
             </select>
           </div>
+
+
+
+
+
+
 
           <div class="form-group">
             <label for="dia">Día:</label>
             <!-- Cambia el tipo de input a "date" -->
             <input required type="date" id="dia" name="dia" [(ngModel)]="nuevoPartido.dia" class="form-control">
           </div>
-          
-        
 
           <div class="form-group">
             <label for="telefono">telefono:</label>
@@ -39,9 +38,11 @@
               placeholder="Ingrese su telefono" class="form-control">
           </div>
 
+
+
           <div class="form-group">
             <label for="precio">precio:</label>
-            <input required type="text" id="precio" name="precio" [(ngModel)]="nuevoPartido.precio"
+            <input required type="number" id="precio" name="precio" [(ngModel)]="nuevoPartido.precio"
               placeholder="Ingrese su precio" class="form-control">
           </div>
 
@@ -72,7 +73,7 @@
         <h1 class="titulo-bonito">Buscar Partido</h1>
         <br>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="horario">Horario:</label>
           <select id="horario" name="horario" [(ngModel)]="nuevoPartido.horario" class="form-control">
             <option value="18 hs">18 hs</option>
@@ -82,7 +83,7 @@
             <option value="22 hs">22 hs</option>
             <option value="23 hs">23 hs</option>
           </select>
-        </div>
+        </div> -->
 
         <div class="form-group">
           <label for="dia">Día:</label>
@@ -113,18 +114,18 @@
         <h1 class="titulo-bonito">Buscar Partido por Estado</h1>
         <br>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="estado">Seleccionar Estado:</label>
           <select class="form-control" id="estado" [(ngModel)]="selectedEstado">
-            <!-- Agrega opciones de estados según tu lógica de negocio -->
+           
             <option value="ESPERA">En Espera</option>
             <option value="CONFIRMADO">Confirmado</option>
             <option value="COMPLETADO">Completado</option>
             <option value="MATCHMAKING">Matchmaking</option>
             <option value="RECHAZADO">Rechazado</option>
-            <!-- Agrega más opciones según sea necesario -->
+           
           </select>
-        </div>
+        </div> -->
 
         <span class="p-input-icon-left">
           &nbsp;&nbsp;
@@ -156,29 +157,41 @@
   <h1> &nbsp; </h1>
   <h1> &nbsp; </h1>
   <!-- TABLE -->
-
   <table mat-table [dataSource]="partidos" class="tabla-estilo" matSort matPaginator #paginator>
-    <ng-container *ngFor="let columna of ['horario', 'dia', 'telefono', 'precio']" [matColumnDef]="columna">
+    <!-- Columnas -->
+    <ng-container *ngFor="let columna of ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']" [matColumnDef]="columna">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
-      <td mat-cell *matCellDef="let partido">{{ partido[columna] }}</td>
-    </ng-container>
-
-    <!-- Definir la columna "acciones" una sola vez -->
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
       <td mat-cell *matCellDef="let partido">
-        <button (click)="rechazarPartido(partido.$$instanceId)" class="btn btn-danger btn-sm">
-          <i class="material-icons">delete</i>
-        </button>
-        <button (click)="confirmarPartido(partido.$$instanceId)">Confirmar</button>
-        <button (click)="darDeBaja(partido.$$instanceId)">Dar de Baja</button>
-        <button (click)="completarPartido(partido.$$instanceId)">Completar</button>
+        <!-- Ajusta el formato según la estructura real de tus datos -->
+        <ng-container *ngIf="columna !== 'acciones'; else accionesColumn">
+          <span *ngIf="columna === 'dia'">{{ partido.dia }}</span>
+          <span *ngIf="columna === 'estado'">{{ partido.estados.enumTitle }}</span>
+          <span *ngIf="columna === 'horario'">{{ partido.horario.enumTitle }}</span>
+          <span *ngIf="columna === 'numeroCancha'">{{ partido.numeroCancha.enumTitle }}</span>
+          <span *ngIf="columna === 'precio'">{{ partido.precio }}</span>
+          <span *ngIf="columna === 'representante'">{{ partido.representante?.title }}</span>
+
+
+
+        </ng-container>
+        <!-- Define las acciones -->
+        <ng-template #accionesColumn>
+          <button (click)="rechazarPartido(partido.$$instanceId)" class="boton-rechazar">Rechazar</button>
+          <button (click)="confirmarPartido(partido.$$instanceId)" class="boton-confirmar">Confirmar</button>
+          <button (click)="darDeBaja(partido.$$instanceId)" class="boton-dar-de-baja">Dar de Baja</button>
+          <button (click)="completarPartido(partido.$$instanceId)" class="boton-completar">Completar</button>
+      </ng-template>
+      
       </td>
     </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="['horario', 'dia', 'telefono', 'precio','acciones']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['horario', 'dia', 'telefono', 'precio','acciones']"></tr>
+  
+    <!-- Filas -->
+    <tr mat-header-row *matHeaderRowDef="['dia', 'estado', 'horario', 'numeroCancha', 'precio',  'representante', 'acciones']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']"></tr>
   </table>
-  <div class="paginator-container">
+  
+  <!-- Paginator -->
+  <!-- <div class="paginator-container">
     <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-  </div>
+  </div> -->
+  

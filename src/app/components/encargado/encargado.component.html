@@ -130,8 +130,9 @@
       <tr mat-header-row *matHeaderRowDef="['nombre', 'apellido', 'dni', 'telefono', 'pass', 'acciones']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['nombre', 'apellido', 'dni', 'telefono', 'pass', 'acciones']"></tr>
     </table>
-    <div class="paginator-container">
+    <!-- <div class="paginator-container">
       <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
+    </div> -->
 
-
+  </div>
+</body>

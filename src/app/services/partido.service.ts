@@ -64,6 +64,12 @@ export class PartidoService {
     );
   }
 
+
+
+
+
+  
+
   crearPartido(nuevoPartido: Partido): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
@@ -72,18 +78,23 @@ export class PartidoService {
     });
     const requestBody = {
       horarioSting: { value: nuevoPartido.horario },
-      diaString: { value: nuevoPartido.dia }, // Asegúrate de formatear correctamente la fecha
+      diaString: { value: nuevoPartido.dia },
       telefono: { value: nuevoPartido.telefono },
       precio: { value: nuevoPartido.precio },
     };
+  
     return this.http.post(
       'http://localhost:8080/restful/services/simple.PartidoServices/actions/crearPartido/invoke',
       requestBody,
-     {headers})
-     .pipe(
-      catchError(this.handleError)
-     );
+      { headers }
+    ).pipe(
+      catchError((error: any) => {
+        console.error('Error en la solicitud:', error);
+        return throwError('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
+      })
+    );
   }
+  
 
 
   private handleError(error: any): Observable<any> {
