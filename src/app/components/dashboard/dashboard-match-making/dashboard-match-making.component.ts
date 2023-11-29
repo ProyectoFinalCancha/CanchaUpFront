@@ -31,6 +31,12 @@ export class DashboardMatchMakingComponent {
     this.router.navigate(['/dashboard'])
   }
 
+  solicitud(){
+    this.router.navigate(['/solicitud'])
+  }
+  solicitudEquipo(){
+    this.router.navigate(['/solicitud-equipo'])
+  }
 
   equipos(): void {
     this.router.navigate(['/equipos']);

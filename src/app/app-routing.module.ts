@@ -24,7 +24,7 @@ import { ValidarUsuarioGuard } from './guard/validar-usuario.guard';
 
 
 const routes: Routes = [
-  
+
   {
     path: '',
     component: LoginComponent,
@@ -35,21 +35,21 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path:'loginEncargado',
-    component:LoginEncargadoComponent
+    path: 'loginEncargado',
+    component: LoginEncargadoComponent
   },
   {
     path: 'dashboard',
-    component: DashboardComponent ,
+    component: DashboardComponent,
     // canActivate: [ValidarUsuarioGuard] 
   },
   {
-    path:'solicitudes',
-    component:SolicitudComponent
+    path: 'solicitudes',
+    component: SolicitudComponent
   },
   {
-    path:'solicitudes-equipo',
-    component:SolicitudEquipoComponent
+    path: 'solicitudes-equipo',
+    component: SolicitudEquipoComponent
   },
   {
     path: 'registro',
@@ -62,16 +62,16 @@ const routes: Routes = [
   },
   {
     //////////////////////////POPUP DE JUGADORES
-    path:'verJugadores',
-    component:VerJugadoresComponent
+    path: 'verJugadores',
+    component: VerJugadoresComponent
   },
   {
     path: 'partidos',
     component: PartidosComponent
   },
   {
-    path:'match',
-    component:DashboardMatchMakingComponent
+    path: 'match',
+    component: DashboardMatchMakingComponent
   },
   {
     path: 'encargados',
@@ -79,27 +79,35 @@ const routes: Routes = [
   },
   {
     ////////////////POPUP DE ENCARGADO 
-    path:'verEncargados',
-    component:VerEncargadoComponent
+    path: 'verEncargados',
+    component: VerEncargadoComponent
   },
   {
     //////POPUP DEL DASHBOARD DE USUARIO 
-    path:'popup',
-    component:PopupDialogComponent
+    path: 'popup',
+    component: PopupDialogComponent
   },
   {
-    path:'adminDash',
-    component:DashboardAdminComponent,
+    path: 'adminDash',
+    component: DashboardAdminComponent,
     // canActivate: [ValidarEncargadoGuard] 
   },
   {
-    path:'admin2Dash',
-    component:DashboardAdminComponent
+    path: 'admin2Dash',
+    component: DashboardAdminComponent
   },
   {
-    path:'equipos',
-    component:EquipoComponent,
+    path: 'equipos',
+    component: EquipoComponent,
     // canActivate: [AuthGuard]
+  },
+  {
+    path: 'solicitud',
+    component: SolicitudComponent
+  },
+  {
+    path: 'solicitud-equipo',
+    component:SolicitudEquipoComponent
   },
   {
     path: '**',
