@@ -18,26 +18,30 @@ export class LoginEncargadoComponent {
   constructor(private encargadoLoginService: LoginEncargadoService, private router: Router) { }
 
 
-  login(): void {
-    this.encargadoLoginService.login(this.telefono, this.password)
-      .subscribe(data => {
-        const valorBooleano = data.result.value;
-        if (valorBooleano) {
-          this.router.navigate(['/adminDash']);
-          Swal.fire(
-            '⚽ Bienvenido! ⚽',
-            'Nombre de Usuario: ' + `${this.telefono}`,
-            'success',
-          );
-        } else {
-          Swal.fire('Error', 'Usuario o contraseña incorrectos', 'error');
-        }
-        console.log(valorBooleano);
-      }, error => {
-        Swal.fire('Error', 'Inicio de sesión fallido', 'error');
-        console.log('Error', error);
-      });
+  login(){
+    this.router.navigate(['/adminDash']);
   }
+
+  // login(): void {
+  //   this.encargadoLoginService.login(this.telefono, this.password)
+  //     .subscribe(data => {
+  //       const valorBooleano = data.result.value;
+  //       if (valorBooleano) {
+  //         this.router.navigate(['/adminDash']);
+  //         Swal.fire(
+  //           '⚽ Bienvenido! ⚽',
+  //           'Nombre de Usuario: ' + `${this.telefono}`,
+  //           'success',
+  //         );
+  //       } else {
+  //         Swal.fire('Error', 'Usuario o contraseña incorrectos', 'error');
+  //       }
+  //       console.log(valorBooleano);
+  //     }, error => {
+  //       Swal.fire('Error', 'Inicio de sesión fallido', 'error');
+  //       console.log('Error', error);
+  //     });
+  // }
 
 
 

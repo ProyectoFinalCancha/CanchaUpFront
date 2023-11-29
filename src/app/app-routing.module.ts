@@ -41,7 +41,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent ,
-    canActivate: [ValidarUsuarioGuard] 
+    // canActivate: [ValidarUsuarioGuard] 
   },
   {
     path:'solicitudes',
@@ -90,7 +90,7 @@ const routes: Routes = [
   {
     path:'adminDash',
     component:DashboardAdminComponent,
-    canActivate: [ValidarEncargadoGuard] 
+    // canActivate: [ValidarEncargadoGuard] 
   },
   {
     path:'admin2Dash',
