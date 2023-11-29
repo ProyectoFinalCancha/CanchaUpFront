@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { Jugador } from '../models/jugador';
-import { SharedService } from './shared/shared.service';
 
 @Injectable({
   providedIn: 'root'

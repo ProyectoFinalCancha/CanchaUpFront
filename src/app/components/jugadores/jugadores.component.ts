@@ -39,12 +39,16 @@ export class JugadoresComponent {
       telefono: '',
       mail: '',
       password: '',
-      username: '',
       fechaDeNacimiento: new Date(),
     };
   }
 
 
+
+
+
+  
+/////////////////////// PAGINADOR ////////////////////////////
   currentPage = 1;
   pageSize = 10; // Ajusta el tamaño de la página según tus necesidades
   totalItems = 0;
@@ -70,7 +74,10 @@ export class JugadoresComponent {
     }
     return 0;
   }
-  
+///////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
   ngOnInit(): void {
@@ -82,6 +89,10 @@ export class JugadoresComponent {
   }
 
 
+
+
+  
+///////////////////////GET JUGADORES
   obtenerJugadores(): void {
     this.jugadorService.obtenerJugadores().subscribe(
       (data: Jugador[]) => {
@@ -137,7 +148,9 @@ export class JugadoresComponent {
     }
   }
   
-  eliminarJugadorLocal(instanceId: string | undefined): void {
+
+
+  eliminarJugador(instanceId: string | undefined): void {
     if (instanceId !== undefined) {
       this.jugadorService.eliminarJugador(instanceId)
         .subscribe(data => {
@@ -164,12 +177,7 @@ export class JugadoresComponent {
   
   
 
-
-
-
-
-
-
+///////////////////////METODO QUE ABRE EL POPUP
   openEditDialog(jugador: Jugador): void {
     const dialogRef = this.dialog.open(VerJugadoresComponent, {
       width: '460px', // Personaliza el ancho según tus necesidades

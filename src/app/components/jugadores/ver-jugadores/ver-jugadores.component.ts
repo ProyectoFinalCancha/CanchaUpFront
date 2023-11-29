@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Encargado } from 'src/app/models/encargado';
 import { Jugador } from 'src/app/models/jugador';
 import { JugadorService } from 'src/app/services/jugador.service';
-import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-ver-jugadores',
@@ -15,7 +14,7 @@ export class VerJugadoresComponent {
   constructor(
     public dialogRef: MatDialogRef<VerJugadoresComponent>,
     private jugadorService: JugadorService,
-    private sharedService: SharedService,
+    
     @Inject(MAT_DIALOG_DATA) public data: Jugador
   ) { }
 
@@ -42,7 +41,7 @@ export class VerJugadoresComponent {
 
   isValid(data: Jugador): boolean {
     // Valida la información según tus criterios
-    return !!(data.nombre && data.apellido && data.telefono && data.mail && data.password && data.username);
+    return !!(data.nombre && data.apellido && data.telefono && data.mail && data.password );
   }
 
 }

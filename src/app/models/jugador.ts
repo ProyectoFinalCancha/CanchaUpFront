@@ -5,6 +5,5 @@ export class Jugador{
     telefono!: string;
     mail!: string;
     password!: string;
-    username!: string;
     fechaDeNacimiento!: Date;
 }

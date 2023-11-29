@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/shared/auth.service';
 import { LoginEncargadoService } from 'src/app/services/login-encargado.service';
 import Swal from 'sweetalert2';
 

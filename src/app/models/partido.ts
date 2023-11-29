@@ -23,6 +23,8 @@ export enum EstadosPartido{
 }
 
 
+
+//// 
 export enum Horarios {
     _18_HS = '_18_HS',
     _19_HS = '_19_HS',

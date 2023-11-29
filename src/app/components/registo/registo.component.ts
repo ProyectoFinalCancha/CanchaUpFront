@@ -17,7 +17,6 @@ export class RegistoComponent {
     telefono: '',
     mail: '',
     password: '',
-    username: '',
     fechaDeNacimiento: new Date(),
   };
 
