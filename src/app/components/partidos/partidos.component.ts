@@ -5,8 +5,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { Jugador } from 'src/app/models/jugador';
-import { EstadosPartido, Horarios, Partido } from 'src/app/models/partido';
+import { EstadosPartido, Horarios, NumeroCancha, Partido } from 'src/app/models/partido';
 import { PartidoService } from 'src/app/services/partido.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-partidos',
@@ -21,12 +22,15 @@ export class PartidosComponent {
   partidos: Partido[] = [];
   horarios: string[] = Object.values(Horarios) as string[];
 
-
-
-
+  errorOccurred: boolean = false;
+  errorMessage: string = '';
+  searchDia: string = '';
+  searchNumeroCancha: string = '';
+  numeroCanchaOptions = Object.keys(NumeroCancha);
+  horarioOptions = Object.keys(Horarios);
   selectedEstado: string = '';  // Declara la propiedad aquí
   nuevoPartido!: Partido
-
+  searchHorario: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -34,6 +38,7 @@ export class PartidosComponent {
   pageIndex = 0; // Índice de la página
   currentPage = 1;
   totalItems = 0;
+  filteredPartidos!: Partido[];
 
 
 
@@ -43,7 +48,7 @@ export class PartidosComponent {
       dia: new Date(),
       estado: null,
       horario: Horarios['_18_HS'], // Inicializa con un valor del enum
-      numeroCancha: null,
+      numeroCancha: NumeroCancha.UNO,
       precio: 0,
       telefono: null,
       representante: null,
@@ -68,7 +73,7 @@ export class PartidosComponent {
     // Si no es 'horario', puedes manejar otros casos aquí si es necesario
     return null;
   }
-  
+
 
   crearPartido(partidoForm: NgForm): void {
     if (partidoForm.valid) {
@@ -110,7 +115,7 @@ export class PartidosComponent {
   }
 
 
- 
+
 
   navegar() {
     this.router.navigate(['admin2Dash'])
@@ -144,7 +149,7 @@ export class PartidosComponent {
       }
     );
   }
-  
+
 
 
 
@@ -180,11 +185,11 @@ export class PartidosComponent {
       }
     );
   }
- 
-  
-  
-  
-  
+
+
+
+
+
 
 
 
@@ -248,19 +253,66 @@ export class PartidosComponent {
 
 
 
-
   buscarPartido(): void {
-    const { horario, dia, numeroCancha } = this.nuevoPartido;
-    this.partidoService.buscarPartido(horario, dia.toISOString(), numeroCancha!).subscribe(
-      (result) => {
-        console.log('Partidos encontrados:', result);
-        // Actualiza la lista de partidos con los resultados obtenidos
-        this.partidos = result; // Asume que el resultado es un array de Partido
-      },
-      (error) => {
-        console.error('Error al buscar partidos:', error);
-        // Manejar el error aquí si es necesario
-      }
-    );
+    console.log('Valor inicial de searchNumeroCancha:', this.searchNumeroCancha);
+  
+    const { numeroCancha } = this.nuevoPartido;
+    const dia = this.searchDia;
+    const horario = this.searchHorario;  // Modifica esta línea
+  
+    const diaMoment = moment(dia);
+  
+    if (diaMoment.isValid()) {
+      const formattedDia = diaMoment.format('YYYY-MM-DD');
+  
+      this.partidoService.buscarPartido(horario, formattedDia, numeroCancha.toString()).subscribe(
+        (result) => {
+          console.log('Partidos encontrados (result):', result);
+  
+          if (Array.isArray(result)) {
+            this.filteredPartidos = result;
+  
+            if (numeroCancha) {
+              this.partidos = this.filteredPartidos.filter(partido => partido.numeroCancha === numeroCancha);
+            } else {
+              this.partidos = this.filteredPartidos;
+            }
+  
+            if (this.paginator) {
+              this.paginator.firstPage();
+            }
+  
+            this.errorOccurred = false;
+            this.errorMessage = '';
+          } else {
+            console.error('Error: Result is not an array of Partido objects');
+            this.errorOccurred = true;
+            this.errorMessage = 'Unexpected response structure';
+          }
+        },
+        (error) => {
+          console.error('Error al buscar partidos:', error);
+          this.errorOccurred = true;
+          this.errorMessage = 'Error communicating with the server';
+        }
+      );
+    } else {
+      console.error('Error: Invalid date');
+      this.errorOccurred = true;
+      this.errorMessage = 'Invalid date';
+    }
+    console.log('Valor final de searchNumeroCancha:', this.searchNumeroCancha);
   }
+
+
+
+
+
+
+
+
+
+
+
+
 }

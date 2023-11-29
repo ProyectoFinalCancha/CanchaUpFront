@@ -15,6 +15,7 @@ export class PartidoService {
 
   private baseUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions';
 
+  private baseUrlBuscar = 'http://localhost:8080/restful/services/simple.PartidoServices';
 
   private apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/buscarPartidoPorRepresentante/invoke';
 
@@ -190,18 +191,18 @@ export class PartidoService {
   }
 
   buscarPartido(horario: string, dia: string, numeroCancha: string): Observable<any> {
-    const url = `${this.baseUrl}actions/buscarPartido/invoke`;
+    const url = `${this.baseUrlBuscar}/actions/buscarPartido/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
-      'Content-Type': 'application/json', // Indica que el cuerpo de la solicitud es JSON
+      'Content-Type': 'application/json',
     });
 
     const body = {
-      horarioSting: { value: horario },
-      diaString: { value: dia },
-      numeroCanchaSting: { value: numeroCancha },
+      horario: horario,
+      dia: dia,
+      numeroCancha: numeroCancha,
     };
 
     return this.http.post(url, body, { headers });

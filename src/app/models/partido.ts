@@ -9,7 +9,7 @@ export class Partido {
     dia!: Date;
     estado!: string | null;
     horario!: Horarios;
-    numeroCancha!:string | null;
+    numeroCancha!:NumeroCancha;
     precio!: number;
     telefono!:string | null;
     representante?:Jugador | null;// Puede ser Jugador o null  el ? siginifica que es opcional 
@@ -22,7 +22,11 @@ export enum EstadosPartido{
     'ESPERA','RECHAZADO','CONFIRMADO','COMPLETADO','MATCHMAKING'
 }
 
-
+export enum NumeroCancha{
+    UNO = 'UNO',
+    DOS = 'DOS',
+    TRES = 'TRES'
+}
 
 //// 
 export enum Horarios {

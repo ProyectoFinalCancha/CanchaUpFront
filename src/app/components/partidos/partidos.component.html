@@ -67,47 +67,48 @@
       </div>
     </div>
   </div>
+
+
   <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <h1 class="titulo-bonito">Buscar Partido</h1>
         <br>
-
-        <!-- <div class="form-group">
-          <label for="horario">Horario:</label>
-          <select id="horario" name="horario" [(ngModel)]="nuevoPartido.horario" class="form-control">
-            <option value="18 hs">18 hs</option>
-            <option value="19 hs">19 hs</option>
-            <option value="20 hs">20 hs</option>
-            <option value="21 hs">21 hs</option>
-            <option value="22 hs">22 hs</option>
-            <option value="23 hs">23 hs</option>
-          </select>
-        </div> -->
-
+  
         <div class="form-group">
           <label for="dia">Día:</label>
-          <input type="date" class="form-control" id="dia" [(ngModel)]="nuevoPartido.dia"
-            placeholder="Seleccione el día">
+          <input type="date" class="form-control" id="dia" [(ngModel)]="searchDia" placeholder="Seleccione el día">
         </div>
-
+  
         <div class="form-group">
           <label for="numeroCancha">Número de Cancha:</label>
-          <select id="numeroCancha" name="numeroCancha" [(ngModel)]="nuevoPartido.numeroCancha" class="form-control">
-            <option value="UNO">UNO</option>
-            <option value="DOS">DOS</option>
-            <option value="TRES">TRES</option>
-
+          <select id="numeroCancha" name="numeroCancha" [(ngModel)]="searchNumeroCancha" class="form-control">
+              <option *ngFor="let opcion of numeroCanchaOptions" [value]="opcion">{{ opcion }}</option>
           </select>
-        </div>
-
+      </div>
+      <div class="form-group">
+        <label for="horario">Horario:</label>
+        <select id="horario" name="horario" [(ngModel)]="searchHorario" class="form-control">
+          <option *ngFor="let opcion of horarioOptions" [value]="opcion">{{ opcion }}</option>
+        </select>
+      </div>
+      
+        
+  
         <span class="p-input-icon-left">
           &nbsp;&nbsp;
           <button type="button" class="btn btn-secondary" (click)="buscarPartido()">Buscar</button>
         </span>
+  
+        <!-- Display error message -->
+        <div *ngIf="errorOccurred" class="alert alert-danger mt-3">
+          Error: {{ errorMessage }}
+        </div>
       </div>
     </div>
   </div>
+  
+  
   <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
@@ -165,9 +166,10 @@
         <!-- Ajusta el formato según la estructura real de tus datos -->
         <ng-container *ngIf="columna !== 'acciones'; else accionesColumn">
           <span *ngIf="columna === 'dia'">{{ partido.dia }}</span>
-          <span *ngIf="columna === 'estado'">{{ partido.estados.enumTitle }}</span>
-          <span *ngIf="columna === 'horario'">{{ partido.horario.enumTitle }}</span>
-          <span *ngIf="columna === 'numeroCancha'">{{ partido.numeroCancha.enumTitle }}</span>
+          <span *ngIf="columna === 'estado'">{{ partido.estados?.enumTitle }}</span>
+          <span *ngIf="columna === 'horario'">{{ partido.horario?.enumTitle }}</span>
+          <span *ngIf="columna === 'numeroCancha'">{{ partido.numeroCancha?.enumTitle }}</span>
+          
           <span *ngIf="columna === 'precio'">{{ partido.precio }}</span>
           <span *ngIf="columna === 'representante'">{{ partido.representante?.title }}</span>
 
