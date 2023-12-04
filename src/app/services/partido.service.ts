@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Partido } from '../models/partido';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 
 
@@ -168,17 +168,19 @@ export class PartidoService {
 
 
 
-  buscarPartidoPorRepresentante(telefono: string): Observable<any> {
-    const url = `${this.apiUrl}?telefono=${telefono}&x-causeway-querystring=MQ%3D%3D`;
+  buscarPartidoPorRepresentante(telefono: string): Observable<Partido[]> {
+    const  apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/buscarPartidoPorRepresentante/invoke';
 
-    // Configurar headers
+
+    const params = new HttpParams().set('telefono', telefono);
+
+
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
       'Accept': 'application/json;profile=urn:org.apache.causeway/v2'
     });
 
-    // Realizar la solicitud GET
-    return this.http.get(url, { headers });
+    return this.http.get<Partido[]>(apiUrl, { headers, params });
   }
 
 

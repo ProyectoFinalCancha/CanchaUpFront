@@ -232,7 +232,8 @@ export class PartidosComponent {
       },
       (error) => {
         console.error('Error al buscar partidos por representante:', error);
-        // Manejar el error aquí si es necesario
+        // Restablecer la lista de partidos en caso de error
+        this.partidos = [];
       }
     );
   }

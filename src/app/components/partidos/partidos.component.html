@@ -108,25 +108,12 @@
     </div>
   </div>
   
-  
+  <!-- BSUCAR PARTIDO POR ESTADO -->
   <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <h1 class="titulo-bonito">Buscar Partido por Estado</h1>
         <br>
-
-        <!-- <div class="form-group">
-          <label for="estado">Seleccionar Estado:</label>
-          <select class="form-control" id="estado" [(ngModel)]="selectedEstado">
-           
-            <option value="ESPERA">En Espera</option>
-            <option value="CONFIRMADO">Confirmado</option>
-            <option value="COMPLETADO">Completado</option>
-            <option value="MATCHMAKING">Matchmaking</option>
-            <option value="RECHAZADO">Rechazado</option>
-           
-          </select>
-        </div> -->
 
         <span class="p-input-icon-left">
           &nbsp;&nbsp;
@@ -135,22 +122,26 @@
       </div>
     </div>
   </div>
+
+
+  <!-- BUSCAR PARTIDO POR REPRESENTANTE -->
   <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <h1 class="titulo-bonito">Buscar Partido por Representante</h1>
         <br>
 
-        <div class="form-group">
-          <label for="telefono">Número de Teléfono del Representante:</label>
-          <input type="text" class="form-control" id="telefono" [(ngModel)]="telefono"
-            placeholder="Ingrese el número de teléfono">
-        </div>
-
-        <span class="p-input-icon-left">
-          &nbsp;&nbsp;
-          <button type="button" class="btn btn-secondary" (click)="buscarPartidoPorRepresentante()">Buscar</button>
-        </span>
+        <form (ngSubmit)="buscarPartidoPorRepresentante()">
+          <div class="form-group">
+            <label for="telefonoBuscar">Número de Teléfono del Representante:</label>
+            <input type="text" class="form-control" id="telefonoBuscar" name="telefonoBuscar" [(ngModel)]="telefono" placeholder="Ingrese el número de teléfono">
+          </div>
+  
+          <span class="p-input-icon-left">
+            &nbsp;&nbsp;
+            <button type="submit" class="btn btn-secondary">Buscar</button>
+          </span>
+        </form>
       </div>
     </div>
   </div>
