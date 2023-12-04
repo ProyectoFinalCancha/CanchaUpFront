@@ -4,7 +4,7 @@ import { Jugador } from "./jugador";
 export class Partido {
     id!: number;
     dia!: Date;
-    estado!: string | null;
+    estado!: EstadosPartido | null;
     horario!: Horarios;
     numeroCancha!: NumeroCancha;
     precio!: number;

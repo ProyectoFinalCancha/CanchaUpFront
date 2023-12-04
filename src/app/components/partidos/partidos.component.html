@@ -114,7 +114,14 @@
       <div class="card-body p-4">
         <h1 class="titulo-bonito">Buscar Partido por Estado</h1>
         <br>
-
+  
+        <div class="form-group">
+          <label for="estado">Seleccionar Estado:</label>
+          <select id="estado" name="estado" [(ngModel)]="selectedEstado" class="form-control">
+            <option *ngFor="let estado of estadosPartido" [value]="estado">{{ estado }}</option>
+          </select>
+        </div>
+  
         <span class="p-input-icon-left">
           &nbsp;&nbsp;
           <button type="button" class="btn btn-secondary" (click)="buscarPartidoPorEstado()">Buscar</button>
@@ -122,6 +129,8 @@
       </div>
     </div>
   </div>
+  
+  
 
 
   <!-- BUSCAR PARTIDO POR REPRESENTANTE -->

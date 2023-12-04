@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Partido } from '../models/partido';
+import { EstadosPartido, Partido } from '../models/partido';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 
@@ -48,6 +48,15 @@ export class PartidoService {
         value: telefono,
       },
     });
+
+
+ 
+
+
+
+
+
+
 
     const requestOptions = {
       headers: new HttpHeaders({
@@ -184,7 +193,7 @@ export class PartidoService {
   }
 
 
-  buscarPartidoEstado(estado: string): Observable<any> {
+  buscarPartidoEstado(estado: EstadosPartido): Observable<any> {
     const url = `${this.baseUrl}/buscarPartidosPorEstados/invoke?estadosString=${estado}`;
 
     const headers = new HttpHeaders({

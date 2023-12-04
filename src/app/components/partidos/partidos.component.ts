@@ -28,9 +28,14 @@ export class PartidosComponent {
   searchNumeroCancha: string = '';
   numeroCanchaOptions = Object.keys(NumeroCancha);
   horarioOptions = Object.keys(Horarios);
-  selectedEstado: string = '';  // Declara la propiedad aquí
   nuevoPartido!: Partido
   searchHorario: string = '';
+
+
+  estadosPartido = Object.values(EstadosPartido);
+  selectedEstado: EstadosPartido = EstadosPartido.ESPERA;
+
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -240,49 +245,52 @@ export class PartidosComponent {
 
   buscarPartidoPorEstado(): void {
     this.partidoService.buscarPartidoEstado(this.selectedEstado).subscribe(
-      (result) => {
+      (result: { partidos: Partido[] }) => { // Añade la anotación de tipo para 'result'
         console.log('Partidos encontrados por estado:', result);
-        // Actualiza la lista de partidos con los resultados obtenidos
-        this.partidos = result; // Asume que el resultado es un array de Partido
+        // Filtrar los partidos que tienen el estado seleccionado
+        this.partidos = (result.partidos || []).filter((partido: Partido) => partido.estado === this.selectedEstado);
       },
       (error) => {
         console.error('Error al buscar partidos por estado:', error);
         // Manejar el error aquí si es necesario
+        this.partidos = [];
       }
     );
   }
+  
+  
 
 
 
   buscarPartido(): void {
     console.log('Valor inicial de searchNumeroCancha:', this.searchNumeroCancha);
-  
+
     const { numeroCancha } = this.nuevoPartido;
     const dia = this.searchDia;
     const horario = this.searchHorario;  // Modifica esta línea
-  
+
     const diaMoment = moment(dia);
-  
+
     if (diaMoment.isValid()) {
       const formattedDia = diaMoment.format('YYYY-MM-DD');
-  
+
       this.partidoService.buscarPartido(horario, formattedDia, numeroCancha.toString()).subscribe(
         (result) => {
           console.log('Partidos encontrados (result):', result);
-  
+
           if (Array.isArray(result)) {
             this.filteredPartidos = result;
-  
+
             if (numeroCancha) {
               this.partidos = this.filteredPartidos.filter(partido => partido.numeroCancha === numeroCancha);
             } else {
               this.partidos = this.filteredPartidos;
             }
-  
+
             if (this.paginator) {
               this.paginator.firstPage();
             }
-  
+
             this.errorOccurred = false;
             this.errorMessage = '';
           } else {
