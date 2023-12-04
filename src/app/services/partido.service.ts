@@ -69,8 +69,10 @@ export class PartidoService {
 
 
 
-  
 
+
+  
+  
   crearPartido(nuevoPartido: Partido): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
@@ -96,6 +98,8 @@ export class PartidoService {
     );
   }
   
+  
+
 
 
   private handleError(error: any): Observable<any> {
@@ -155,8 +159,8 @@ export class PartidoService {
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
-    return this.http.put<any>(urlCompleta, null, {headers})
-      
+    return this.http.put<any>(urlCompleta, null, { headers })
+
   }
 
 
@@ -187,7 +191,7 @@ export class PartidoService {
     });
 
     return this.http.get(url, { headers })
-     
+
   }
 
   buscarPartido(horario: string, dia: string, numeroCancha: string): Observable<any> {
@@ -208,7 +212,7 @@ export class PartidoService {
     return this.http.post(url, body, { headers });
   }
 
-  
+
 
 
 }

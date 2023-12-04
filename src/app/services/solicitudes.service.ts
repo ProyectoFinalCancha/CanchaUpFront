@@ -7,42 +7,36 @@ import { Observable } from 'rxjs';
 })
 export class SolicitudesService {
 
+  private apiUrl = 'http://localhost:8080/restful/services/simple.SolicituService/actions/crearSolicitud/invoke';
+  private cancelarUrlBase = 'http://localhost:8080/restful/objects/simple.Solicitud';
 
-  //SOLICITUDES POR EQUIPO
-  private POST_URL = 'http://localhost:8080/restful/services/simple.SolicitudService/actions/crearSolicitud/invoke';
-  private Get_URL = 'http://localhost:8080/restful/services/simple.SolicitudEquipoServices/actions/';
+  constructor(private http: HttpClient) {}
 
-  //SOLICITUDES SIMPLES
-  private apiUrl = 'http://localhost:8080/restful/services/simple.SolicituService';
+  crearSolicitud(dia: string, telefono: string, horario: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
+      'Content-Type': 'application/json',
+      Authorization: 'Basic c3ZlbjpwYXNz',
+    });
 
-
-  constructor(private http: HttpClient) { }
-
-  // Método para crear una solicitud de equipo
-  crearSolicitudEquipo(dia: string, telefono: string): Observable<any> {
-    const solicitudData = {
-      dia: { value: dia },
-      telefono: { value: telefono }
+    const body = {
+      diaString: { value: dia },
+      telefono: { value: telefono },
+      horarioSting: { value: horario },
     };
 
-    // Realiza una solicitud HTTP POST al servicio
-    return this.http.post(this.POST_URL, solicitudData);
+    return this.http.post(this.apiUrl, body, { headers: headers });
   }
 
-  obtenerSolicitudesEquipo(): Observable<any[]> {
-    const url = this.Get_URL + 'verSolicitudes/invoke';
-    return this.http.post<any[]>(url, {});
-  }
+  
+  cancelarSolicitud(objectId: string): Observable<any> {
+    const url = `${this.cancelarUrlBase}/${objectId}/actions/cancelarSolicitud/invoke`;
 
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
+    });
 
-
-  crearSolicitud(dia: string, telefono: string): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { dia, telefono };
-    return this.http.post(this.apiUrl + '/actions/crearSolicitud/invoke', body, { headers });
-  }
-
-  verSolicitudes(): Observable<any> {
-    return this.http.get(this.apiUrl + '/actions/verSolicitudes/invoke');
+    return this.http.post(url, null, { headers: headers });
   }
 }

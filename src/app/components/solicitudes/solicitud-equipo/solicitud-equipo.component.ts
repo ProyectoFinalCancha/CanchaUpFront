@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SolicitudesEquipoService } from 'src/app/services/solicitudes-equipo.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 
 @Component({
@@ -9,24 +10,24 @@ import { SolicitudesService } from 'src/app/services/solicitudes.service';
 export class SolicitudEquipoComponent {
   nuevoDia: string = '';
   nuevoTelefono: string = '';
+  nuevoHorario:string = '';
   solicitudes: any[] = [];
+  objectId:number = 0;
 
-
-  constructor(private solicitudEquipoService: SolicitudesService) {}
+  constructor(private solicitudEquipoService: SolicitudesEquipoService) {}
 
   ngOnInit() {
     // Carga las solicitudes existentes al iniciar el componente
-    this.cargarSolicitudes();
+   
   }
 
   crearSolicitud() {
     if (this.nuevoDia && this.nuevoTelefono) {
       // Llama al servicio para crear una solicitud
-      this.solicitudEquipoService.crearSolicitudEquipo(this.nuevoDia, this.nuevoTelefono).subscribe(
+      this.solicitudEquipoService.crearSolicitudEquipo(this.nuevoDia, this.nuevoTelefono, this.nuevoHorario).subscribe(
         (respuesta: any) => {
           console.log('Solicitud creada:', respuesta);
-          // Actualiza la lista de solicitudes
-          this.cargarSolicitudes();
+          
         },
         (error: any) => {
           console.error('Error al crear la solicitud:', error);
@@ -39,16 +40,16 @@ export class SolicitudEquipoComponent {
     }
   }
 
-  
-  cargarSolicitudes() {
-    // Llama al servicio para obtener la lista de solicitudes
-    this.solicitudEquipoService.obtenerSolicitudesEquipo().subscribe(
-      (solicitudes) => {
-        this.solicitudes = solicitudes;
-      },
-      (error) => {
-        console.error('Error al obtener las solicitudes:', error);
-      }
-    );
+
+  cancelarSolicitud() {
+    const objectId = '9';
+
+    this.solicitudEquipoService.cancelarSolicitudEquipo(objectId)
+      .subscribe(
+        (result) => console.log(result),
+        (error) => console.log('error', error)
+      );
   }
+
+  
 }

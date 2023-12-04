@@ -1,28 +1,24 @@
 import { Jugador } from "./jugador";
 
 
-
 export class Partido {
-
-   
-    id!:number;
+    id!: number;
     dia!: Date;
     estado!: string | null;
     horario!: Horarios;
-    numeroCancha!:NumeroCancha;
+    numeroCancha!: NumeroCancha;
     precio!: number;
-    telefono!:string | null;
-    representante?:Jugador | null;// Puede ser Jugador o null  el ? siginifica que es opcional 
-   
-
+    telefono!: string | null;
+    representante?: Jugador | null;
 }
 
 
-export enum EstadosPartido{
-    'ESPERA','RECHAZADO','CONFIRMADO','COMPLETADO','MATCHMAKING'
+
+export enum EstadosPartido {
+    'ESPERA', 'RECHAZADO', 'CONFIRMADO', 'COMPLETADO', 'MATCHMAKING'
 }
 
-export enum NumeroCancha{
+export enum NumeroCancha {
     UNO = 'UNO',
     DOS = 'DOS',
     TRES = 'TRES'
@@ -36,6 +32,5 @@ export enum Horarios {
     _21_HS = '_21_HS',
     _22_HS = '_22_HS',
     _23_HS = '_23_HS',
-  }
-  
-  
+}
+

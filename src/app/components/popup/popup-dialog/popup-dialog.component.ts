@@ -39,22 +39,22 @@ export class PopupDialogComponent {
   }
 
   sacarTurno() {
-    if (this.diaSeleccionado && this.horarioSeleccionado && this.dia && this.horario && this.telefono) {
-      this.partidoService.sacarTurno(this.horario, this.dia, this.telefono)
-        .subscribe(
-          result => {
-            console.log(result);
-            // Realiza cualquier lógica adicional después de la solicitud exitosa
-          },
-          error => {
-            console.error('Error:', error);
-            // Realiza cualquier manejo de errores aquí
-          }
-        );
+    // if (this.diaSeleccionado && this.horarioSeleccionado && this.dia && this.horario && this.telefono) {
+    //   this.partidoService.sacarTurno(this.horario, this.dia, this.telefono)
+    //     .subscribe(
+    //       result => {
+    //         console.log(result);
+    //         // Realiza cualquier lógica adicional después de la solicitud exitosa
+    //       },
+    //       error => {
+    //         console.error('Error:', error);
+    //         // Realiza cualquier manejo de errores aquí
+    //       }
+    //     );
 
-      // Cierra el diálogo
-      this.dialogRef.close();
-    }
+    //   // Cierra el diálogo
+    //   this.dialogRef.close();
+    // }
   }
 
   abrirPopup(): void {

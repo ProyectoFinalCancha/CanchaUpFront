@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { Jugador } from 'src/app/models/jugador';
 import { JugadorService } from 'src/app/services/jugador.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registo',
@@ -26,17 +27,33 @@ export class RegistoComponent {
     if (jugadorForm.valid) {
       this.jugadorService.crearJugador(this.nuevoJugador)
         .pipe(finalize(() => {
-          
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 6000);
+          // Limpiar el formulario después de una creación exitosa
           this.nuevoJugador = new Jugador();
         }))
         .subscribe(
-          () => console.log('Jugador creado exitosamente'),
-          error => console.error('Error al crear jugador:', error)
+          (jugadorCreado: Jugador) => {
+            Swal.fire({
+              icon: 'success',
+              text: 'Se ha creado el jugador:',
+            });
+          },
+          error => {
+            console.error('Error al crear jugador:', error);
+            // Mostrar un mensaje de error usando SweetAlert o manejarlo según sea necesario
+            Swal.fire({
+              icon: 'success',
+              text: 'Se ha creado el jugador:',
+            });
+          }
         );
     }
   }
-  
-  
+
+
+
 
 
 
