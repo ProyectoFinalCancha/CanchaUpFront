@@ -16,9 +16,10 @@
           <div class="form-group">
             <label for="horario">Horario:</label>
             <select id="horario" name="horario" [(ngModel)]="nuevoPartido.horario" class="form-control">
-              <option *ngFor="let horario of horarios" [value]="horario">{{ horario }}</option>
+              <option *ngFor="let horario of horarioOptions" [value]="horario">{{ transformarHorario(horario) }}</option>
             </select>
           </div>
+          
 
 
 
@@ -55,18 +56,39 @@
     </div>
 
   </div>
+
+
+  <!-- SACAR TURNO -->
   <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <h1 class="titulo-bonito">Sacar Turno</h1>
         <br>
-        <span class="p-input-icon-left">
-          &nbsp;&nbsp;
-          <button type="button" class="btn btn-primary" (click)="sacarTurno()">Sacar Turno</button>
-        </span>
+  
+        <form #partidoForm="ngForm" (ngSubmit)="sacarTurno(partidoForm)">
+          <div class="form-group">
+            <label for="horario">Horario:</label>
+            <select id="horario" name="horario" [(ngModel)]="nuevoPartido.horario" class="form-control">
+              <option *ngFor="let horario of horarioOptions" [value]="horario">{{ transformarHorario(horario) }}</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="dia">Día:</label>
+            <input type="text" class="form-control" id="dia" [(ngModel)]="nuevoPartido.dia" name="dia" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" class="form-control" id="telefono" [(ngModel)]="nuevoPartido.telefono" name="telefono" required>
+          </div>
+  
+          <button type="submit" class="btn btn-primary">Sacar Turno</button>
+        </form>
       </div>
     </div>
   </div>
+  
 
 
   <div class="col-md-3">
@@ -88,8 +110,8 @@
       </div>
       <div class="form-group">
         <label for="horario">Horario:</label>
-        <select id="horario" name="horario" [(ngModel)]="searchHorario" class="form-control">
-          <option *ngFor="let opcion of horarioOptions" [value]="opcion">{{ opcion }}</option>
+        <select id="horario" name="horario" [(ngModel)]="nuevoPartido.horario" class="form-control">
+          <option *ngFor="let horario of horarioOptions" [value]="horario">{{ transformarHorario(horario) }}</option>
         </select>
       </div>
       
@@ -158,39 +180,36 @@
   <h1> &nbsp; </h1>
   <h1> &nbsp; </h1>
   <!-- TABLE -->
-  <table mat-table [dataSource]="partidos" class="tabla-estilo" matSort matPaginator #paginator>
-    <!-- Columnas -->
-    <ng-container *ngFor="let columna of ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']" [matColumnDef]="columna">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
-      <td mat-cell *matCellDef="let partido">
-        <!-- Ajusta el formato según la estructura real de tus datos -->
-        <ng-container *ngIf="columna !== 'acciones'; else accionesColumn">
-          <span *ngIf="columna === 'dia'">{{ partido.dia }}</span>
-          <span *ngIf="columna === 'estado'">{{ partido.estados?.enumTitle }}</span>
-          <span *ngIf="columna === 'horario'">{{ partido.horario?.enumTitle }}</span>
-          <span *ngIf="columna === 'numeroCancha'">{{ partido.numeroCancha?.enumTitle }}</span>
-          
-          <span *ngIf="columna === 'precio'">{{ partido.precio }}</span>
-          <span *ngIf="columna === 'representante'">{{ partido.representante?.title }}</span>
+  <!-- Asegúrate de que partidos esté definido y tenga al menos un elemento -->
+<table *ngIf="partidos && partidos.length" mat-table [dataSource]="partidos" class="tabla-estilo" matSort matPaginator #paginator>
+  <!-- Columnas -->
+  <ng-container *ngFor="let columna of ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']" [matColumnDef]="columna">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
+    <td mat-cell *matCellDef="let partido">
+      <!-- Ajusta el formato según la estructura real de tus datos -->
+      <ng-container *ngIf="columna !== 'acciones'; else accionesColumn">
+        <span *ngIf="columna === 'dia'">{{ partido.dia }}</span>
+        <span *ngIf="columna === 'estado'">{{ partido.estados?.enumTitle }}</span>
+        <span *ngIf="columna === 'horario'">{{ partido.horario?.enumTitle }}</span>
+        <span *ngIf="columna === 'numeroCancha'">{{ partido.numeroCancha?.enumTitle }}</span>
 
-
-
-        </ng-container>
-        <!-- Define las acciones -->
-        <ng-template #accionesColumn>
-          <button (click)="rechazarPartido(partido.$$instanceId)" class="boton-rechazar">Rechazar</button>
-          <button (click)="confirmarPartido(partido.$$instanceId)" class="boton-confirmar">Confirmar</button>
-          <button (click)="darDeBaja(partido.$$instanceId)" class="boton-dar-de-baja">Dar de Baja</button>
-          <button (click)="completarPartido(partido.$$instanceId)" class="boton-completar">Completar</button>
+        <span *ngIf="columna === 'precio'">{{ partido.precio }}</span>
+        <span *ngIf="columna === 'representante'">{{ partido.representante?.title }}</span>
+      </ng-container>
+      <!-- Define las acciones -->
+      <ng-template #accionesColumn let-i="index">
+        <button mat-button (click)="rechazarPartido(partido.$$instanceId, i)" class="boton-rechazar">Rechazar</button>
+        <button mat-button (click)="confirmarPartido(partido.$$instanceId, i)" class="boton-confirmar">Confirmar</button>
+        <button mat-button (click)="darDeBaja(partido.$$instanceId, i)" class="boton-dar-de-baja">Dar de Baja</button>
+        <button mat-button (click)="completarPartido(partido.$$instanceId, i)" class="boton-completar">Completar</button>
       </ng-template>
-      
-      </td>
-    </ng-container>
-  
-    <!-- Filas -->
-    <tr mat-header-row *matHeaderRowDef="['dia', 'estado', 'horario', 'numeroCancha', 'precio',  'representante', 'acciones']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']"></tr>
-  </table>
+    </td>
+  </ng-container>
+  <!-- Filas -->
+  <tr mat-header-row *matHeaderRowDef="['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']"></tr>
+</table>
+
   
   <!-- Paginator -->
   <!-- <div class="paginator-container">

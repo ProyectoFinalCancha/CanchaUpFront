@@ -8,7 +8,7 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class PartidoService {
-  partidos: Partido[] = []; // Asegúrate de que partidos es un array de objetos Partido
+  partidos: Partido[] = [];
 
   private url_Confirmar = 'http://localhost:8080/restful/objects/simple.Partido/';
 
@@ -35,43 +35,21 @@ export class PartidoService {
     return this.http.get<any>(this.baseUrl_ver, { headers });
   }
 
-
-  sacarTurno(horario: string, dia: string, telefono: string): Observable<any> {
-    const raw = JSON.stringify({
-      horarioSting: {
-        value: horario,
-      },
-      diaString: {
-        value: dia,
-      },
-      telefono: {
-        value: telefono,
-      },
+  sacarTurno(horario: string, diaString: string, telefono: string): Observable<any> {
+    const apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/sacarTurno/invoke';
+  
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
     });
-
-
- 
-
-
-
-
-
-
-
-    const requestOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Basic c3ZlbjpwYXNz',
-        'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
-        'Content-Type': 'application/json',
-      }),
+  
+    const body = {
+      horarioSting: { value: horario },
+      diaString: { value: diaString },
+      telefono: { value: telefono }
     };
-
-    // Devuelve el observable resultante de la solicitud HTTP
-    return this.http.post(
-      'http://localhost:8080/restful/services/simple.PartidoServices/actions/sacarTurno/invoke',
-      raw,
-      requestOptions
-    );
+  
+    return this.http.post<any>(apiUrl, body, { headers });
   }
 
 
@@ -80,8 +58,7 @@ export class PartidoService {
 
 
 
-  
-  
+
   crearPartido(nuevoPartido: Partido): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
@@ -94,7 +71,7 @@ export class PartidoService {
       telefono: { value: nuevoPartido.telefono },
       precio: { value: nuevoPartido.precio },
     };
-  
+
     return this.http.post(
       'http://localhost:8080/restful/services/simple.PartidoServices/actions/crearPartido/invoke',
       requestBody,
@@ -106,8 +83,8 @@ export class PartidoService {
       })
     );
   }
-  
-  
+
+
 
 
 
@@ -178,7 +155,7 @@ export class PartidoService {
 
 
   buscarPartidoPorRepresentante(telefono: string): Observable<Partido[]> {
-    const  apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/buscarPartidoPorRepresentante/invoke';
+    const apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/buscarPartidoPorRepresentante/invoke';
 
 
     const params = new HttpParams().set('telefono', telefono);

@@ -31,10 +31,10 @@ export class PartidosComponent {
   nuevoPartido!: Partido
   searchHorario: string = '';
 
+  
 
   estadosPartido = Object.values(EstadosPartido);
   selectedEstado: EstadosPartido = EstadosPartido.ESPERA;
-
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -79,24 +79,6 @@ export class PartidosComponent {
     return null;
   }
 
-
-  crearPartido(partidoForm: NgForm): void {
-    if (partidoForm.valid) {
-      this.partidoService
-        .crearPartido(this.nuevoPartido)
-        .pipe(
-          finalize(() => {
-            this.obtenerPartidos();
-            this.nuevoPartido = new Partido();
-          })
-        )
-        .subscribe(
-          () => console.log('partido creado exitosamente'),
-          (error) => console.error('Error al crear partido:', error)
-        );
-    }
-  }
-
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -121,52 +103,93 @@ export class PartidosComponent {
 
 
 
-
-  navegar() {
-    this.router.navigate(['admin2Dash'])
+  crearPartido(partidoForm: NgForm): void {
+    if (partidoForm.valid) {
+      this.partidoService
+        .crearPartido(this.nuevoPartido)
+        .pipe(
+          finalize(() => {
+            this.obtenerPartidos();
+            this.nuevoPartido = new Partido();
+          })
+        )
+        .subscribe(
+          () => console.log('partido creado exitosamente'),
+          (error) => console.error('Error al crear partido:', error)
+        );
+    }
   }
 
 
-  sacarTurno(): void {
-    const { horario, dia, telefono } = this.nuevoPartido;
+  transformarHorario(horario: string): string {
+    return horario.replace('_', '').replace('_HS', ' hs');
+  }
 
-    // Llama a la función sacarTurno del servicio
-    this.partidoService.sacarTurno(horario, dia.toISOString(), telefono!).subscribe(
-      (result) => {
-        console.log('Turno sacado con éxito:', result);
-        // Actualiza cualquier otra lógica necesaria después de sacar el turno
-      },
-      (error) => {
-        console.error('Error al sacar el turno:', error);
-        // Manejar el error aquí si es necesario
-      }
-    );
+
+ 
+  sacarTurno(partidoForm: NgForm): void {
+    const horario = partidoForm.value.horario;
+    const diaString = partidoForm.value.dia; // No conviertas a Date aquí
+    const telefono = partidoForm.value.telefono;
+  
+    this.partidoService.sacarTurno(horario, diaString, telefono)
+      .subscribe(
+        result => {
+          console.log(result);
+          // Recargar los partidos después de agregar uno nuevo
+          this.obtenerPartidos();
+        },
+        error => {
+          console.error(error);
+        }
+      );
+  }
+  
+  convertirStringAHorario(horarioString: string): Horarios | undefined {
+    // Revertir la transformación realizada en la presentación
+    switch (horarioString) {
+      case '18 HS': return Horarios._18_HS;
+      case '19 HS': return Horarios._19_HS;
+      case '20 HS': return Horarios._20_HS;
+      case '21 HS': return Horarios._21_HS;
+      case '22 HS': return Horarios._22_HS;
+      case '23 HS': return Horarios._23_HS;
+      default: return undefined;
+    }
   }
 
   obtenerPartidos(): void {
     this.partidoService.verPartidos().subscribe(
-      (data: Partido[]) => {
-        console.log('Datos del servidor:', data);
-        this.partidos = [...data];
+      (data: any[]) => {
+        console.log('Datos antes de filtrar:', data);
+        // Filtrar solo objetos Partido válidos
+        this.partidos = data.filter(item => item && item.$$instanceId);
+        console.log('Datos después de filtrar:', this.partidos);
       },
       error => {
         console.log('Error al obtener partidos:', error);
       }
     );
   }
+  
+  
+  
+  
+  
+  
 
 
 
 
 
 
-  rechazarPartido(instanceId: string): void {
+  rechazarPartido(instanceId: string, index: number): void {
     this.partidoService.rechazarPartido(instanceId).subscribe(
       (result) => {
         console.log('Partido rechazado con éxito:', result);
         this.obtenerPartidos();
-        // Puedes hacer algo aquí después de que el partido se ha rechazado, como actualizar la lista de partidos
-        // this.actualizarListaDePartidos(); // Asume que tienes un método para actualizar la lista de partidos
+        // Puedes hacer algo aquí después de que el partido se ha rechazado
+        // this.actualizarListaDePartidos(index);
       },
       (error) => {
         console.error('Error al rechazar el partido:', error);
@@ -176,13 +199,13 @@ export class PartidosComponent {
   }
 
 
-  darDeBaja(instanceId: string): void {
+  darDeBaja(instanceId: string, index: number): void {
     this.partidoService.darDeBaja(instanceId).subscribe(
       (result) => {
         console.log('Partido dado de baja con éxito:', result);
         this.obtenerPartidos();
-        // Puedes hacer algo aquí después de que el partido se ha dado de baja, como actualizar la lista de partidos
-        // this.actualizarListaDePartidos(); // Asume que tienes un método para actualizar la lista de partidos
+        // Puedes hacer algo aquí después de que el partido se ha dado de baja
+        // this.actualizarListaDePartidos(index);
       },
       (error) => {
         console.error('Error al dar de baja el partido:', error);
@@ -198,13 +221,13 @@ export class PartidosComponent {
 
 
 
-  confirmarPartido(instanceId: string): void {
+  confirmarPartido(instanceId: string, index: number): void {
     this.partidoService.confirmarPartido(instanceId).subscribe(
       (result) => {
         console.log('Partido confirmado con éxito:', result);
         this.obtenerPartidos();
-        // Puedes hacer algo aquí después de que el partido se ha confirmado, como actualizar la lista de partidos
-        // this.actualizarListaDePartidos(); // Asume que tienes un método para actualizar la lista de partidos
+        // Puedes hacer algo aquí después de que el partido se ha confirmado
+        // this.actualizarListaDePartidos(index);
       },
       (error) => {
         console.error('Error al confirmar el partido:', error);
@@ -213,13 +236,13 @@ export class PartidosComponent {
     );
   }
 
-  completarPartido(instanceId: string): void {
+  completarPartido(instanceId: string, index: number): void {
     this.partidoService.completar(instanceId).subscribe(
       (result) => {
         console.log('Partido completado con éxito:', result);
         this.obtenerPartidos();
-        // Puedes hacer algo aquí después de que el partido se ha completado, como actualizar la lista de partidos
-        // this.actualizarListaDePartidos(); // Asume que tienes un método para actualizar la lista de partidos
+        // Puedes hacer algo aquí después de que el partido se ha completado
+        // this.actualizarListaDePartidos(index);
       },
       (error) => {
         console.error('Error al completar el partido:', error);
@@ -227,6 +250,7 @@ export class PartidosComponent {
       }
     );
   }
+  
 
   buscarPartidoPorRepresentante(): void {
     this.partidoService.buscarPartidoPorRepresentante(this.telefono).subscribe(
@@ -318,6 +342,9 @@ export class PartidosComponent {
 
 
 
+  navegar() {
+    this.router.navigate(['admin2Dash'])
+  }
 
 
 
