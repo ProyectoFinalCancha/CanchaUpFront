@@ -38,6 +38,7 @@ export class PartidoService {
     });
     return this.http.get<any>(this.baseUrl_ver, { headers });
   }
+  //
 
   // En tu servicio (PartidoService)
   // En tu servicio (PartidoService)
