@@ -34,6 +34,7 @@ export class PartidoService {
     });
     return this.http.get<any>(this.baseUrl_ver, { headers });
   }
+  //
 
 
   sacarTurno(horario: string, dia: string, telefono: string): Observable<any> {
