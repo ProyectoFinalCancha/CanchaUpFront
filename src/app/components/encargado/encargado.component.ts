@@ -40,7 +40,7 @@ export class EncargadoComponent implements OnInit{
   pageSize = 10; // Ajusta el tamaño de la página según tus necesidades
   totalItems = 0;
 
-
+  indexColumnaVacia: number = -1;
 
 
   previousPage(): void {
@@ -78,15 +78,51 @@ export class EncargadoComponent implements OnInit{
   
   obtenerEncargados() {
     this.encargadoService.getEncargados().subscribe(
-      (data: Encargado[]) => {
-        this.encargados = [...data];  // Copia directa del arreglo
-        console.log('Datos del servidor:', data);
+      (data: any) => {
+        console.log('Respuesta del servidor:', data);
+  
+        if (Array.isArray(data)) {
+          this.encargados = data;
+          this.totalItems = data.length;
+        } else {
+          console.error('La respuesta del servidor no es un array:', data);
+        }
       },
       error => {
-        console.log('Error', error);
+        console.error('Error al obtener los encargados:', error);
       }
     );
   }
+  
+  
+  tieneDatos(encargado: Encargado): boolean {
+    // Excluye propiedades y claves que comienzan con '$$'
+    const tieneDatos = Object.keys(encargado)
+      .filter(key => !key.startsWith('$$'))
+      .some(key => {
+        const value = encargado[key as keyof Encargado];
+        return this.hasValue(value);
+      });
+  
+    if (!tieneDatos) {
+      console.log('Fila sin datos:', encargado);
+    }
+  
+    return tieneDatos;
+  }
+  
+  private hasValue(value: any): boolean {
+    if (typeof value === 'object' && value !== null) {
+      // Si es un objeto, verifica si tiene al menos una propiedad con valor
+      return Object.values(value).some(val => this.hasValue(val));
+    } else {
+      // Verifica si el valor no es una cadena vacía ni nulo
+      return value !== '' && value !== null;
+    }
+  }
+  
+  
+  
 
   openEditDialog(encargado: Encargado): void {
     const dialogRef = this.dialog.open(VerEncargadoComponent, {
@@ -157,5 +193,31 @@ export class EncargadoComponent implements OnInit{
 
   navegar(){
     this.router.navigate(['/admin2Dash'])
+  }
+
+
+
+
+
+
+
+  salir(){
+    this.router.navigate(['/login']);
+  }
+
+  partidos(){
+    this.router.navigate(['/partidos'])
+  }
+
+  jugadores(){
+    this.router.navigate(['/jugadores'])
+  }
+
+  scrollToDiv() {
+    const div = document.getElementById('tabla');
+  console.log(div);
+    if (div !== null) {
+      div.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }

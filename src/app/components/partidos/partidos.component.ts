@@ -348,7 +348,4 @@ export class PartidosComponent {
 
 
 
-
-
-
 }

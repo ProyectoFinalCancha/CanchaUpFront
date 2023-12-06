@@ -191,4 +191,13 @@ export class JugadoresComponent {
       }
     });
   }
+
+
+
+
+
+
+ 
+
+
 }

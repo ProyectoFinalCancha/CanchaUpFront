@@ -35,12 +35,16 @@ export class PartidoService {
     return this.http.get<any>(this.baseUrl_ver, { headers });
   }
 
+
+
+  
   sacarTurno(horario: string, diaString: string, telefono: string): Observable<any> {
     const apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/sacarTurno/invoke';
   
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+   
     });
   
     const body = {
