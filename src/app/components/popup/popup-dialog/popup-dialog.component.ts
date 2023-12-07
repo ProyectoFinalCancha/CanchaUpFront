@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 
 import * as moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -70,6 +71,11 @@ export class PopupDialogComponent {
           this.partidoService.sacarTurno(this.nuevoPartido.horario, formattedDia, telefono)
             .subscribe(
               result => {
+                Swal.fire({
+                  title: "Ha sacado el turno con exito!",
+                  // text: "That thing is still around?",
+                  icon: "success"
+                });
                 console.log(result);
                 // Recargar los partidos después de agregar uno nuevo
                 // this.obtenerPartidos();
