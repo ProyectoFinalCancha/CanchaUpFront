@@ -38,22 +38,48 @@ export class PartidoService {
 
 
   
-  sacarTurno(horario: string, diaString: string, telefono: string): Observable<any> {
-    const apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/sacarTurno/invoke';
-  
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
-   
-    });
-  
-    const body = {
-      horarioSting: { value: horario },
-      diaString: { value: diaString },
-      telefono: { value: telefono }
-    };
-  
-    return this.http.post<any>(apiUrl, body, { headers });
+// En tu servicio (PartidoService)
+// En tu servicio (PartidoService)
+sacarTurno(horario: string, diaString: string, telefono: string): Observable<any> {
+  const apiUrl = 'http://localhost:8080/restful/services/simple.PartidoServices/actions/sacarTurno/invoke';
+
+  const headers = new HttpHeaders({
+    'Authorization': 'Basic c3ZlbjpwYXNz',
+    'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+  });
+
+
+  const body = {
+    horarioSting: { value: horario },
+    diaString: { value: diaString },
+    telefono: { value: telefono }
+  };
+  console.log('Cuerpo de la solicitud:', body);
+
+  return this.http.post<any>(apiUrl, body, { headers });
+}
+
+
+// Agrega esta función auxiliar en tu servicio para formatear la fecha
+private formatDateForApi(date: Date): string {
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+
+  return `${year}-${month}-${day}`;
+}
+
+
+
+  // Función para obtener la compensación de la zona horaria en formato ±HH:mm
+  private getUTCOffsetString(date: Date): string {
+    const offsetMinutes = date.getTimezoneOffset();
+    const offsetHours = Math.abs(Math.floor(offsetMinutes / 60));
+    const offsetMinutesPart = Math.abs(offsetMinutes % 60);
+
+    const sign = offsetMinutes >= 0 ? '-' : '+';
+
+    return `${sign}${('0' + offsetHours).slice(-2)}:${('0' + offsetMinutesPart).slice(-2)}`;
   }
 
 

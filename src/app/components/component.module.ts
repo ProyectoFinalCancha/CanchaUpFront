@@ -42,7 +42,7 @@ import { JugadoresComponent } from './jugadores/jugadores.component';
 import { VerJugadoresComponent } from './jugadores/ver-jugadores/ver-jugadores.component';
 import { MatNativeDateModule } from '@angular/material/core';
 
-
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -96,7 +96,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     DropdownModule,
     // PopupComponent
   ],
-  providers: [MatPaginator,  PageEvent, EncargadoService],
+  providers: [MatPaginator,  PageEvent, EncargadoService, DatePipe],
   bootstrap: [ComponentModule]
 })
 export class ComponentModule { }

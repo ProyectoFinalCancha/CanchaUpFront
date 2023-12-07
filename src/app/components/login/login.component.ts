@@ -25,6 +25,10 @@ export class LoginComponent {
       .subscribe(data => {
         const valorBooleano = data.result.value;
         if (valorBooleano) {
+
+          ///ALMACENAR EL TELEFONO P USARLO EN EL POPUP DE SACAR TURNITO 
+          this.loginService.setTelefono(this.telefono);
+          
           this.router.navigate(['/dashboard']);
           Swal.fire(
             '⚽ Bienvenido! ⚽',

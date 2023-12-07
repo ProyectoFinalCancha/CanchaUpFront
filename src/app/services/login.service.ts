@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -15,6 +15,8 @@ export class LoginService {
   password: string = '';
 
 
+  private telefonoSubject = new Subject<string>();
+  telefono$ = this.telefonoSubject.asObservable();
 
   
   login(telefono: string, password: string): Observable<any> {
@@ -35,10 +37,19 @@ export class LoginService {
     // Guardar temporalmente las credenciales
     this.telefono = telefono;
     this.password = password;
+
+
+    this.telefonoSubject.next(this.telefono);
+
     return this.http.post(this.apiUrl, body, { headers });
   }
 
-
+  setTelefono(telefono: string): void {
+    this.telefono = telefono;
+  }
+  getTelefono(): string {
+    return this.telefono;
+  }
 
   usuarioEstaAutenticado(telefono: string, password: string): Observable<any> {
     const headers = new HttpHeaders({

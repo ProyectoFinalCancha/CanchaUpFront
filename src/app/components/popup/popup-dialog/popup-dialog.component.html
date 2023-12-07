@@ -1,31 +1,52 @@
-<mat-dialog-content style="background-image: url('../../../../assets/images/background-stars.jpg');" class="custom-dialog-container">
-  <img class="myimg" src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Descripción de la imagen" loading="lazy">
+<mat-dialog-content style="background-image: url('../../../../assets/images/background-stars.jpg');"
+  class="custom-dialog-container">
+  <img class="myimg" src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Descripción de la imagen"
+    loading="lazy">
   <br>
   <br>
+  <form #partidoForm="ngForm" (ngSubmit)="sacarTurno(partidoForm)">
 
-  <mat-form-field class="mattiDialog">
-    <span>
-      <FONT COLOR="#5d5def">Ingrese día</FONT>
-    </span>
-    <input matInput [matDatepicker]="picker" placeholder="Día" [(ngModel)]="partido.dia">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field class="mattiDialog">
+      <span>
+        <FONT COLOR="#5d5def">Ingrese día</FONT>
+      </span>
+      <input matInput [matDatepicker]="picker" placeholder="Día" [(ngModel)]="nuevoPartido.dia" name="dia" (dateChange)="onDateChange($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+    
+    
+    
+    <br>
+    <mat-form-field class="mattiDialog">
+      <span>
+        <FONT COLOR="#5d5def">Teléfono</FONT>
+      </span>
+      <input matInput [value]="telefono" name="telefono" placeholder="Teléfono" readonly>
+    </mat-form-field>
+    
+  <!-- Agrega este log en el HTML -->
+<!-- Verifica que el nombre del campo en el formulario sea "horario" -->
+<mat-form-field class="mattiDialog">
+  <span>
+    <FONT COLOR="#5d5def">Seleccione Horario</FONT>
+  </span>
+  <mat-select [(ngModel)]="nuevoPartido.horario" name="horario">
+    <mat-option *ngFor="let horario of horarioEnumValues" [value]="horario">
+      {{ transformarHorario(horario) }}
+    </mat-option>
+  </mat-select>
   
-  <br>
+  <!-- {{ nuevoPartido.horario | json }}  -->
+</mat-form-field>
 
-  <mat-form-field class="mattiDialog">
-    <span>
-      <FONT COLOR="#5d5def">Seleccione Horario</FONT>
-    </span>
-    <mat-select [(ngModel)]="horario" [ngModelOptions]="{ standalone: true }">
-      <mat-option *ngFor="let horarioOption of horarios" [value]="horarioOption">
-        {{ horarioOption }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+
+
   
-
+  
+    <button mat-button class="bn31">Sacar Turno</button>
+  </form>
   <br>
-  <button mat-button class="bn31" (click)="sacarTurno()">Sacar Turno</button>
+  <br>
 </mat-dialog-content>
