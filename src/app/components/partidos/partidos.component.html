@@ -1,15 +1,205 @@
-<div class="mybotton">
-  <br>
-  <!-- <p-button class="mybotton" label="Salir" severity="danger"></p-button> -->
-  <button (click)="navegar()" class="bn632-hover bn23">Volver a Home</button>
-</div>
+<body>
+  <div class="row">
+    <div class="mybotton">
+      <div class="mybotton-conteiner">
+        <button class="logout" (click)="salir()">
+          <div class="sign">
+            <svg viewBox="0 0 512 512">
+              <path
+                d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+              ></path>
+            </svg>
+          </div>
 
-<div class="row">
+          <div class="text">Logout</div>
+        </button>
+      </div>
+      <div class="mydict">
+        <div>
+          <label class="label-bar">
+            <input type="radio" name="radio" checked />
+            <span>Partidos</span>
+          </label>
+          <label class="label-bar" (click)="jugadores()">
+            <input type="radio" name="radio" />
+            <span>Jugadores</span>
+          </label>
+          <label class="label-bar" (click)="encargados()">
+            <input type="radio" name="radio" />
+            <span>Encargados</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="mybotton-conteiner">
+        <button class="goToTable" (click)="scrollToDiv()">
+          <svg class="svgIcon" viewBox="0 0 384 512">
+            <path
+              d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- crear partido -->
+    <div class="login-box">
+      <form #partidoForm="ngForm" (ngSubmit)="crearPartido(partidoForm)">
+        <div class="text-h1">
+          <h1 class="titulo-bonito">Crear Partido</h1>
+        </div>
+        <div class="user-box">
+          <label>Día</label><br />
+          <input
+            required
+            type="date"
+            id="dia"
+            name="dia"
+            [(ngModel)]="nuevoPartido.dia"
+          />
+        </div>
+        <div class="user-box">
+          <div class="label-select">Horario</div>
+          <select
+            id="horario"
+            name="horario"
+            [(ngModel)]="nuevoPartido.horario"
+            class="form-control"
+          >
+            <option *ngFor="let horario of horarioOptions" [value]="horario">
+              {{ transformarHorario(horario) }}
+            </option>
+          </select>
+        </div>
+        <div class="user-box">
+          <input
+            required
+            type="text"
+            id="telefono"
+            name="telefono"
+            [(ngModel)]="nuevoPartido.telefono"
+          />
+          <label>Telefono</label>
+        </div>
+
+        <div class="user-box">
+          <input
+            required
+            type="text"
+            id="precio"
+            name="precio"
+            [(ngModel)]="nuevoPartido.precio"
+          />
+          <label>Precio</label>
+        </div>
+
+        <div class="contenedor-bn6">
+          <button type="submit" class="bn6">Crear</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- BSUCAR PARTIDO POR ESTADO -->
+    <div class="login-box">
+      <div class="text-h1">
+        <h1 class="titulo-bonito">Buscar Partido</h1>
+      </div>
+      <div class="text-h1">
+        <h1 class="titulo-bonito">Por Estado</h1>
+      </div>
+      <div class="user-box">
+        <div class="label-select">Seleccionar Estado</div>
+        <select
+          id="gender"
+          name="estado"
+          [(ngModel)]="selectedEstado"
+          class="form-control"
+        >
+          <option *ngFor="let estado of estadosPartido" [value]="estado">
+            {{ estado }}
+          </option>
+        </select>
+      </div>
+      <div class="contenedor-bn6">
+        <button type="button" class="bn6" (click)="buscarPartidoPorEstado()">
+          Buscar
+        </button>
+      </div>
+    </div>
+
+    <!-- BUSCAR PARTIDO POR REPRESENTANTE -->
+    <div class="login-box">
+      <form (ngSubmit)="buscarPartidoPorRepresentante()">
+        <div class="text-h1">
+          <h1 class="titulo-bonito">Buscar por</h1>
+        </div>
+        <div class="text-h1">
+          <h1 class="titulo-bonito">Representante</h1>
+        </div>
+  
+        <div class="user-box">
+          <input
+            required
+            type="text"
+            id="telefonoBuscar"
+            name="telefonoBuscar"
+            [(ngModel)]="telefono"
+          />
+          <label>Ingrese Nro de Telefono</label>
+        </div>
+        <div class="contenedor-bn6">
+          <button type="button" class="bn6">Buscar</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+  <div class="contenedor-tabla" id="tabla">
+  
+    <table *ngIf="partidos && partidos.length" mat-table [dataSource]="partidos" class="contenedor-tabla tabla-estilo" matSort matPaginator #paginator>
+      <!-- Columnas -->
+      <ng-container *ngFor="let columna of ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']" [matColumnDef]="columna">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
+        <td mat-cell *matCellDef="let partido">
+          <!-- Ajusta el formato según la estructura real de tus datos -->
+          <ng-container *ngIf="columna !== 'acciones'; else accionesColumn">
+            <span *ngIf="columna === 'dia'">{{ partido.dia }}</span>
+            <span *ngIf="columna === 'estado'">{{ partido.estados?.enumTitle }}</span>
+            <span *ngIf="columna === 'horario'">{{ partido.horario?.enumTitle }}</span>
+            <span *ngIf="columna === 'numeroCancha'">{{ partido.numeroCancha?.enumTitle }}</span>
+    
+            <span *ngIf="columna === 'precio'">{{ partido.precio }}</span>
+            <span *ngIf="columna === 'representante'">{{ partido.representante?.title }}</span>
+          </ng-container>
+          <!-- Define las acciones -->
+          <ng-template #accionesColumn let-i="index">
+            <div class="acciones-bnt">
+              <button mat-button (click)="confirmarPartido(partido.$$instanceId, i)" class="boton-confirmar">Confirmar</button>
+              <button mat-button (click)="completarPartido(partido.$$instanceId, i)" class="boton-completar">Completar</button>
+              <button mat-button (click)="rechazarPartido(partido.$$instanceId, i)" class="boton-rechazar">Rechazar</button>
+              <button mat-button (click)="darDeBaja(partido.$$instanceId, i)" class="boton-dar-de-baja">Dar de Baja</button>
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+      <!-- Filas -->
+      <tr mat-header-row *matHeaderRowDef="['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']"></tr>
+    </table>
+    
+    </div>
+
+
+
+
+</body>
+
+
   <!-- FORM -->
-  <div class="col-md-3">
+  <!-- <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
-        <!-- FORM -->
+       
         <form #partidoForm="ngForm" (ngSubmit)="crearPartido(partidoForm)">
           <h1 class="titulo-bonito">Crear Partido</h1>
           <br>
@@ -29,7 +219,6 @@
 
           <div class="form-group">
             <label for="dia">Día:</label>
-            <!-- Cambia el tipo de input a "date" -->
             <input required type="date" id="dia" name="dia" [(ngModel)]="nuevoPartido.dia" class="form-control">
           </div>
 
@@ -55,11 +244,11 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
 
 
   <!-- SACAR TURNO -->
-  <div class="col-md-3">
+  <!-- <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <h1 class="titulo-bonito">Sacar Turno</h1>
@@ -87,11 +276,11 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> -->
   
 
 
-  <div class="col-md-3">
+  <!-- <div class="col-md-3">
     <div class="card">
       <div class="card-body p-4">
         <h1 class="titulo-bonito">Buscar Partido</h1>
@@ -122,93 +311,30 @@
           <button type="button" class="btn btn-secondary" (click)="buscarPartido()">Buscar</button>
         </span>
   
-        <!-- Display error message -->
+       Display error message 
         <div *ngIf="errorOccurred" class="alert alert-danger mt-3">
           Error: {{ errorMessage }}
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   
   <!-- BSUCAR PARTIDO POR ESTADO -->
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body p-4">
-        <h1 class="titulo-bonito">Buscar Partido por Estado</h1>
-        <br>
-  
-        <div class="form-group">
-          <label for="estado">Seleccionar Estado:</label>
-          <select id="estado" name="estado" [(ngModel)]="selectedEstado" class="form-control">
-            <option *ngFor="let estado of estadosPartido" [value]="estado">{{ estado }}</option>
-          </select>
-        </div>
-  
-        <span class="p-input-icon-left">
-          &nbsp;&nbsp;
-          <button type="button" class="btn btn-secondary" (click)="buscarPartidoPorEstado()">Buscar</button>
-        </span>
-      </div>
-    </div>
-  </div>
+
   
   
 
 
   <!-- BUSCAR PARTIDO POR REPRESENTANTE -->
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body p-4">
-        <h1 class="titulo-bonito">Buscar Partido por Representante</h1>
-        <br>
+ 
 
-        <form (ngSubmit)="buscarPartidoPorRepresentante()">
-          <div class="form-group">
-            <label for="telefonoBuscar">Número de Teléfono del Representante:</label>
-            <input type="text" class="form-control" id="telefonoBuscar" name="telefonoBuscar" [(ngModel)]="telefono" placeholder="Ingrese el número de teléfono">
-          </div>
-  
-          <span class="p-input-icon-left">
-            &nbsp;&nbsp;
-            <button type="submit" class="btn btn-secondary">Buscar</button>
-          </span>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <h1> &nbsp; </h1>
-  <h1> &nbsp; </h1>
   <!-- TABLE -->
   <!-- Asegúrate de que partidos esté definido y tenga al menos un elemento -->
-<table *ngIf="partidos && partidos.length" mat-table [dataSource]="partidos" class="tabla-estilo" matSort matPaginator #paginator>
-  <!-- Columnas -->
-  <ng-container *ngFor="let columna of ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']" [matColumnDef]="columna">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
-    <td mat-cell *matCellDef="let partido">
-      <!-- Ajusta el formato según la estructura real de tus datos -->
-      <ng-container *ngIf="columna !== 'acciones'; else accionesColumn">
-        <span *ngIf="columna === 'dia'">{{ partido.dia }}</span>
-        <span *ngIf="columna === 'estado'">{{ partido.estados?.enumTitle }}</span>
-        <span *ngIf="columna === 'horario'">{{ partido.horario?.enumTitle }}</span>
-        <span *ngIf="columna === 'numeroCancha'">{{ partido.numeroCancha?.enumTitle }}</span>
-
-        <span *ngIf="columna === 'precio'">{{ partido.precio }}</span>
-        <span *ngIf="columna === 'representante'">{{ partido.representante?.title }}</span>
-      </ng-container>
-      <!-- Define las acciones -->
-      <ng-template #accionesColumn let-i="index">
-        <button mat-button (click)="rechazarPartido(partido.$$instanceId, i)" class="boton-rechazar">Rechazar</button>
-        <button mat-button (click)="confirmarPartido(partido.$$instanceId, i)" class="boton-confirmar">Confirmar</button>
-        <button mat-button (click)="darDeBaja(partido.$$instanceId, i)" class="boton-dar-de-baja">Dar de Baja</button>
-        <button mat-button (click)="completarPartido(partido.$$instanceId, i)" class="boton-completar">Completar</button>
-      </ng-template>
-    </td>
-  </ng-container>
-  <!-- Filas -->
-  <tr mat-header-row *matHeaderRowDef="['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['dia', 'estado', 'horario', 'numeroCancha', 'precio', 'representante', 'acciones']"></tr>
-</table>
+  
+  
+  
+  
+  
 
   
   <!-- Paginator -->

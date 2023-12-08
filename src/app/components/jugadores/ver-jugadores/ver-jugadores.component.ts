@@ -18,26 +18,10 @@ export class VerJugadoresComponent {
     @Inject(MAT_DIALOG_DATA) public data: Jugador
   ) { }
 
-
   onSaveChanges(): void {
-    if (this.isValid(this.data)) {
-      // Llama al servicio para actualizar el jugador
-      this.jugadorService.actualizarJugador(this.data).subscribe(
-        updatedJugador => {
-          // Actualiza la referencia al objeto en el componente principal
-          this.data = updatedJugador;
-
-          // Cierra el diálogo y pasa el jugador actualizado
-          this.dialogRef.close(this.data);
-        },
-        error => {
-          console.log('Error al actualizar jugador', error);
-        }
-      );
-    } else {
-      console.log('Error: Datos incompletos o inválidos.');
-    }
+    this.dialogRef.close(this.data); 
   }
+
 
   isValid(data: Jugador): boolean {
     // Valida la información según tus criterios
@@ -45,3 +29,33 @@ export class VerJugadoresComponent {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// EDITAR JUGADOR
+
+  // onSaveChanges(): void {
+  //   if (this.isValid(this.data)) {
+  //     this.jugadorService.actualizarJugador(this.data).subscribe(
+  //       updatedJugador => {
+  //         this.data = updatedJugador;
+
+  //         this.dialogRef.close(this.data);
+  //       },
+  //       error => {
+  //         console.log('Error al actualizar jugador', error);
+  //       }
+  //     );
+  //   } else {
+  //     console.log('Error: Datos incompletos o inválidos.');
+  //   }
+  // }

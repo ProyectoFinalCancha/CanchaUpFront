@@ -340,10 +340,32 @@ export class PartidosComponent {
 
 
 
+  salir(){
+    this.router.navigate(['/login']);
+  }
+
+  encargados(){
+    this.router.navigate(['/encargados'])
+  }
+
+  jugadores(){
+    this.router.navigate(['/jugadores'])
+  }
+
+
+  scrollToDiv() {
+    const div = document.getElementById('tabla');
+  console.log(div);
+    if (div !== null) {
+      div.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+
 
 
   navegar() {
-    this.router.navigate(['admin2Dash'])
+    this.router.navigate(['partidos'])
   }
 
 

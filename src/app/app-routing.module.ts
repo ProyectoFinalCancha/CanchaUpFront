@@ -67,7 +67,8 @@ const routes: Routes = [
   },
   {
     path: 'partidos',
-    component: PartidosComponent
+    component: PartidosComponent,
+    canActivate: [ValidarEncargadoGuard] 
   },
   {
     path:'match',
@@ -89,8 +90,8 @@ const routes: Routes = [
   },
   {
     path:'adminDash',
-    component:DashboardAdminComponent,
-    canActivate: [ValidarEncargadoGuard] 
+    component:DashboardAdminComponent
+   
   },
   {
     path:'admin2Dash',

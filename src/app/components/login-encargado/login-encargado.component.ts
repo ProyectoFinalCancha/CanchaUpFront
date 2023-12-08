@@ -23,7 +23,7 @@ export class LoginEncargadoComponent {
       .subscribe(data => {
         const valorBooleano = data.result.value;
         if (valorBooleano) {
-          this.router.navigate(['/adminDash']);
+          this.router.navigate(['/partidos']);
           Swal.fire(
             '⚽ Bienvenido! ⚽',
             'Nombre de Usuario: ' + `${this.telefono}`,

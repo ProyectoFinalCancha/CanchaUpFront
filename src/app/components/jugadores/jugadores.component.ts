@@ -172,7 +172,24 @@ export class JugadoresComponent {
   
   
   
+  salir(){
+    this.router.navigate(['/login']);
+  }
+
+  partidos(){
+    this.router.navigate(['/partidos'])
+  }
+  encargados(){
+    this.router.navigate(['/encargados'])
+  }
   
+  scrollToDiv() {
+    const div = document.getElementById('tabla');
+  console.log(div);
+    if (div !== null) {
+      div.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
   
   
   

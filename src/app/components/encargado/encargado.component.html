@@ -1,119 +1,169 @@
 <body>
-  <div class="mybotton">
-    <br>
-    <button (click)="navegar()" class="bn632-hover bn26">Volver a Home</button>
-  </div>
+
   <div class="row">
 
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-body p-4">
-          <form #encargadoForm="ngForm" (ngSubmit)="crearEncargado(encargadoForm)">
-
-
-            <h1 class="titulo-bonito">Crear Encargado</h1>
-            <br>
-
-            <div class="form-group">
-              <label for="nombre">Nombre:</label>
-              <input required type="text" id="nombre" name="nombre" [(ngModel)]="nuevoEncargado.nombre"
-                placeholder="Ingrese su nombre" class="form-control">
-            </div>
-
-            <div class="form-group">
-              <label for="apellido">Apellido:</label>
-              <input required type="text" id="apellido" name="apellido" [(ngModel)]="nuevoEncargado.apellido"
-                placeholder="Ingrese su apellido" class="form-control">
-            </div>
-
-            <div class="form-group">
-              <label for="dni">Dni:</label>
-              <input required type="text" id="dni" name="dni" [(ngModel)]="nuevoEncargado.dni"
-                placeholder="Ingrese su correo dni" class="form-control">
-            </div>
-
-            <div class="form-group">
-              <label for="telefono">Teléfono:</label>
-              <input required type="text" id="telefono" name="telefono" [(ngModel)]="nuevoEncargado.telefono"
-                placeholder="Ingrese su teléfono" class="form-control">
-            </div>
-
-
-
-
-
-            <div class="form-group">
-              <label for="password">Contraseña:</label>
-              <input required type="password" id="password" name="password" [(ngModel)]="nuevoEncargado.password"
-                placeholder="Ingrese su contraseña" class="form-control">
-            </div>
-
-
-
-            <!-- Otros campos del formulario según tu estructura -->
-
-            <button type="submit" class="bn6">Guardar</button>
-          </form>
-
+    <div class="mybotton">
+      
+      <div class="mybotton-conteiner">
+        <button class="logout" (click)="salir()">
+          <div class="sign">
+            <svg viewBox="0 0 512 512">
+              <path
+                d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+              ></path>
+            </svg>
+          </div>
+  
+          <div class="text">Logout</div>
+        </button>
+      </div>
+      <div class="mydict">
+        <div>
+          <label class="label-bar" (click)="partidos()">
+            <input type="radio" name="radio" />
+            <span>Partidos</span>
+          </label>
+          <label class="label-bar" (click)="jugadores()">
+            <input type="radio" name="radio" />
+            <span>Jugadores</span>
+          </label>
+          <label class="label-bar">
+            <input type="radio" name="radio" checked />
+            <span>Encargados</span>
+          </label>
         </div>
       </div>
+      <div class="mybotton-conteiner">
+        <button class="goToTable" (click)="scrollToDiv()">
+          <svg class="svgIcon" viewBox="0 0 384 512">
+            <path
+              d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+            ></path>
+          </svg>
+        </button>
+      </div>
     </div>
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-body p-4">
+  
+    <div class="login-box">
+      <form #encargadoForm="ngForm" (ngSubmit)="crearEncargado(encargadoForm)">
+        <div class="text-h1">
+          <h1 class="titulo-bonito">Crear Encargado</h1>
+        </div>
+        <div class="user-box">
+          <input
+            required
+            type="text"
+            id="nombre"
+            name="nombre"
+            [(ngModel)]="nuevoEncargado.nombre"
+          />
+          <label>Nombre</label>
+        </div>
+        <div class="user-box">
+          <input
+            required
+            type="text"
+            id="apellido"
+            name="apellido"
+            [(ngModel)]="nuevoEncargado.apellido"
+          />
+          <label>Apellido</label>
+        </div>
+        <div class="user-box">
+          <input
+            required
+            type="text"
+            id="dni"
+            name="dni"
+            [(ngModel)]="nuevoEncargado.dni"
+          />
+          <label>Dni</label>
+        </div>
+
+        <div class="user-box">
+          <input
+            required
+            type="text"
+            id="telefono"
+            name="telefono"
+            [(ngModel)]="nuevoEncargado.telefono"
+          />
+          <label>Teléfono</label>
+        </div>
+
+        <div class="user-box">
+          <input
+            required
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="nuevoEncargado.password"
+          />
+          <label>Contraseña</label>
+        </div>
+        <div class="contenedor-bn6">
+          <button type="button" class="bn6">Crear</button>
+        </div>
+      </form>
+      <span></span>
+    </div>
+
+    <div class="login-box">
+      <form>
+        <div class="text-h1">
           <h1 class="titulo-bonito">Buscar Encargado</h1>
-          <br>
-          <span class="p-input-icon-left">
-            <input required type="text" [(ngModel)]="telefonoFiltrado" placeholder="Ingrese Nro de Telefono"
-              pInputText />
-            &nbsp;&nbsp;
-            <button type="button" class="btn btn-secondary"
-              (click)="buscarEncargadoPorTelefono(telefonoFiltrado)">Buscar</button>
-          </span>
         </div>
-      </div>
+        <div class="user-box">
+          <input required type="text" [(ngModel)]="telefonoFiltrado" />
+          <label>Ingrese Nro de Telefono</label>
+        </div>
+        <div class="contenedor-bn6">
+          <button
+            type="button"
+            class="bn6"
+            (click)="buscarEncargadoPorTelefono(telefonoFiltrado)"
+          >
+            Buscar
+          </button>
+        </div>
+      </form>
     </div>
-    <br>
-    <!-- TABLE -->
-    <table *ngIf="encargados && encargados.length" mat-table [dataSource]="encargados" class="tabla-estilo" matSort
-      matPaginator #paginator>
-      <!-- Columnas -->
-      <ng-container *ngFor="let columna of ['nombre', 'apellido', 'dni', 'telefono', 'pass', 'acciones']"
-        [matColumnDef]="columna">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columna | titlecase }}</th>
+  </div>
+
+  <div class="contenedor-tabla" id="tabla">
+    <table mat-table [dataSource]="encargados" class="tabla-estilo" matSort>
+      <!-- Definición de columnas -->
+      <ng-container *ngFor="let columna of ['nombre', 'apellido', 'dni', 'telefono']" [matColumnDef]="columna">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ columna | titlecase }}
+        </th>
+        <td mat-cell *matCellDef="let encargado">{{ encargado[columna] }}</td>
+      </ng-container>
+
+      <!-- Columna de acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let encargado">
-          <ng-container *ngIf="columna !== 'acciones'; else accionesColumn">
-            {{ encargado[columna] }}
-          </ng-container>
-          <ng-template #accionesColumn>
-            <button (click)="eliminarEncargado(encargado.$$instanceId)" class="btn btn-danger btn-sm">
-              <i class="material-icons">delete</i>
+          <div class="acciones-bnt">
+            <button (click)="eliminarEncargado(encargado.$$instanceId)" class="button2">
+              Eliminar
             </button>
-            <button type="button" class="btn btn-outline-info" (click)="openEditDialog(encargado)">Ver</button>
-          </ng-template>
+            <button type="button" class="button" (click)="openEditDialog(encargado)">
+              Ver
+            </button>
+          </div>
         </td>
       </ng-container>
-      <!-- Filas -->
-      <tr mat-header-row *matHeaderRowDef="['nombre', 'apellido', 'dni', 'telefono', 'pass', 'acciones']"></tr>
-      <tr mat-row *matRowDef="let encargado; columns: ['nombre', 'apellido', 'dni', 'telefono', 'pass', 'acciones']"
-        [ngClass]="{'fila-vacia': !tieneDatos(encargado)}">
-        <ng-container *ngFor="let columna of ['nombre', 'apellido', 'dni', 'telefono', 'pass']">
-          <td mat-cell *matCellDef="let encargado">{{ encargado[columna] }}</td>
-        </ng-container>
-        <td mat-cell *matCellDef="let encargado">
-          <button (click)="eliminarEncargado(encargado.$$instanceId)" class="btn btn-danger btn-sm">
-            <i class="material-icons">delete</i>
-          </button>
-          <button type="button" class="btn btn-outline-info" (click)="openEditDialog(encargado)">Ver</button>
-        </td>
-      </tr>
 
+      <!-- Encabezado de la tabla -->
+      <tr mat-header-row *matHeaderRowDef="['nombre', 'apellido', 'dni', 'telefono', 'acciones']"></tr>
+
+      <!-- Fila de la tabla -->
+      <tr mat-row *matRowDef="
+          let row;
+          columns: ['nombre', 'apellido', 'dni', 'telefono', 'acciones']
+        "></tr>
     </table>
-
-
-    <!-- <div class="paginator-container">
-      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div> -->
-
   </div>
+
 </body>

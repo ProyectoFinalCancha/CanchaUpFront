@@ -42,10 +42,13 @@ html {
 /*--------------------------BOTON DE LOGIN --------------------------------------------------*/
 
 
-.myclass {
-  margin-left: 80px;
-}
 
+.myclass {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /*---------------------------------------------*/
 a {
   font-family: Poppins-Regular;
@@ -235,9 +238,6 @@ button:hover {
 @media (max-width: 768px) {
   .login100-form-title {
       font-size: 30px;
-  }
-  .myclass{
-    margin-left: 11px;
   }
 }
 
@@ -9185,7 +9185,6 @@ button:hover {
 }
 
 .bn5 {
-  margin-left: 65px;
   text-decoration: none;
   padding: 0.6em 2em;
   border: none;
