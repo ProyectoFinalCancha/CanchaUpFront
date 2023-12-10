@@ -20,10 +20,26 @@ export class EquipoService {
     return this.http.post(this.apiUrl_crear + '/actions/crearEquipo/invoke', body, { headers });
   }
 
-  verEquipos(): Observable<any> {
-    return this.http.post(this.apiUrl_crear + '/actions/verEquipos/invoke', {});
+  verEquipos(): Observable<Equipo[]> {
+    const url: string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/verEquipos/invoke';
+  
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+    });
+  
+    return this.http.post<Equipo[]>(url, null, { headers: headers });
   }
+  
+  obtenerJugadores(): Observable<any> {
+    const apiUrl:string = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke'
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+    });
 
+    return this.http.get<any>(apiUrl, { headers });
+  }
 
   buscarEquipo(telefono: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
