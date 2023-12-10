@@ -1,4 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Jugador } from 'src/app/models/jugador';
 import { EquipoService } from 'src/app/services/equipo.service';
 import { JugadorService } from 'src/app/services/jugador.service';
@@ -13,7 +14,13 @@ import { JugadorService } from 'src/app/services/jugador.service';
   providers:[JugadorService]
 })
 export class EquipoComponent {
- 
+  constructor(private router:Router){
+     
+  }
+
+  irAMatch(){
+    this.router.navigate(['/match'])
+  }
 }
 
 

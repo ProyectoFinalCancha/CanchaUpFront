@@ -34,7 +34,18 @@ export class SolicitudesEquipoService {
     return this.http.post(url, body, { headers });
   }
 
+  verSolicitud(): Observable<any> {
+    const url =
+      'http://localhost:8080/restful/services/simple.SolicitudEquipoServices/actions/verSolicitudes/invoke';
+      const headers = new HttpHeaders({
+        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+      });
 
+    const body = {}; // Puedes pasar datos si es necesario
+
+    return this.http.post(url, body, { headers });
+  }
   
   cancelarSolicitudEquipo(objectId: string): Observable<any> {
     const url = `http://localhost:8080/restful/objects/simple.SolicitudEquipo/${objectId}/actions/cancelarSolicitud/invoke`;

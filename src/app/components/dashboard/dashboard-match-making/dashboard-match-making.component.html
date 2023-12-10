@@ -5,24 +5,48 @@
         <div class="text">Volver</div>
       </button>
     </div>
-    <p-card class="scrollable-card clickable-card" header="Match Individual"
-      subheader="Soy un Jugador y quiero encontrar a mi equipo">
+    <p-card
+      class="scrollable-card clickable-card"
+      header="Match Individual"
+      subheader="Soy un Jugador y quiero encontrar a mi equipo"
+      (click)="solicitud()"
+    >
       <ng-template pTemplate="header">
-        <img class="miImagen" alt="Card" src="../../../../assets/images/individualMatch.jpg" loading="lazy" />
+        <img
+          class="miImagen"
+          alt="Card"
+          src="../../../../assets/images/individualMatch.jpg"
+        />
       </ng-template>
     </p-card>
 
-    <p-card class="scrollable-card clickable-card" header="Match Grupal"
-      subheader="Tengo a mi equipo y quiero competir con otro">
+    <p-card
+      class="scrollable-card clickable-card"
+      header="Match Grupal"
+      subheader="Tengo a mi equipo y quiero competir con otro"
+      (click)="solicitudEquipos()"
+    >
       <ng-template pTemplate="header">
-        <img class="miImagen" alt="Card" src="../../../../assets/images/grupalMatch.jpg" loading="lazy" />
+        <img
+          class="miImagen"
+          alt="Card"
+          src="../../../../assets/images/grupalMatch.jpg"
+        />
       </ng-template>
     </p-card>
 
-    <p-card class="scrollable-card clickable-card" header="Mi Equipo" subheader="Ver y agregar jugadores a mi Equipo"
-      (click)="equipos()">
+    <p-card
+      class="scrollable-card clickable-card"
+      header="Mi Equipo"
+      subheader="Ver y agregar jugadores a mi Equipo"
+      (click)="equipos()"
+    >
       <ng-template pTemplate="header">
-        <img class="miImagen" alt="Card" src="../../../../assets/images/futbol-equipo.webp" loading="lazy" />
+        <img
+          class="miImagen"
+          alt="Card"
+          src="../../../../assets/images/futbol-equipo.webp"
+        />
       </ng-template>
     </p-card>
   </div>

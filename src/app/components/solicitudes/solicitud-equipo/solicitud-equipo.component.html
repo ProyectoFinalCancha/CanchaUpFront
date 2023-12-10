@@ -1,29 +1,49 @@
-<div class="solicitudes-container">
-    <h2>Solicitudes de Equipo</h2>
-  
-    <!-- Formulario para crear una solicitud de equipo -->
-    <form (ngSubmit)="crearSolicitud()">
-      <label for="dia">Día:</label>
-      <input type="text" id="dia" name="dia" [(ngModel)]="nuevoDia" required>
-  
-      <label for="telefono">Teléfono:</label>
-      <input type="text" id="telefono" name="telefono" [(ngModel)]="nuevoTelefono" required>
-  
-      <button type="submit">Crear Solicitud</button>
-    </form>
-  
-    <!-- Lista de solicitudes de equipo -->
+<div>
+  <h1>Solicitudes de Equipo</h1>
+
+  <!-- Formulario para crear una nueva solicitud de equipo -->
+  <form #solicitudEquipoForm="ngForm" (ngSubmit)="crearSolicitudEquipo(solicitudEquipoForm)">
+    <label for="dia">Día:</label>
+    <input type="text" id="dia" name="dia" [(ngModel)]="nuevaSolicitudEquipo.diaString" required>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="text" id="telefono" name="telefono" [(ngModel)]="nuevaSolicitudEquipo.telefono" required>
+
+    <label for="horario">Horario:</label>
+    <input type="text" id="horario" name="horario" [(ngModel)]="nuevaSolicitudEquipo.horarioSting" required>
+
+    <button type="submit">Crear Solicitud</button>
+  </form>
+
+  <!-- Lista de solicitudes existentes -->
+  <div *ngIf="solicitudesEquipo.length > 0">
+    <h2>Solicitudes Existentes</h2>
     <ul>
-      <li *ngFor="let solicitud of solicitudes">
-        <p>Día: {{ solicitud.dia }}</p>
-        <p>Teléfono: {{ solicitud.telefono }}</p>
+      <li *ngFor="let solicitud of solicitudesEquipo">
+        {{ solicitud.id }} - {{ solicitud.diaString }} - {{ solicitud.telefono }} - {{ solicitud.horarioSting }}
       </li>
     </ul>
   </div>
-  <div>
-    <p>Object ID: {{ objectId }}</p>
-    <input [(ngModel)]="objectId" placeholder="Ingrese un nuevo Object ID">
-    <button (click)="cancelarSolicitud()">Cancelar Solicitud</button>
-  </div>
-  
-  
+</div>
+
+<div *ngIf="solicitudesEquipo.length > 0">
+  <h2>Solicitudes Existentes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Día</th>
+        <th>Teléfono</th>
+        <th>Horario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let solicitud of solicitudesEquipo">
+        <td>{{ solicitud.id }}</td>
+        <td>{{ solicitud.diaString }}</td>
+        <td>{{ solicitud.telefono }}</td>
+        <td>{{ solicitud.horarioSting }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,15 +1,76 @@
-<form (ngSubmit)="realizarSolicitud()">
-  <label for="dia">Día:</label>
-  <input type="text" id="dia" name="dia" [(ngModel)]="dia" required>
+<div>
+  <h2>Crear Nueva Solicitud</h2>
+  <form #solicitudForm="ngForm" (ngSubmit)="crearSolicitud(solicitudForm)">
+    <label for="dia">Día:</label>
+    <input type="date" id="dia" name="dia" [(ngModel)]="nuevaSolicitud.dia" required>
 
-  <label for="telefono">Teléfono:</label>
-  <input type="text" id="telefono" name="telefono" [(ngModel)]="telefono" required>
+    <label for="telefono">Teléfono:</label>
+    <input type="text" id="telefono" name="telefono" [(ngModel)]="nuevaSolicitud.telefono" required>
 
-  <label for="horario">Horario:</label>
-  <input type="text" id="horario" name="horario" [(ngModel)]="horario" required>
+    <label for="horario">Horario:</label>
+    <select id="horario" name="horario" [(ngModel)]="nuevaSolicitud.horario" required>
+      <option *ngFor="let option of horarioOptions" [value]="option">{{ option }}</option>
+    </select>
 
-  <button type="submit">Realizar Solicitud</button>
-</form>
+    <label for="numeroCancha">Número de Cancha:</label>
+    <select id="numeroCancha" name="numeroCancha" [(ngModel)]="nuevaSolicitud.numeroCancha" required>
+      <option *ngFor="let option of numeroCanchaOptions" [value]="option">{{ option }}</option>
+    </select>
 
-<!-- Agregar un botón o enlace para cancelar la solicitud -->
-<button type="button" (click)="cancelarSolicitud()">Cancelar Solicitud</button>
+    <button type="submit" [disabled]="!solicitudForm.valid">Crear Solicitud</button>
+  </form>
+</div>
+
+<table id="">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Día</th>
+      <th>Horario</th>
+      <th>Número de Cancha</th>
+      <th>Estado</th>
+      <th>Precio</th>
+      <th>Edad Promedio</th>
+      <th>Jugadores</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let solicitud of solicitudes">
+      <td>{{ solicitud.id }}</td>
+      <td>{{ solicitud.dia | date:'short' }}</td>
+      <td>{{ solicitud.horario?.enumTitle }}</td>
+      <td>{{ solicitud.numeroCancha?.enumTitle }}</td>
+      <td>{{ solicitud.estado?.enumTitle }}</td>
+      <td>{{ solicitud.precio }}</td>
+      <td>{{ solicitud.edadPromedio }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let jugador of solicitud.jugador">
+            {{ jugador.nombre }} {{ jugador.apellido }}
+          </li>
+        </ul>
+      </td>
+      <td *ngFor="let solicitud of solicitudes; let index = index">
+        <button (click)="cancelarSolicitud(solicitud.id !== undefined ? solicitud.id.toString() : '', index)" class="button2">
+          Eliminar
+        </button>
+      </td>
+      
+      
+      
+      
+      
+      
+      
+      
+    
+      
+      
+      
+      
+      
+      
+    </tr>
+  </tbody>
+</table>

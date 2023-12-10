@@ -31,6 +31,27 @@ body {
   max-height: 0vh;
 }
 
+.mybotton {
+  margin: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.acciones-bnt {
+  display: flex;
+  justify-content: center;
+}
+
+.acciones-bnt button {
+  margin: 10px;
+}
+
+.card {
+  border-radius: 20px;
+  box-shadow: 10px 22px 50px #1b2631;
+  border: 20px solid rgba(255, 255, 255, 0.5);
+}
+
 .bn6 {
   --color: #560bad;
   font-family: inherit;
@@ -157,87 +178,22 @@ body {
   cursor: pointer;
 }
 
-.card {
-  border-radius: 20px;
-  box-shadow: 10px 22px 50px #1b2631;
-  border: 20px solid rgba(255, 255, 255, 0.5);
+.mat-paginator {
+  background-color: #346369; /* Color de fondo del encabezado de la tabla */
+  color: #d9d8d8; /* Color de texto del encabezado de la tabla */
+  margin-right: 90px;
+  margin-left: 700px;
+  border-radius: 10px;
+  border-top-left-radius: 10px; /* Redondear la parte superior izquierda */
+  border-top-right-radius: 10px; /* Redondear la parte superior derecha */
 }
 
-.mybotton {
-  margin: 40px;
-  display: flex;
-  justify-content: center;
+.resaltado {
+  background-color: yellow;
 }
 
-.boton-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.bn632-hover {
-  width: 160px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  margin: 20px;
-  height: 55px;
-  text-align: center;
-  border: none;
-  background-size: 300% 100%;
-  border-radius: 50px;
-  moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
-
-.bn632-hover:hover {
-  background-position: 100% 0;
-  moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
-
-.bn632-hover:focus {
-  outline: none;
-}
-
-.boton-completar {
-  font-size: 17px;
-  padding: 0.5em 2em;
-  border: transparent;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  background: #2980b9;
-  color: white;
-  border-radius: 4px;
-}
-.boton-completar:hover {
-  background: #2471a3;
-}
-.boton-completar:active {
-  transform: translate(0em, 0.2em);
-}
-
-.boton-rechazar {
-  font-size: 17px;
-  padding: 0.5em 2em;
-  border: transparent;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  background: #7f8c8d;
-  color: white;
-  border-radius: 4px;
-}
-.boton-rechazar:hover {
-  background: #616a6b;
-}
-.boton-rechazar:active {
-  transform: translate(0em, 0.2em);
-}
-
-.boton-dar-de-baja {
+.button2 {
+  margin-right: 20px;
   font-size: 17px;
   padding: 0.5em 2em;
   border: transparent;
@@ -246,32 +202,31 @@ body {
   color: white;
   border-radius: 4px;
 }
-.boton-dar-de-baja:hover {
+
+.button2:hover {
   background: #b03a2e;
 }
-.boton-dar-de-baja:active {
+
+.button2:active {
   transform: translate(0em, 0.2em);
 }
 
-.boton-confirmar {
+.button {
   font-size: 17px;
   padding: 0.5em 2em;
   border: transparent;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  background: #27ae60;
+  background: #2980b9;
   color: white;
   border-radius: 4px;
 }
-.boton-confirmar:hover {
-  background: #239b56;
-}
-.boton-confirmar:active {
-  transform: translate(0em, 0.2em);
+
+.button:hover {
+  background: #2471a3;
 }
 
-.acciones-bnt {
-  display: flex;
-  justify-content: space-evenly;
+.button:active {
+  transform: translate(0em, 0.2em);
 }
 
 .contenedor-bn6 {
@@ -314,6 +269,10 @@ body {
   border-bottom: 1px solid #fff;
   outline: none;
   background: transparent;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Cambia el color del icono */
 }
 
 .login-box .user-box label {
@@ -380,40 +339,6 @@ body {
   height: 2px;
   background: linear-gradient(90deg, transparent, #03f40f);
   animation: btn-anim1 2s linear infinite;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* Cambia el color del icono */
-}
-
-.label-select {
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: 0.5s;
-}
-
-.login-box .user-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-}
-
-select {
-  margin: 10px 0 10px;
-  background: rgba(24, 20, 20, 0.987);
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 30px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-  border-radius: 0;
 }
 
 .goToTable {
