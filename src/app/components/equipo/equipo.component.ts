@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { finalize, forkJoin } from 'rxjs';
 import { Equipo } from 'src/app/models/equipo';
 import { Jugador } from 'src/app/models/jugador';
 import { EquipoService } from 'src/app/services/equipo.service';
 import { JugadorService } from 'src/app/services/jugador.service';
+import { LoginService } from 'src/app/services/login.service';
 
 
 
@@ -21,78 +22,43 @@ export class EquipoComponent implements OnInit {
 
 
   jugadores: Jugador[] = [];
+  telefono!: string;
 
-  constructor(private router: Router, private equipoService: EquipoService, private jugadorService: JugadorService) {
+  constructor(private router: Router, private loginService: LoginService,
+    private equipoService: EquipoService, private jugadorService: JugadorService) {
 
   }
   ngOnInit(): void {
-    this.cargarDatos();
+    this.verEquipos();
+
+
   }
 
- 
-  
-  cargarDatos(): void {
-    this.equipoService.verEquipos().subscribe(
-      (equiposData: Equipo[]) => {
-        this.equipos = equiposData.map((equipo) => ({
-          ...equipo,
-          representante: this.obtenerRepresentante(equipo),
-        }));
-        console.log('Datos del servidor (Equipos):', this.equipos);
-      },
-      (error) => {
-        console.error('Error al obtener equipos:', error);
-      }
-    );
 
-    this.jugadorService.obtenerJugadores().subscribe(
-      (jugadoresData: Jugador[]) => {
-        this.jugadores = jugadoresData;
-        console.log('Datos del servidor (Jugadores):', this.jugadores);
-      },
-      (error) => {
-        console.error('Error al obtener jugadores:', error);
-      }
-    );
-  }
-  obtenerRepresentante(equipo: Equipo): Jugador | null {
-    const representanteId = equipo.representanteId;
-
-    return representanteId !== undefined
-      ? this.jugadores.find((jugador) => jugador.id === representanteId) || null
-      : null;
-  }
-  
   verEquipos(): void {
     this.equipoService.verEquipos().subscribe(
       (data: Equipo[]) => {
         console.log('Datos del servidor (Equipos):', data);
-        this.equipos = data.map((equipo) => ({
-          ...equipo,
-          representante: equipo.representanteId !== undefined
-            ? this.jugadores.find((jugador) => jugador.id === equipo.representanteId) || null
-            : null,
-        }));
-        console.log('Equipos:', this.equipos);
+        this.equipos = [...data];
       },
       (error) => {
         console.error('Error al obtener equipos:', error);
       }
     );
   }
-  
 
-  obtenerNombreRepresentante(equipo: Equipo): string | null {
-    return equipo.representante ? equipo.representante.nombre : null;
-  }
 
-  obtenerApellidoRepresentante(equipo: Equipo): string | null {
-    return equipo.representante ? equipo.representante.apellido : null;
-  }
+  // obtenerNombreRepresentante(equipo: Equipo): string | null {
+  //   return equipo.representante ? equipo.representante.nombre : null;
+  // }
 
-  obtenerTelefonoRepresentante(equipo: Equipo): string | null {
-    return equipo.representante ? equipo.representante.telefono : null;
-  }
+  // obtenerApellidoRepresentante(equipo: Equipo): string | null {
+  //   return equipo.representante ? equipo.representante.apellido : null;
+  // }
+
+  // obtenerTelefonoRepresentante(equipo: Equipo): string | null {
+  //   return equipo.representante ? equipo.representante.telefono : null;
+  // }
 
 
 
@@ -107,10 +73,34 @@ export class EquipoComponent implements OnInit {
         console.log('Error al obtener jugadores:', error);
       }
     );
+
   }
 
 
-  
+
+
+  crearEquipo(): void {
+    this.equipoService.crearEquipo(this.telefono)
+      .pipe(finalize(() => {
+        this.verEquipos();
+      }))
+      .subscribe(
+        () => console.log('Equipo creado exitosamente'),
+        error => console.error('Error al crear equipo:', error)
+      );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   // obtenerJugadoresEquipo(equipo: Equipo): Jugador[] {

@@ -16,12 +16,8 @@
       id="phoneToDelete"
     />
 
-    <button class="add-player">Agregar Jugador</button>
-    <input
-      type="text"
-      placeholder="Número de Teléfono del Nuevo Jugador"
-      id="phoneToAdd"
-    />
+    <button class="add-player" (click)="crearEquipo()">Agregar Jugador</button>
+    <input type="text" placeholder="Número de Teléfono del Nuevo Jugador" [(ngModel)]="telefono" />
     <hr class="line" />
     <h2>Lista de Jugadores</h2>
     <!-- equipo.component.html -->
@@ -37,9 +33,7 @@
       <tbody>
         <ng-container *ngIf="equipos.length > 0">
           <tr *ngFor="let equipo of equipos">
-            <td>{{ obtenerNombreRepresentante(equipo) || 'N/A' }}</td>
-            <td>{{ obtenerApellidoRepresentante(equipo) || 'N/A' }}</td>
-            <td>{{ obtenerTelefonoRepresentante(equipo) || 'N/A' }}</td>
+           
           </tr>
         </ng-container>
       </tbody>

@@ -15,19 +15,19 @@ import { MatInputModule } from '@angular/material/input';
 import { PartidosComponent } from './partidos/partidos.component';
 import { EncargadoComponent } from './encargado/encargado.component';
 
-import {MatSidenavModule} from '@angular/material/sidenav'; 
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { CardModule } from 'primeng/card';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { DashboardMatchMakingComponent } from './dashboard/dashboard-match-making/dashboard-match-making.component';
 
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import {MatSelectModule} from '@angular/material/select'; 
+import { MatSelectModule } from '@angular/material/select';
 
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-import {MatDatepickerModule} from '@angular/material/datepicker'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PopupDialogComponent } from './popup/popup-dialog/popup-dialog.component';
 import { LoginEncargadoComponent } from './login-encargado/login-encargado.component'; // Importa MatDialogModule
@@ -50,10 +50,10 @@ import { DatePipe } from '@angular/common';
     RegistoComponent,
     DashboardComponent,
     LoginComponent,
-   
+
     VerJugadoresComponent,
     PartidosComponent,
-     EncargadoComponent,
+    EncargadoComponent,
     DashboardAdminComponent,
     DashboardMatchMakingComponent,
     // PopupComponent,
@@ -63,12 +63,12 @@ import { DatePipe } from '@angular/common';
     SolicitudEquipoComponent,
     SolicitudComponent,
     EquipoComponent,
-    
-  
+
+
 
     JugadoresComponent
-    
-  
+
+
   ],
   imports: [
     CommonModule,
@@ -87,7 +87,7 @@ import { DatePipe } from '@angular/common';
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
-  //  EnumStringPipe
+    //  EnumStringPipe
   ],
   exports: [
     VerJugadoresComponent,
@@ -96,7 +96,7 @@ import { DatePipe } from '@angular/common';
     DropdownModule,
     // PopupComponent
   ],
-  providers: [MatPaginator,  PageEvent, EncargadoService, DatePipe],
+  providers: [MatPaginator, PageEvent, EncargadoService, DatePipe],
   bootstrap: [ComponentModule]
 })
 export class ComponentModule { }
