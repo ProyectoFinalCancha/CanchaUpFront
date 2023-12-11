@@ -22,14 +22,21 @@ export class EquipoComponent implements OnInit {
 
 
   jugadores: Jugador[] = [];
-  telefono!: string;
+  telefono: string = '';
 
   constructor(private router: Router, private loginService: LoginService,
     private equipoService: EquipoService, private jugadorService: JugadorService) {
 
+    this.telefono = this.loginService.getTelefono();
+
   }
   ngOnInit(): void {
-    this.verEquipos();
+
+    // this.verEquipos();
+
+    this.loginService.telefono$.subscribe(telefono => {
+      this.telefono = telefono;
+    });
 
 
   }
@@ -48,18 +55,22 @@ export class EquipoComponent implements OnInit {
   }
 
 
-  // obtenerNombreRepresentante(equipo: Equipo): string | null {
-  //   return equipo.representante ? equipo.representante.nombre : null;
-  // }
+  buscarEquipo(): void {
 
-  // obtenerApellidoRepresentante(equipo: Equipo): string | null {
-  //   return equipo.representante ? equipo.representante.apellido : null;
-  // }
+    const telefono = this.telefono;
+  
 
-  // obtenerTelefonoRepresentante(equipo: Equipo): string | null {
-  //   return equipo.representante ? equipo.representante.telefono : null;
-  // }
 
+    this.equipoService.buscarEquipo(telefono).subscribe(
+      (data: any[]) => {
+        console.log('Datos del servidor (Equipos):', data);
+
+      },
+      (error) => {
+        console.error('Error al obtener equipos:', error);
+      }
+    )
+  }
 
 
   obtenerJugadores(): void {
@@ -89,8 +100,6 @@ export class EquipoComponent implements OnInit {
         error => console.error('Error al crear equipo:', error)
       );
   }
-
-
 
 
 

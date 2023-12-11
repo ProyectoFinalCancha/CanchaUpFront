@@ -60,20 +60,26 @@ export class EquipoService {
     return this.http.post(url, requestBody, { headers });
   }
   
-
-
-
-
-
-
-
-
-
   buscarEquipo(telefono: string): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { telefono };
-    return this.http.post(this.apiUrl_buscar + '/actions/buscarEquipo/invoke', body, { headers });
+    const url: string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/buscarEquipo/invoke';
+  
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      'Content-Type': 'application/json',
+    });
+  
+    const requestBody = {
+      telefono: {value: telefono}
+    };
+  
+    return this.http.post(url, requestBody, { headers });
   }
+  
+
+
+
+
 
 //   abrirPopupCrearEquipo(equipoData: Equipo): void {
 //     const dialogRef2 = this.dialog.open(PopCrearEquipoComponent, {
