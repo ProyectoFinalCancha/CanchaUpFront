@@ -24,6 +24,8 @@
     />
     <hr class="line" />
     <h2>Lista de Jugadores</h2>
+    <!-- equipo.component.html -->
+
     <table class="players-table">
       <thead>
         <tr>
@@ -32,20 +34,26 @@
           <th>Teléfono</th>
         </tr>
       </thead>
-
       <tbody>
-        <tr *ngFor="let equipo of equipos">
-          <ng-container *ngIf="obtenerDatosRepresentante(equipo) as representante">
-            <td>{{ representante.nombre }}</td>
-            <td>{{ representante.apellido }}</td>
-            <td>{{ representante.telefono }}</td>
-          </ng-container>
-        </tr>
+        <ng-container *ngIf="equipos.length > 0">
+          <tr *ngFor="let equipo of equipos">
+            <td>{{ obtenerNombreRepresentante(equipo) || 'N/A' }}</td>
+            <td>{{ obtenerApellidoRepresentante(equipo) || 'N/A' }}</td>
+            <td>{{ obtenerTelefonoRepresentante(equipo) || 'N/A' }}</td>
+          </tr>
+        </ng-container>
       </tbody>
-      
-      
     </table>
+    
+    
+    
+    
 
+    
+    
+    
+    
+    
 
   </div>
 </body>

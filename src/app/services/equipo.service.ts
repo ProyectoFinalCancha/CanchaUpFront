@@ -14,11 +14,7 @@ export class EquipoService {
 
   constructor(private http: HttpClient, private dialog: MatDialog) {}
 
-  crearEquipo(nombre: string, telefono: string): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { nombre, telefono };
-    return this.http.post(this.apiUrl_crear + '/actions/crearEquipo/invoke', body, { headers });
-  }
+ 
 
   verEquipos(): Observable<Equipo[]> {
     const url: string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/verEquipos/invoke';
@@ -32,13 +28,27 @@ export class EquipoService {
   }
   
   obtenerJugadores(): Observable<any> {
-    const apiUrl:string = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke'
+    const apiUrl: string = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke'
     const headers = new HttpHeaders({
       'Authorization': 'Basic c3ZlbjpwYXNz',
       'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
     return this.http.get<any>(apiUrl, { headers });
+  }
+
+
+  crearEquipo(telefono:string): Observable<any>{
+    const url:string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/crearEquipo/invoke'
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      'Content-Type': 'application/json',
+    });
+    const requestBody = {
+      telefono:{value:telefono}
+    }
+    return this.http.post(url,requestBody, {headers})
   }
 
   buscarEquipo(telefono: string): Observable<any> {
