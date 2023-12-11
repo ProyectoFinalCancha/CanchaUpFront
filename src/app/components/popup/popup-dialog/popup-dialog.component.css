@@ -61,7 +61,7 @@ select {
 }
 
 input {
-  width: 70%;
+  width: 80%;
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
@@ -77,4 +77,21 @@ label {
   font-size: 16px;
   color: #fff;
   pointer-events: none;
+}
+
+/* Cambiar el color del ícono del botón del datepicker */
+.mat-datepicker-toggle {
+  color: white; /* Cambiar el color del ícono */
+}
+
+/* Cambiar el color del datepicker */
+.mat-datepicker-content {
+  color: white; /* Cambiar el color del texto del datepicker */
+  background-color: black; /* Cambiar el color de fondo del datepicker */
+}
+
+/* Ajustar el espacio del contenedor */
+.picker {
+  display: inline-block; /* Alinea el picker horizontalmente */
+  vertical-align: top; /* Ajusta la alineación vertical */
 }

@@ -3,25 +3,24 @@
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('../../../assets/fonts/poppins/Poppins-Regular.ttf');
+  src: url("../../../assets/fonts/poppins/Poppins-Regular.ttf");
   /* src: url('./assets/fonts/poppins/Poppins-Regular.ttf');  */
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../../../assets/fonts/poppins/Poppins-Medium.ttf');
+  src: url("../../../assets/fonts/poppins/Poppins-Medium.ttf");
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../../../assets/fonts/poppins/Poppins-Bold.ttf');
+  src: url("../../../assets/fonts/poppins/Poppins-Bold.ttf");
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../../../assets/fonts/poppins/Poppins-SemiBold.ttf');
+  src: url("../../../assets/fonts/poppins/Poppins-SemiBold.ttf");
 }
-
 
 /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
@@ -84,7 +83,6 @@ li {
   list-style-type: none;
 }
 
-
 /*---------------------------------------------*/
 input {
   outline: none;
@@ -115,6 +113,11 @@ button:hover {
 /*//////////////////////////////////////////////////////////////////
   [ Utility ]*/
 
+.myclass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .bn5 {
   text-decoration: none;
@@ -127,22 +130,23 @@ button:hover {
   position: relative;
   z-index: 0;
   border-radius: 10px;
-  margin-left: 140px;
   box-shadow: 0px 11px 15px 5px rgba(157, 230, 181, 0.9);
 }
 
 .bn5:before {
   content: "";
-  background: linear-gradient(45deg,
-      #ff0000,
-      #ff7300,
-      #fffb00,
-      #48ff00,
-      #00ffd5,
-      #002bff,
-      #7a00ff,
-      #ff00c8,
-      #ff0000);
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
   position: absolute;
   top: -2px;
   left: -2px;
@@ -155,13 +159,6 @@ button:hover {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   border-radius: 10px;
-
-}
-
-@media (max-width: 412px) {
-  .bn5 {
-    margin-left: 85px;
-  }
 }
 
 .txt1 {
@@ -180,18 +177,16 @@ button:hover {
 }
 
 .bg1 {
-  background-color: #3b5998
+  background-color: #3b5998;
 }
 
 .bg2 {
-  background-color: #1da1f2
+  background-color: #1da1f2;
 }
 
 .bg3 {
-  background-color: #ea4335
+  background-color: #ea4335;
 }
-
-
 
 /*//////////////////////////////////////////////////////////////////
   [ login ]*/
@@ -224,7 +219,6 @@ button:hover {
   overflow: hidden;
 }
 
-
 /*------------------------------------------------------------------
   [ Form ]*/
 
@@ -240,8 +234,6 @@ button:hover {
   line-height: 1.2;
   text-align: center;
 }
-
-
 
 /*------------------------------------------------------------------
   [ Input ]*/
@@ -265,14 +257,12 @@ button:hover {
   font-size: 16px;
   color: #333333;
   line-height: 1.2;
-
   display: block;
   width: 100%;
   height: 55px;
   background: transparent;
   padding: 0 7px 0 43px;
 }
-
 
 /*---------------------------------------------*/
 .focus-input100 {
@@ -321,23 +311,21 @@ button:hover {
   transition: all 0.4s;
 }
 
-
-.input100:focus+.focus-input100::before {
+.input100:focus + .focus-input100::before {
   width: 100%;
 }
 
-.has-val.input100+.focus-input100::before {
+.has-val.input100 + .focus-input100::before {
   width: 100%;
 }
 
-.input100:focus+.focus-input100::after {
+.input100:focus + .focus-input100::after {
   color: #a64bf4;
 }
 
-.has-val.input100+.focus-input100::after {
+.has-val.input100 + .focus-input100::after {
   color: #a64bf4;
 }
-
 
 /*------------------------------------------------------------------
   [ Button ]*/
@@ -375,7 +363,11 @@ button:hover {
   color: #666666;
   /* background: rgb(96,207,220); */
   /* background: linear-gradient(90deg, rgba(96,207,220,1) 0%, rgba(190,52,218,1) 92%); */
-  background: linear-gradient(90deg, rgb(34, 34, 34) 0%, rgb(255, 255, 255) 92%);
+  background: linear-gradient(
+    90deg,
+    rgb(34, 34, 34) 0%,
+    rgb(255, 255, 255) 92%
+  );
   top: 0;
   left: -100%;
 
@@ -411,7 +403,6 @@ button:hover {
 .login100-form-btn:disabled {
   background-color: grey;
 }
-
 
 /*[ PADDING ]
   ///////////////////////////////////////////////////////////
@@ -8464,8 +8455,6 @@ button:hover {
   margin-right: auto;
 }
 
-
-
 /*[ TEXT ]
   ///////////////////////////////////////////////////////////
   */
@@ -8506,7 +8495,7 @@ button:hover {
 
 /* ------------------------------------ */
 .lh-1-0 {
-  line-height: 1.0;
+  line-height: 1;
 }
 
 .lh-1-1 {
@@ -8546,7 +8535,7 @@ button:hover {
 }
 
 .lh-2-0 {
-  line-height: 2.0;
+  line-height: 2;
 }
 
 .lh-2-1 {
@@ -8584,10 +8573,6 @@ button:hover {
 .lh-2-9 {
   line-height: 2.9;
 }
-
-
-
-
 
 /*[ SHAPE ]
   ///////////////////////////////////////////////////////////
@@ -8645,7 +8630,6 @@ button:hover {
 .float-r {
   float: right;
 }
-
 
 /*[ Width & Height ]
   -----------------------------------------------------------
@@ -8714,7 +8698,6 @@ button:hover {
   right: auto;
 }
 
-
 /*[ Opacity ]
   -----------------------------------------------------------
   */
@@ -8773,8 +8756,6 @@ button:hover {
   background-color: black;
 }
 
-
-
 /*[ Wrap Picture ]
   -----------------------------------------------------------
   */
@@ -8805,8 +8786,6 @@ button:hover {
   width: 100%;
 }
 
-
-
 /*[ Hover ]
   -----------------------------------------------------------
   */
@@ -8836,8 +8815,6 @@ button:hover {
   transform: scale(1.1);
 }
 
-
-
 /*[  ]
   -----------------------------------------------------------
   */
@@ -8856,9 +8833,6 @@ button:hover {
 .visible-true {
   visibility: visible;
 }
-
-
-
 
 /*[ Transition ]
   -----------------------------------------------------------
@@ -8918,8 +8892,6 @@ button:hover {
   -moz-transition: all 1s;
   transition: all 1s;
 }
-
-
 
 /*[ Layout ]
   ///////////////////////////////////////////////////////////
