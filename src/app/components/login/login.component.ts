@@ -14,6 +14,12 @@ export class LoginComponent {
 
   constructor(private loginService: LoginService, private router: Router) {}
 
+  ngOnInit(): void {
+    localStorage.removeItem('telefono');
+
+    localStorage.removeItem('instanceId');
+  }
+
   login(): void {
     this.loginService.login(this.telefono, this.password).subscribe(
       (data) => {

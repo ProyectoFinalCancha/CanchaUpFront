@@ -119,4 +119,21 @@ export class EquipoService {
 
     return this.http.post(url, null, { headers });
   }
+
+  tieneEquipo(telefono: string): Observable<any> {
+    const url: string =
+      'http://localhost:8080/restful/services/simple.EquipoServices/actions/tieneEquipo/invoke';
+
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
+      'Content-Type': 'application/json',
+    });
+
+    const requestBody = {
+      telefono: { value: telefono },
+    };
+
+    return this.http.post(url, requestBody, { headers });
+  }
 }

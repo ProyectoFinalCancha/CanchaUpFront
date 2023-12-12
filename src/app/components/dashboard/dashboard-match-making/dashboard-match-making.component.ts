@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Equipo } from 'src/app/models/equipo';
 import { EquipoService } from 'src/app/services/equipo.service';
-import { LoginService } from 'src/app/services/login.service';
+import { PartidoService } from 'src/app/services/partido.service';
 import { PopupService } from 'src/app/services/popup.service';
 import Swal from 'sweetalert2';
 
@@ -23,7 +22,7 @@ export class DashboardMatchMakingComponent {
     private router: Router,
     public equipoService: EquipoService,
     public popupService: PopupService,
-    private loginService: LoginService
+    public partidoService: PartidoService
   ) {}
 
   ngOnInit(): void {
@@ -31,16 +30,71 @@ export class DashboardMatchMakingComponent {
     console.log('telefono: ', this.telefono);
   }
 
-  abrirPopupSolicitud(): void {
-    // Llama al método del servicio para abrir el popup
-    const fechaActual = new Date();
-    this.popupService.abrirPopupSolicitud('', fechaActual, '');
+  tienePartido(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.partidoService.hayPartido(this.telefono).subscribe(
+        (response) => {
+          console.log(response);
+          const primerPartido = response[0];
+          const idPartido = primerPartido.$$instanceId;
+          const dia = primerPartido.dia;
+          const horario = primerPartido.horario.enumTitle;
+          Swal.fire({
+            icon: 'error',
+            title: 'Ya tienes un partido',
+            html: `Dia: <strong>${dia}</strong>  a las: <strong>${horario}</strong>`,
+            showCancelButton: true,
+            confirmButtonText: 'Sí, dar de baja',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#d33',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.partidoService.darDeBaja(idPartido).subscribe();
+            }
+            resolve(true);
+          });
+        },
+        (error) => {
+          resolve(false);
+        }
+      );
+    });
   }
 
-  abrirPopupEquipo(): void {
-    // Llama al método del servicio para abrir el popup
-    const fechaActual = new Date();
-    this.popupService.abrirPopupEquipo('18 HS', fechaActual, '');
+  async abrirPopupSolicitud(): Promise<void> {
+    const resultado = await this.tienePartido();
+    console.log(resultado);
+    if (!resultado) {
+      this.equipoService.tieneEquipo(this.telefono).subscribe((respose) => {
+        if (respose.value) {
+          const fechaActual = new Date();
+          this.popupService.abrirPopupEquipo('18 HS', fechaActual, '');
+        } else {
+          Swal.fire({
+            title: 'Crear tu equipo Previamente',
+            icon: 'error',
+          });
+        }
+      });
+    }
+  }
+
+  async abrirPopupEquipo(): Promise<void> {
+    const resultado = await this.tienePartido();
+    console.log(resultado);
+    if (!resultado) {
+      this.equipoService.tieneEquipo(this.telefono).subscribe((respose) => {
+        if (respose.value) {
+          const fechaActual = new Date();
+          this.popupService.abrirPopupEquipo('18 HS', fechaActual, '');
+        } else {
+          Swal.fire({
+            title: 'Crear tu equipo Previamente',
+            icon: 'error',
+          });
+        }
+      });
+    }
   }
 
   cambiarCursor(puntero: boolean) {
@@ -54,23 +108,19 @@ export class DashboardMatchMakingComponent {
   volver() {
     this.router.navigate(['/dashboard']);
   }
-  solicitud() {
-    this.router.navigate(['/solicitudes']);
-  }
-  solicitudEquipos() {
-    this.router.navigate(['/solicitudes-equipo']);
-  }
 
   equipos(): void {
-    console.log(localStorage.getItem('instanceId'));
+    this.equipoService.tieneEquipo(this.telefono).subscribe((respose) => {
+      if (!respose.value) {
+        Swal.fire({
+          title: 'Tu equipo se creó correctamente',
+          icon: 'success',
+        });
+      }
+    });
+
     this.equipoService.crearEquipo(this.telefono).subscribe(
       (response) => {
-        if (!localStorage.getItem('instanceId')) {
-          Swal.fire({
-            title: 'Tu equipo se creó correctamente',
-            icon: 'success',
-          });
-        }
         const instanceId = response.$$instanceId; // Obtener el valor de $$instanceId
         localStorage.setItem('instanceId', instanceId); // Guardar en el localStorage
 

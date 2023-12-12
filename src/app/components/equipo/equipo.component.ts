@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Equipo } from 'src/app/models/equipo';
 import { EquipoService } from 'src/app/services/equipo.service';
 import { JugadorService } from 'src/app/services/jugador.service';
+import Swal from 'sweetalert2';
 
 interface Jugador {
   nombre: string;
@@ -97,6 +98,11 @@ export class EquipoComponent implements OnInit {
       },
       (error) => {
         console.error('Error al obtener equipos:', error);
+        Swal.fire({
+          title: 'El jugador no Existe',
+          icon: 'error',
+        });
+        this.limpiarInputs();
       }
     );
   }
