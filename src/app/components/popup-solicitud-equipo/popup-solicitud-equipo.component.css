@@ -1,0 +1,97 @@
+.conteiner {
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid 3px green;
+}
+
+.myimg {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.form {
+  width: 85%;
+}
+
+.botonCrear {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 0.9rem 2rem;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 500px;
+  overflow: hidden;
+  background: #66ff66;
+  color: rgb(0, 0, 0);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Cambia el color del icono */
+}
+
+select {
+  width: 100%;
+  margin-top: 10px;
+  background: rgba(24, 20, 20, 0.987);
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  border-radius: 0;
+
+  -webkit-appearance: none;
+  background-color: black;
+}
+
+input {
+  width: 80%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+label {
+  width: 100%;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+}
+
+/* Cambiar el color del ícono del botón del datepicker */
+.mat-datepicker-toggle {
+  color: white; /* Cambiar el color del ícono */
+}
+
+/* Cambiar el color del datepicker */
+.mat-datepicker-content {
+  color: white; /* Cambiar el color del texto del datepicker */
+  background-color: black; /* Cambiar el color de fondo del datepicker */
+}
+
+/* Ajustar el espacio del contenedor */
+.picker {
+  display: inline-block; /* Alinea el picker horizontalmente */
+  vertical-align: top; /* Ajusta la alineación vertical */
+}
