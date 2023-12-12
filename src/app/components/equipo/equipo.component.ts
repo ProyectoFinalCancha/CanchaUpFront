@@ -18,7 +18,7 @@ export class EquipoComponent implements OnInit {
 
   telefonoEliminar: string = '';
   telefonoAgregar: string = '';
-  id: string = '6';
+  id: string = '';
 
   jugadores: Jugador[] = [];
   telefono: string = '';
@@ -26,8 +26,7 @@ export class EquipoComponent implements OnInit {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private equipoService: EquipoService,
-    private jugadorService: JugadorService
+    private equipoService: EquipoService
   ) {
     // this.telefono = this.loginService.getTelefono();
   }
@@ -39,28 +38,10 @@ export class EquipoComponent implements OnInit {
     this.equipoService.buscarEquipo(this.telefono).subscribe((response) => {
       this.id = response.$$instanceId;
     });
-
-    // this.loginService.telefono$.subscribe(telefono => {
-    //   this.telefono = telefono;
-    // });
-  }
-
-  verEquipos(): void {
-    this.equipoService.verEquipos().subscribe(
-      (data: Equipo[]) => {
-        console.log('Datos del servidor (Equipos):', data);
-        this.equipos = [...data];
-      },
-      (error) => {
-        console.error('Error al obtener equipos:', error);
-      }
-    );
   }
 
   buscarEquipo(): void {
-    const telefono = this.telefono;
-
-    this.equipoService.buscarEquipo(telefono).subscribe(
+    this.equipoService.buscarEquipo(this.telefono).subscribe(
       (response) => {
         console.log('Respuesta exitosa:', response.$$instanceId);
       },
@@ -70,44 +51,23 @@ export class EquipoComponent implements OnInit {
     );
   }
 
-  obtenerJugadores(): void {
-    this.jugadorService.obtenerJugadores().subscribe(
-      (data: Jugador[]) => {
-        console.log('Datos del servidor (Jugadores):', data);
-        this.jugadores = data;
-        // Una vez que se obtienen los jugadores, podemos mostrar los equipos.
-      },
-      (error) => {
-        console.log('Error al obtener jugadores:', error);
-      }
-    );
-  }
-
   eliminarEquipo(): void {
     this.equipoService.eliminarEquipo(this.id).subscribe(
       () => {
         console.log('Equipo eliminado exitosamente');
-        // Vuelve a cargar la lista de equipos después de eliminar uno
-        this.verEquipos();
       },
       (error) => {
         console.error('Error al eliminar equipo:', error);
       }
     );
+    this.router.navigate(['/match']);
   }
 
   crearEquipo(): void {
-    this.equipoService
-      .crearEquipo(this.telefono)
-      .pipe(
-        finalize(() => {
-          this.verEquipos();
-        })
-      )
-      .subscribe(
-        () => console.log('Equipo creado exitosamente'),
-        (error) => console.error('Error al crear equipo:', error)
-      );
+    this.equipoService.crearEquipo(this.telefono).subscribe(
+      () => console.log('Equipo creado exitosamente'),
+      (error) => console.error('Error al crear equipo:', error)
+    );
   }
 
   elimarJugador(telefono: string): void {

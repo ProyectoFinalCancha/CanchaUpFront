@@ -23,8 +23,7 @@ export class EquipoService {
   }
 
   eliminarJugador(telefono: string, instanceId: string): Observable<any> {
-    const url =
-      'http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarJugadorDeEquipo/invoke';
+    const url = `http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarJugadorDeEquipo/invoke`;
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept:
@@ -45,8 +44,7 @@ export class EquipoService {
   }
 
   agregarJugador(telefono: string, instanceId: string): Observable<any> {
-    const url =
-      'http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/agregarJugadorAlEquipo/invoke';
+    const url = `http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/agregarJugadorAlEquipo/invoke`;
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept:
@@ -78,7 +76,7 @@ export class EquipoService {
   }
 
   crearEquipo(telefono: string): Observable<any> {
-    const url: string =
+    const url =
       'http://localhost:8080/restful/services/simple.EquipoServices/actions/crearEquipo/invoke';
 
     const headers = new HttpHeaders({
@@ -113,13 +111,13 @@ export class EquipoService {
   }
 
   eliminarEquipo(instanceId: string): Observable<any> {
-    const url: string = `http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarEquipo/invoke`;
+    const url = `http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarEquipo/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
-    return this.http.post(url, { headers });
+    return this.http.post(url, null, { headers });
   }
 }
