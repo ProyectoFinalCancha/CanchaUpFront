@@ -27,16 +27,16 @@ export class EquipoComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService,
     private equipoService: EquipoService, private jugadorService: JugadorService) {
 
-    this.telefono = this.loginService.getTelefono();
+    // this.telefono = this.loginService.getTelefono();
 
   }
   ngOnInit(): void {
+    this.telefono = this.loginService.getTelefono();
+    console.log('telefono: ',this.telefono);
 
-    // this.verEquipos();
-
-    this.loginService.telefono$.subscribe(telefono => {
-      this.telefono = telefono;
-    });
+    // this.loginService.telefono$.subscribe(telefono => {
+    //   this.telefono = telefono;
+    // });
 
 
   }
