@@ -1,24 +1,28 @@
 <div class="conteiner">
   <div class="myimg">
-    <img class="myimg" src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg" alt="Descripción de la imagen"
-    loading="lazy">
+    <img
+      class="myimg"
+      src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg"
+      alt="Descripción de la imagen"
+    />
   </div>
   <form #partidoForm="ngForm" (ngSubmit)="sacarTurno(partidoForm)" class="form">
-  
     <div class="input">
       <input
-      matInput
-      [matDatepicker]="picker" placeholder="Día" [(ngModel)]="nuevoPartido.dia" name="dia"
-          (dateChange)="onDateChange($event)">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Día"
+        [(ngModel)]="nuevoPartido.dia"
+        name="dia"
+        (dateChange)="onDateChange($event)"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </div>
-
 
     <div class="input">
       <label for="">Seleccione el Horario</label>
-      <select
-      [(ngModel)]="nuevoPartido.horario" name="horario">
+      <select [(ngModel)]="nuevoPartido.horario" name="horario">
         <option *ngFor="let horario of horarioEnumValues" [value]="horario">
           {{ transformarHorario(horario) }}
         </option>

@@ -81,8 +81,7 @@ export class EquipoService {
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
-      Accept:
-        'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
       'Content-Type': 'application/json',
     });
 

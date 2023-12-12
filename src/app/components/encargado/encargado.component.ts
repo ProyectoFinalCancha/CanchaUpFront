@@ -7,6 +7,7 @@ import { EncargadoService } from 'src/app/services/encargado.service';
 import { VerEncargadoComponent } from './ver-encargado/ver-encargado.component';
 import { MatDialog } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-encargado',
@@ -37,33 +38,6 @@ export class EncargadoComponent implements OnInit {
       password: '',
     };
   }
-  currentPage = 1;
-  pageSize = 10; // Ajusta el tamaño de la página según tus necesidades
-  totalItems = 0;
-
-  indexColumnaVacia: number = -1;
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.paginator?.previousPage();
-    }
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages()) {
-      this.currentPage++;
-      this.paginator?.nextPage();
-    }
-  }
-
-  totalPages(): number {
-    if (this.paginator) {
-      this.totalItems = this.paginator.length || 0;
-      return Math.ceil(this.totalItems / this.pageSize);
-    }
-    return 0;
-  }
 
   ngOnInit() {
     this.obtenerEncargados();
@@ -75,18 +49,11 @@ export class EncargadoComponent implements OnInit {
 
   obtenerEncargados() {
     this.encargadoService.getEncargados().subscribe(
-      (data: any) => {
-        console.log('Respuesta del servidor:', data);
-
-        if (Array.isArray(data)) {
-          this.encargados = data;
-          this.totalItems = data.length;
-        } else {
-          console.error('La respuesta del servidor no es un array:', data);
-        }
+      (data: Encargado[]) => {
+        this.encargados = data.filter((item) => item.telefono);
       },
       (error) => {
-        console.error('Error al obtener los encargados:', error);
+        console.error(error);
       }
     );
   }
@@ -142,8 +109,16 @@ export class EncargadoComponent implements OnInit {
           })
         )
         .subscribe(
-          () => console.log('Jugador creado exitosamente'),
-          (error) => console.error('Error al crear jugador:', error)
+          () =>
+            Swal.fire({
+              icon: 'success',
+              text: 'Se ha creado el Encargado',
+            }),
+          (error) =>
+            Swal.fire({
+              icon: 'error',
+              text: 'No se pudo crear el Encargado',
+            })
         );
     }
   }

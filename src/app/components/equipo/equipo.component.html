@@ -42,8 +42,12 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngIf="equipos.length > 0">
-          <tr *ngFor="let equipo of equipos"></tr>
+        <ng-container *ngIf="jugadores.length > 0">
+          <tr *ngFor="let jugador of jugadores">
+            <td>{{ jugador.nombre }}</td>
+            <td>{{ jugador.apellido }}</td>
+            <td>{{ jugador.telefono }}</td>
+          </tr>
         </ng-container>
       </tbody>
     </table>

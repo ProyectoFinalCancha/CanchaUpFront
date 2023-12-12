@@ -1,18 +1,13 @@
 import { formatDate } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { Jugador } from 'src/app/models/jugador';
-import {
-  EstadosPartido,
-  Horarios,
-  NumeroCancha,
-  Partido,
-} from 'src/app/models/partido';
+import { Horarios, NumeroCancha, Partido } from 'src/app/models/partido';
 import { PartidoService } from 'src/app/services/partido.service';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-partidos',
@@ -89,8 +84,16 @@ export class PartidosComponent {
           })
         )
         .subscribe(
-          () => console.log('partido creado exitosamente'),
-          (error) => console.error('Error al crear partido:', error)
+          () =>
+            Swal.fire({
+              icon: 'success',
+              text: 'Se ha creado el partido:',
+            }),
+          (error) =>
+            Swal.fire({
+              icon: 'error',
+              text: 'No se pudo crear el partido',
+            })
         );
     }
   }
@@ -139,13 +142,10 @@ export class PartidosComponent {
   obtenerPartidos(): void {
     this.partidoService.verPartidos().subscribe(
       (data: any[]) => {
-        console.log('Datos antes de filtrar:', data);
-        // Filtrar solo objetos Partido válidos
         this.partidos = data.filter((item) => item && item.$$instanceId);
-        console.log('Datos después de filtrar:', this.partidos);
       },
       (error) => {
-        console.log('Error al obtener partidos:', error);
+        console.log(error);
       }
     );
   }

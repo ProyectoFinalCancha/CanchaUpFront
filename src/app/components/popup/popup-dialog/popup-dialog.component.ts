@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 
-
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Horarios, NumeroCancha, Partido } from 'src/app/models/partido';
@@ -11,16 +10,14 @@ import { LoginService } from 'src/app/services/login.service';
 
 import { DatePipe } from '@angular/common';
 
-
 import * as moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-popup-dialog',
   templateUrl: './popup-dialog.component.html',
-  styleUrls: ['./popup-dialog.component.css']
+  styleUrls: ['./popup-dialog.component.css'],
 })
 export class PopupDialogComponent {
   partido: Partido = new Partido();
@@ -34,52 +31,54 @@ export class PopupDialogComponent {
   horarioEnumValues = Object.values(Horarios);
 
   constructor(
-    private datePipe: DatePipe,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<PopupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Partido,
-    private partidoService: PartidoService,
-    private loginService: LoginService
+    private partidoService: PartidoService
   ) {
-    this.telefono = this.loginService.getTelefono();
     this.nuevoPartido = new Partido();
     this.nuevoPartido.horario = this.horarioEnumValues[0];
   }
 
   ngOnInit() {
-    this.loginService.telefono$.subscribe(telefono => {
-      this.telefono = telefono;
-    });
+    this.telefono = localStorage.getItem('telefono') || '';
   }
 
   sacarTurno(partidoForm: NgForm): void {
     console.log('Valor de partidoForm:', partidoForm.value);
     const horarioString = partidoForm.value.horario;
 
-    
     const telefono = this.telefono;
 
-    const horario: Horarios | undefined = this.convertirStringAHorario(horarioString);
-
+    const horario: Horarios | undefined =
+      this.convertirStringAHorario(horarioString);
 
     if (horario !== undefined) {
       this.nuevoPartido.horario = horario;
 
       // Verificar si nuevoPartido.dia tiene un valor no nulo
       if (this.nuevoPartido.dia) {
-        const formattedDia: string = this.formatDateForApi(this.nuevoPartido.dia);
+        const formattedDia: string = this.formatDateForApi(
+          this.nuevoPartido.dia
+        );
 
         // Asegúrate de que formattedDia sea una cadena antes de usarlo
         if (typeof formattedDia === 'string') {
-          this.partidoService.sacarTurno(this.nuevoPartido.horario, formattedDia, telefono)
+          this.partidoService
+            .sacarTurno(this.nuevoPartido.horario, formattedDia, telefono)
             .subscribe(
-              result => {
-                console.log(result);
-              },
-              error => {
-                console.error(error);
-              }
+              () =>
+                Swal.fire({
+                  title: 'Ha sacado el turno con exito!',
+                  icon: 'success',
+                }),
+              (error) =>
+                Swal.fire({
+                  icon: 'error',
+                  text: 'Error, es posible que ya tengas un turno pendiente',
+                })
             );
+          this.dialogRef.close();
         } else {
           console.error('La fecha no se pudo formatear correctamente.');
         }
@@ -89,18 +88,7 @@ export class PopupDialogComponent {
     } else {
       console.error('Horario no reconocido:', horarioString);
     }
-    
-
-    Swal.fire({
-      title: "Ha sacado el turno con exito!",
-      icon: "success"
-    });
-   
   }
-
-
-
-
 
   // private formatDateForApi(date: Date): string {
   //   return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
@@ -115,7 +103,6 @@ export class PopupDialogComponent {
     }
   }
 
-
   private formatDateForApi(date: Date): string {
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -124,23 +111,18 @@ export class PopupDialogComponent {
     return `${year}-${month}-${day}`;
   }
 
-
-
-
-
-
-
-
-
-
   abrirPopup(): void {
     if (this.telefono) {
       const dialogRef = this.dialog.open(PopupDialogComponent, {
-        data: { dia: this.dia, horarios: this.horarios, telefono: this.telefono },
-        panelClass: 'custom-dialog-container'
+        data: {
+          dia: this.dia,
+          horarios: this.horarios,
+          telefono: this.telefono,
+        },
+        panelClass: 'custom-dialog-container',
       });
 
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           // Puedes hacer algo con el resultado si es necesario
         }
@@ -150,17 +132,15 @@ export class PopupDialogComponent {
     }
   }
 
-
-
-
-
   transformarHorario(horario: string): string {
     return horario.replace('_', '').replace('_HS', ' hs');
   }
 
-
   convertirStringAHorario(horarioString: string): Horarios | undefined {
-    console.log('Valor de horarioString al entrar a la función:', horarioString);
+    console.log(
+      'Valor de horarioString al entrar a la función:',
+      horarioString
+    );
 
     // Verificar si horarioString es undefined o null
     if (!horarioString) {
@@ -169,7 +149,10 @@ export class PopupDialogComponent {
     }
 
     // Loguear el valor actual de horarioString
-    console.log('Valor de horarioString antes de transformación:', horarioString);
+    console.log(
+      'Valor de horarioString antes de transformación:',
+      horarioString
+    );
 
     // Revertir la transformación realizada en la presentación
     const formattedString = horarioString.replace(' hs', '_HS');
@@ -178,7 +161,12 @@ export class PopupDialogComponent {
     console.log('Valor de formattedString:', formattedString);
 
     const horarioEnum = this.horarioEnumValues.find((enumValue) => {
-      console.log('Comparando:', enumValue.toString(), 'con', formattedString.trim());
+      console.log(
+        'Comparando:',
+        enumValue.toString(),
+        'con',
+        formattedString.trim()
+      );
       return enumValue.toString() === formattedString.trim();
     });
 
@@ -191,7 +179,4 @@ export class PopupDialogComponent {
       return undefined;
     }
   }
-
-
-
 }

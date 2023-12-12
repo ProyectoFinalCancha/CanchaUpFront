@@ -20,7 +20,7 @@ export class PopupSolicitudComponent {
   ) {}
 
   ngOnInit(): void {
-    this.telefono = this.loginService.getTelefono();
+    this.telefono = localStorage.getItem('telefono') || '';
     console.log('telefono: ', this.telefono);
   }
 

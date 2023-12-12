@@ -6,96 +6,61 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  telefono: string = '';
+  password: string = '';
 
-
-  
-  telefono: string = "";
-  password: string = "";
-
-
- 
-
-  constructor(private loginService: LoginService,private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router) {}
 
   login(): void {
-    this.loginService.login(this.telefono, this.password)
-      .subscribe(data => {
+    this.loginService.login(this.telefono, this.password).subscribe(
+      (data) => {
         const valorBooleano = data.result.value;
         if (valorBooleano) {
-
-          ///ALMACENAR EL TELEFONO P USARLO EN EL POPUP DE SACAR TURNITO 
-          this.loginService.setTelefono(this.telefono);
-          
           this.router.navigate(['/dashboard']);
           Swal.fire(
             '⚽ Bienvenido! ⚽',
             'Nombre de Usuario: ' + `${this.telefono}`,
-            'success',
+            'success'
           );
         } else {
           // Si el valor booleano es falso, muestra un cartel de error
           Swal.fire('Error', 'Usuario o contraseña incorrectos', 'error');
         }
-        console.log(valorBooleano);
-      }, error => {
-        // Manejar errores de la solicitud HTTP
+      },
+      (error) => {
         Swal.fire('Error', 'Inicio de sesión fallido', 'error');
         console.log('Error', error);
-      });
+      }
+    );
   }
-  
-
-
 
   IraRegistro() {
-    this.router.navigate(['/registro'])
+    this.router.navigate(['/registro']);
   }
 
-  // IraDashSinLoguear() {
-  //   this.router.navigate(['/dashboard'])
-  //   Swal.fire(
-  //     '⚽ Bienvenido! ⚽',
-  //     'Nombre de Usuario:  '+ `${this.username}`,
-  //     'success',
-  //   )
-  // }
-
-  IrAloginEncargado(){
-    this.router.navigate(['/loginEncargado'])
+  IrAloginEncargado() {
+    this.router.navigate(['/loginEncargado']);
   }
 
-
-  irAJugadores(){
-    this.router.navigate(['jugadores'])
+  irAJugadores() {
+    this.router.navigate(['jugadores']);
   }
 
-  irAEquipos(){
-    this.router.navigate(['equipos'])
+  irAEquipos() {
+    this.router.navigate(['equipos']);
   }
 
-  irAPartidos(){
-    this.router.navigate(['partidos'])
+  irAPartidos() {
+    this.router.navigate(['partidos']);
   }
-  irADashComun(){
-    this.router.navigate(['dashboard'])
+  irADashComun() {
+    this.router.navigate(['dashboard']);
   }
 
-  irADashMatchmaking(){
-    this.router.navigate(['match'])
+  irADashMatchmaking() {
+    this.router.navigate(['match']);
   }
 }
-
-
-
-
-
-
-  // public loguear() {
-  //   let resp = this.authService.getUser(this.username, this.password);
-  //   resp.subscribe(data => {
-  //       console.log(data)
-  //   })
-  // }

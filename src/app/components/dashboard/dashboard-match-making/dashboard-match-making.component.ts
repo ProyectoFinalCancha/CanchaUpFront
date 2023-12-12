@@ -4,6 +4,7 @@ import { Equipo } from 'src/app/models/equipo';
 import { EquipoService } from 'src/app/services/equipo.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PopupService } from 'src/app/services/popup.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard-match-making',
@@ -26,7 +27,7 @@ export class DashboardMatchMakingComponent {
   ) {}
 
   ngOnInit(): void {
-    this.telefono = this.loginService.getTelefono();
+    this.telefono = localStorage.getItem('telefono') || '';
     console.log('telefono: ', this.telefono);
   }
 
@@ -39,7 +40,7 @@ export class DashboardMatchMakingComponent {
   abrirPopupEquipo(): void {
     // Llama al método del servicio para abrir el popup
     const fechaActual = new Date();
-    this.popupService.abrirPopupEquipo('', fechaActual, '');
+    this.popupService.abrirPopupEquipo('18 HS', fechaActual, '');
   }
 
   cambiarCursor(puntero: boolean) {
@@ -61,15 +62,23 @@ export class DashboardMatchMakingComponent {
   }
 
   equipos(): void {
+    console.log(localStorage.getItem('instanceId'));
     this.equipoService.crearEquipo(this.telefono).subscribe(
-      (respose) => {
-        console.log(respose);
+      (response) => {
+        if (!localStorage.getItem('instanceId')) {
+          Swal.fire({
+            title: 'Tu equipo se creó correctamente',
+            icon: 'success',
+          });
+        }
+        const instanceId = response.$$instanceId; // Obtener el valor de $$instanceId
+        localStorage.setItem('instanceId', instanceId); // Guardar en el localStorage
+
+        this.router.navigate(['/equipos']);
       },
       (err) => {
-        console.log(err);
+        console.error(err);
       }
     );
-
-    this.router.navigate(['/equipos']);
   }
 }
