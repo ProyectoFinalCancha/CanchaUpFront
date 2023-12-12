@@ -5,29 +5,26 @@ import { MatDialog } from '@angular/material/dialog';
 import { Equipo } from '../models/equipo';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EquipoService {
-
-
   constructor(private http: HttpClient, private dialog: MatDialog) {}
 
- 
-
   verEquipos(): Observable<any[]> {
-    const url: string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/verEquipos/invoke';
-  
+    const url: string =
+      'http://localhost:8080/restful/services/simple.EquipoServices/actions/verEquipos/invoke';
+
     const headers = new HttpHeaders({
-      'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
-  
+
     return this.http.post<any[]>(url, null, { headers: headers });
   }
 
-
   eliminarJugador(telefono: string, instanceId: string): Observable<any> {
-    const url = 'http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarJugadorDeEquipo/invoke';
+    const url =
+      'http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarJugadorDeEquipo/invoke';
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept:
@@ -48,7 +45,8 @@ export class EquipoService {
   }
 
   agregarJugador(telefono: string, instanceId: string): Observable<any> {
-    const url = 'http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/agregarJugadorAlEquipo/invoke';
+    const url =
+      'http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/agregarJugadorAlEquipo/invoke';
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept:
@@ -68,66 +66,60 @@ export class EquipoService {
     );
   }
 
-
-
-
-  
   obtenerJugadores(): Observable<any> {
-    const apiUrl: string = 'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke'
+    const apiUrl: string =
+      'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke';
     const headers = new HttpHeaders({
-      'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
     return this.http.get<any>(apiUrl, { headers });
   }
 
   crearEquipo(telefono: string): Observable<any> {
+    const url: string =
+      'http://localhost:8080/restful/services/simple.EquipoServices/actions/crearEquipo/invoke';
 
-    
-    const url: string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/crearEquipo/invoke';
-  
     const headers = new HttpHeaders({
-      'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept:
+        'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
       'Content-Type': 'application/json',
     });
-  
+
     const requestBody = {
-      telefono: {value: telefono}
+      telefono: { value: telefono },
     };
-  
+
     return this.http.post(url, requestBody, { headers });
   }
 
-
-  
   buscarEquipo(telefono: string): Observable<any> {
-    const url: string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/buscarEquipo/invoke';
-  
+    const url: string =
+      'http://localhost:8080/restful/services/simple.EquipoServices/actions/buscarEquipo/invoke';
+
     const headers = new HttpHeaders({
-      'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
       'Content-Type': 'application/json',
     });
-  
+
     const requestBody = {
-      telefono: {value: telefono}
+      telefono: { value: telefono },
     };
-  
+
     return this.http.post(url, requestBody, { headers });
   }
-  
 
   eliminarEquipo(instanceId: string): Observable<any> {
     const url: string = `http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarEquipo/invoke`;
 
     const headers = new HttpHeaders({
-      'Authorization': 'Basic c3ZlbjpwYXNz',
-      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
-    return this.http.delete(url, { headers });
+    return this.http.post(url, { headers });
   }
-
 }

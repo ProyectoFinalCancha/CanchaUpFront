@@ -4,7 +4,9 @@
       <div class="text">Volver</div>
     </button>
     <label class="titulo">Tu Equipo</label>
-    <button class="delete-team" (click)="buscarEquipo()">Eliminar Equipo</button>
+    <button class="delete-team" (click)="eliminarEquipo()">
+      Eliminar Equipo
+    </button>
 
     <div class="middle-text">Edita tu equipo</div>
     <hr class="line" />
@@ -41,21 +43,9 @@
       </thead>
       <tbody>
         <ng-container *ngIf="equipos.length > 0">
-          <tr *ngFor="let equipo of equipos">
-          </tr>
+          <tr *ngFor="let equipo of equipos"></tr>
         </ng-container>
       </tbody>
     </table>
-
-
-
-
-
-
-
-
-
-
-
   </div>
 </body>

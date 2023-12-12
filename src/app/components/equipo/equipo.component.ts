@@ -7,20 +7,15 @@ import { EquipoService } from 'src/app/services/equipo.service';
 import { JugadorService } from 'src/app/services/jugador.service';
 import { LoginService } from 'src/app/services/login.service';
 
-
-
-
 @Component({
   selector: 'app-equipo',
   templateUrl: './equipo.component.html',
   styleUrls: ['./equipo.component.css'],
-  providers: [JugadorService]
+  providers: [JugadorService],
 })
 export class EquipoComponent implements OnInit {
+  equipos: Equipo[] = [];
 
-  equipos: Equipo[] = []
-
-  
   telefonoEliminar: string = '';
   telefonoAgregar: string = '';
   id: string = '6';
@@ -28,27 +23,27 @@ export class EquipoComponent implements OnInit {
   jugadores: Jugador[] = [];
   telefono: string = '';
 
-  constructor(private router: Router, private loginService: LoginService,
-    private equipoService: EquipoService, private jugadorService: JugadorService) {
-
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private equipoService: EquipoService,
+    private jugadorService: JugadorService
+  ) {
     // this.telefono = this.loginService.getTelefono();
-
   }
-
-
 
   ngOnInit(): void {
     this.telefono = this.loginService.getTelefono();
-    console.log('telefono: ',this.telefono);
+    console.log('telefono: ', this.telefono);
 
-    this.verEquipos();
-    this.obtenerJugadores()
+    this.equipoService.buscarEquipo(this.telefono).subscribe((response) => {
+      this.id = response.$$instanceId;
+    });
 
     // this.loginService.telefono$.subscribe(telefono => {
     //   this.telefono = telefono;
     // });
   }
-
 
   verEquipos(): void {
     this.equipoService.verEquipos().subscribe(
@@ -62,22 +57,18 @@ export class EquipoComponent implements OnInit {
     );
   }
 
-
   buscarEquipo(): void {
-
     const telefono = this.telefono;
-  
-    this.equipoService.buscarEquipo(telefono).subscribe(
-      (data: any[]) => {
-        console.log('Datos del servidor (Equipos):', data);
 
+    this.equipoService.buscarEquipo(telefono).subscribe(
+      (response) => {
+        console.log('Respuesta exitosa:', response.$$instanceId);
       },
       (error) => {
-        console.error('Error al obtener equipos:', error);
+        console.error('Error al crear la solicitud:', error);
       }
-    )
+    );
   }
-
 
   obtenerJugadores(): void {
     this.jugadorService.obtenerJugadores().subscribe(
@@ -90,11 +81,10 @@ export class EquipoComponent implements OnInit {
         console.log('Error al obtener jugadores:', error);
       }
     );
-
   }
 
-  eliminarEquipo(instanceId: string): void {
-    this.equipoService.eliminarEquipo(instanceId).subscribe(
+  eliminarEquipo(): void {
+    this.equipoService.eliminarEquipo(this.id).subscribe(
       () => {
         console.log('Equipo eliminado exitosamente');
         // Vuelve a cargar la lista de equipos después de eliminar uno
@@ -106,22 +96,19 @@ export class EquipoComponent implements OnInit {
     );
   }
 
-
   crearEquipo(): void {
-    this.equipoService.crearEquipo(this.telefono)
-      .pipe(finalize(() => {
-        this.verEquipos();
-      }))
+    this.equipoService
+      .crearEquipo(this.telefono)
+      .pipe(
+        finalize(() => {
+          this.verEquipos();
+        })
+      )
       .subscribe(
         () => console.log('Equipo creado exitosamente'),
-        error => console.error('Error al crear equipo:', error)
+        (error) => console.error('Error al crear equipo:', error)
       );
   }
-
-
-
-
-
 
   elimarJugador(telefono: string): void {
     this.equipoService.eliminarJugador(telefono, this.id).subscribe(
@@ -145,10 +132,6 @@ export class EquipoComponent implements OnInit {
     );
   }
 
-
-
-
-
   // obtenerJugadoresEquipo(equipo: Equipo): Jugador[] {
   //   return equipo.jugadores || [];
   // }
@@ -157,13 +140,7 @@ export class EquipoComponent implements OnInit {
   //   return equipo.jugadores?.[0] || null;
   // }
 
-
-
   irAMatch() {
-    this.router.navigate(['/match'])
+    this.router.navigate(['/match']);
   }
 }
-
-
-
-

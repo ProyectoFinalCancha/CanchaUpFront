@@ -7,20 +7,30 @@
       loading="lazy"
     />
   </div>
-  <form #partidoForm="ngForm" class="form">
+  <form
+    #solicitudForm="ngForm"
+    (ngSubmit)="crearSolicitud(dia, horario)"
+    class="form"
+  >
     <div class="input">
-      <input matInput [matDatepicker]="picker" placeholder="Día" name="dia" />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="dia"
+        placeholder="Día"
+        name="dia"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </div>
 
     <div class="input">
       <label for="">Seleccione el Horario</label>
-      <!--       <select [(ngModel)]="nuevoPartido.horario" name="horario">
+      <select [(ngModel)]="horario" name="horario">
         <option *ngFor="let horario of horarioEnumValues" [value]="horario">
           {{ transformarHorario(horario) }}
         </option>
-      </select> -->
+      </select>
     </div>
     <div class="button">
       <button class="botonCrear" type="submit">Crear</button>
