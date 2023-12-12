@@ -151,6 +151,11 @@ export class EncargadoComponent implements OnInit {
     }
   }
 
+  limpiarDatos(){
+
+    this.obtenerEncargados()
+    this.telefonoFiltrado = ''
+  }
 
   salir() {
     this.router.navigate(['/login']);

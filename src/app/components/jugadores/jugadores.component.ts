@@ -124,6 +124,11 @@ export class JugadoresComponent {
     this.router.navigate(['/encargados']);
   }
 
+
+  limpiarDatos(){
+    this.obtenerJugadores()
+    this.telefonoFiltrado = ''
+  }
   scrollToDiv() {
     const div = document.getElementById('tabla');
     console.log(div);

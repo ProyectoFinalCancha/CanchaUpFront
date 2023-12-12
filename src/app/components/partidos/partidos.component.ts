@@ -102,6 +102,13 @@ export class PartidosComponent {
     return horario.replace('_', '').replace('_HS', ' hs');
   }
 
+
+  limpiarYRecargar(): void {
+    this.obtenerPartidos()
+    this.telefono = ''
+    this.selectedEstado = '';
+  }
+
   sacarTurno(partidoForm: NgForm): void {
     const horario = partidoForm.value.horario;
     const diaString = partidoForm.value.dia; // No conviertas a Date aquí
