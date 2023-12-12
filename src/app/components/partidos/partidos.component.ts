@@ -5,7 +5,12 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { Jugador } from 'src/app/models/jugador';
-import { EstadosPartido, Horarios, NumeroCancha, Partido } from 'src/app/models/partido';
+import {
+  EstadosPartido,
+  Horarios,
+  NumeroCancha,
+  Partido,
+} from 'src/app/models/partido';
 import { PartidoService } from 'src/app/services/partido.service';
 import * as moment from 'moment';
 
@@ -13,11 +18,9 @@ import * as moment from 'moment';
   selector: 'app-partidos',
   templateUrl: './partidos.component.html',
   styleUrls: ['./partidos.component.css'],
-  providers: [PartidoService]
+  providers: [PartidoService],
 })
 export class PartidosComponent {
-
-
   telefono: string = '';
   partidos: Partido[] = [];
   horarios: string[] = Object.values(Horarios) as string[];
@@ -28,14 +31,11 @@ export class PartidosComponent {
   searchNumeroCancha: string = '';
   numeroCanchaOptions = Object.keys(NumeroCancha);
   horarioOptions = Object.keys(Horarios);
-  nuevoPartido!: Partido
+  nuevoPartido!: Partido;
   searchHorario: string = '';
-
-  
 
   estadosPartido = Object.values(EstadosPartido);
   selectedEstado: EstadosPartido = EstadosPartido.ESPERA;
-
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -45,9 +45,11 @@ export class PartidosComponent {
   totalItems = 0;
   filteredPartidos!: Partido[];
 
-
-
-  constructor(private router: Router, public partidoService: PartidoService, private fb: FormBuilder) {
+  constructor(
+    private router: Router,
+    public partidoService: PartidoService,
+    private fb: FormBuilder
+  ) {
     this.nuevoPartido = {
       id: 0,
       dia: new Date(),
@@ -60,9 +62,7 @@ export class PartidosComponent {
     };
   }
 
-
   ngOnInit(): void {
-
     this.obtenerPartidos();
     // this.buscarPartidoEstado();
   }
@@ -101,8 +101,6 @@ export class PartidosComponent {
     return 0;
   }
 
-
-
   crearPartido(partidoForm: NgForm): void {
     if (partidoForm.valid) {
       this.partidoService
@@ -120,41 +118,44 @@ export class PartidosComponent {
     }
   }
 
-
   transformarHorario(horario: string): string {
     return horario.replace('_', '').replace('_HS', ' hs');
   }
 
-
- 
   sacarTurno(partidoForm: NgForm): void {
     const horario = partidoForm.value.horario;
     const diaString = partidoForm.value.dia; // No conviertas a Date aquí
     const telefono = partidoForm.value.telefono;
-  
-    this.partidoService.sacarTurno(horario, diaString, telefono)
-      .subscribe(
-        result => {
-          console.log(result);
-          // Recargar los partidos después de agregar uno nuevo
-          this.obtenerPartidos();
-        },
-        error => {
-          console.error(error);
-        }
-      );
+
+    this.partidoService.sacarTurno(horario, diaString, telefono).subscribe(
+      (result) => {
+        console.log(result);
+        // Recargar los partidos después de agregar uno nuevo
+        this.obtenerPartidos();
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
-  
+
   convertirStringAHorario(horarioString: string): Horarios | undefined {
     // Revertir la transformación realizada en la presentación
     switch (horarioString) {
-      case '18 HS': return Horarios._18_HS;
-      case '19 HS': return Horarios._19_HS;
-      case '20 HS': return Horarios._20_HS;
-      case '21 HS': return Horarios._21_HS;
-      case '22 HS': return Horarios._22_HS;
-      case '23 HS': return Horarios._23_HS;
-      default: return undefined;
+      case '18 HS':
+        return Horarios._18_HS;
+      case '19 HS':
+        return Horarios._19_HS;
+      case '20 HS':
+        return Horarios._20_HS;
+      case '21 HS':
+        return Horarios._21_HS;
+      case '22 HS':
+        return Horarios._22_HS;
+      case '23 HS':
+        return Horarios._23_HS;
+      default:
+        return undefined;
     }
   }
 
@@ -163,25 +164,14 @@ export class PartidosComponent {
       (data: any[]) => {
         console.log('Datos antes de filtrar:', data);
         // Filtrar solo objetos Partido válidos
-        this.partidos = data.filter(item => item && item.$$instanceId);
+        this.partidos = data.filter((item) => item && item.$$instanceId);
         console.log('Datos después de filtrar:', this.partidos);
       },
-      error => {
+      (error) => {
         console.log('Error al obtener partidos:', error);
       }
     );
   }
-  
-  
-  
-  
-  
-  
-
-
-
-
-
 
   rechazarPartido(instanceId: string, index: number): void {
     this.partidoService.rechazarPartido(instanceId).subscribe(
@@ -198,7 +188,6 @@ export class PartidosComponent {
     );
   }
 
-
   darDeBaja(instanceId: string, index: number): void {
     this.partidoService.darDeBaja(instanceId).subscribe(
       (result) => {
@@ -213,13 +202,6 @@ export class PartidosComponent {
       }
     );
   }
-
-
-
-
-
-
-
 
   confirmarPartido(instanceId: string, index: number): void {
     this.partidoService.confirmarPartido(instanceId).subscribe(
@@ -250,29 +232,34 @@ export class PartidosComponent {
       }
     );
   }
-  
 
-  buscarPartidoPorRepresentante(): void {
-    this.partidoService.buscarPartidoPorRepresentante(this.telefono).subscribe(
-      (result) => {
-        console.log('Partidos encontrados:', result);
-        // Actualiza la lista de partidos con los resultados obtenidos
-        this.partidos = result; // Asume que el resultado es un array de Partido
+  buscarPartidoPorRepresentante(telefono: string): void {
+    this.partidoService.buscarPartidoPorRepresentante(telefono).subscribe(
+      (data) => {
+        console.log(data);
+        if (telefono.trim() !== '') {
+          // Si hay un teléfono especificado en el filtro, mostrar los resultados filtrados
+          this.partidos = Array.isArray(data) ? data : [data];
+        } else {
+          // Si no hay teléfono especificado, mostrar todos los jugadores
+          this.obtenerPartidos();
+        }
       },
       (error) => {
-        console.error('Error al buscar partidos por representante:', error);
-        // Restablecer la lista de partidos en caso de error
-        this.partidos = [];
+        console.log('Error', error);
       }
     );
   }
 
   buscarPartidoPorEstado(): void {
     this.partidoService.buscarPartidoEstado(this.selectedEstado).subscribe(
-      (result: { partidos: Partido[] }) => { // Añade la anotación de tipo para 'result'
+      (result: { partidos: Partido[] }) => {
+        // Añade la anotación de tipo para 'result'
         console.log('Partidos encontrados por estado:', result);
         // Filtrar los partidos que tienen el estado seleccionado
-        this.partidos = (result.partidos || []).filter((partido: Partido) => partido.estado === this.selectedEstado);
+        this.partidos = (result.partidos || []).filter(
+          (partido: Partido) => partido.estado === this.selectedEstado
+        );
       },
       (error) => {
         console.error('Error al buscar partidos por estado:', error);
@@ -281,54 +268,57 @@ export class PartidosComponent {
       }
     );
   }
-  
-  
-
-
 
   buscarPartido(): void {
-    console.log('Valor inicial de searchNumeroCancha:', this.searchNumeroCancha);
+    console.log(
+      'Valor inicial de searchNumeroCancha:',
+      this.searchNumeroCancha
+    );
 
     const { numeroCancha } = this.nuevoPartido;
     const dia = this.searchDia;
-    const horario = this.searchHorario;  // Modifica esta línea
+    const horario = this.searchHorario; // Modifica esta línea
 
     const diaMoment = moment(dia);
 
     if (diaMoment.isValid()) {
       const formattedDia = diaMoment.format('YYYY-MM-DD');
 
-      this.partidoService.buscarPartido(horario, formattedDia, numeroCancha.toString()).subscribe(
-        (result) => {
-          console.log('Partidos encontrados (result):', result);
+      this.partidoService
+        .buscarPartido(horario, formattedDia, numeroCancha.toString())
+        .subscribe(
+          (result) => {
+            console.log('Partidos encontrados (result):', result);
 
-          if (Array.isArray(result)) {
-            this.filteredPartidos = result;
+            if (Array.isArray(result)) {
+              this.filteredPartidos = result;
 
-            if (numeroCancha) {
-              this.partidos = this.filteredPartidos.filter(partido => partido.numeroCancha === numeroCancha);
+              if (numeroCancha) {
+                this.partidos = this.filteredPartidos.filter(
+                  (partido) => partido.numeroCancha === numeroCancha
+                );
+              } else {
+                this.partidos = this.filteredPartidos;
+              }
+
+              if (this.paginator) {
+                this.paginator.firstPage();
+              }
+
+              this.errorOccurred = false;
+              this.errorMessage = '';
             } else {
-              this.partidos = this.filteredPartidos;
+              console.error('Error: Result is not an array of Partido objects');
+              this.errorOccurred = true;
+              this.errorMessage = 'Unexpected response structure';
             }
-
-            if (this.paginator) {
-              this.paginator.firstPage();
-            }
-
-            this.errorOccurred = false;
-            this.errorMessage = '';
-          } else {
-            console.error('Error: Result is not an array of Partido objects');
+          },
+          (error) => {
+            console.error('Error al buscar partidos:', error);
             this.errorOccurred = true;
-            this.errorMessage = 'Unexpected response structure';
+            this.errorMessage = 'Error communicating with the server';
           }
-        },
-        (error) => {
-          console.error('Error al buscar partidos:', error);
-          this.errorOccurred = true;
-          this.errorMessage = 'Error communicating with the server';
-        }
-      );
+        );
     } else {
       console.error('Error: Invalid date');
       this.errorOccurred = true;
@@ -337,37 +327,27 @@ export class PartidosComponent {
     console.log('Valor final de searchNumeroCancha:', this.searchNumeroCancha);
   }
 
-
-
-
-  salir(){
+  salir() {
     this.router.navigate(['/login']);
   }
 
-  encargados(){
-    this.router.navigate(['/encargados'])
+  encargados() {
+    this.router.navigate(['/encargados']);
   }
 
-  jugadores(){
-    this.router.navigate(['/jugadores'])
+  jugadores() {
+    this.router.navigate(['/jugadores']);
   }
-
 
   scrollToDiv() {
     const div = document.getElementById('tabla');
-  console.log(div);
+    console.log(div);
     if (div !== null) {
       div.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
-
-
-
   navegar() {
-    this.router.navigate(['partidos'])
+    this.router.navigate(['partidos']);
   }
-
-
-
 }
