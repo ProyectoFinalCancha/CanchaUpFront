@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PopupService } from '@ng-bootstrap/ng-bootstrap/util/popup';
 import { Equipo } from 'src/app/models/equipo';
 import { EquipoService } from 'src/app/services/equipo.service';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-dashboard-match-making',
@@ -16,9 +16,24 @@ export class DashboardMatchMakingComponent {
 
 
   cursorStyle: string = 'default';
-  constructor(private router: Router, public equipoService: EquipoService) {
+  constructor(private router: Router, public equipoService: EquipoService, public popupService:PopupService) {
 
   }
+
+
+  abrirPopupSolicitud(): void {
+    // Llama al método del servicio para abrir el popup
+    const fechaActual = new Date();
+    this.popupService.abrirPopupSolicitud('', fechaActual, '');
+  }
+
+  abrirPopupEquipo(): void {
+    // Llama al método del servicio para abrir el popup
+    const fechaActual = new Date();
+    this.popupService.abrirPopupEquipo('', fechaActual, '');
+  }
+
+
   cambiarCursor(puntero: boolean) {
     this.cursorStyle = puntero ? 'pointer' : 'default';
   }

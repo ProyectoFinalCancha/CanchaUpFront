@@ -1,0 +1,29 @@
+<div class="conteiner">
+  <div class="myimg">
+    <img
+      class="myimg"
+      src="../../../../assets/images/Reserva-tu-cancha-min-450x300.jpg"
+      alt="Descripción de la imagen"
+      loading="lazy"
+    />
+  </div>
+  <form #partidoForm="ngForm" class="form">
+    <div class="input">
+      <input matInput [matDatepicker]="picker" placeholder="Día" name="dia" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+
+    <div class="input">
+      <label for="">Seleccione el Horario</label>
+      <!--       <select [(ngModel)]="nuevoPartido.horario" name="horario">
+        <option *ngFor="let horario of horarioEnumValues" [value]="horario">
+          {{ transformarHorario(horario) }}
+        </option>
+      </select> -->
+    </div>
+    <div class="button">
+      <button class="botonCrear" type="submit">Crear</button>
+    </div>
+  </form>
+</div>
