@@ -34,16 +34,15 @@ export class PartidosComponent {
   nuevoPartido!: Partido;
   searchHorario: string = '';
 
-  estadosPartido = Object.values(EstadosPartido);
-  selectedEstado: EstadosPartido = EstadosPartido.ESPERA;
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  pageSize = 10; // Tamaño de la página
-  pageIndex = 0; // Índice de la página
-  currentPage = 1;
-  totalItems = 0;
-  filteredPartidos!: Partido[];
+  /*   estadosPartido = Object.values(EstadosPartido); */
+  estadosPartido: string[] = [
+    'ESPERA',
+    'RECHAZADO',
+    'CONFIRMADO',
+    'COMPLETADO',
+    'MATCHMAKING',
+  ];
+  selectedEstado: string = 'ESPERA';
 
   constructor(
     private router: Router,
@@ -77,28 +76,6 @@ export class PartidosComponent {
     }
     // Si no es 'horario', puedes manejar otros casos aquí si es necesario
     return null;
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.paginator?.previousPage();
-    }
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages()) {
-      this.currentPage++;
-      this.paginator?.nextPage();
-    }
-  }
-
-  totalPages(): number {
-    if (this.paginator) {
-      this.totalItems = this.paginator.length || 0;
-      return Math.ceil(this.totalItems / this.pageSize);
-    }
-    return 0;
   }
 
   crearPartido(partidoForm: NgForm): void {
@@ -251,15 +228,14 @@ export class PartidosComponent {
     );
   }
 
-  buscarPartidoPorEstado(): void {
-    this.partidoService.buscarPartidoEstado(this.selectedEstado).subscribe(
-      (result: { partidos: Partido[] }) => {
-        // Añade la anotación de tipo para 'result'
-        console.log('Partidos encontrados por estado:', result);
+  buscarPartidoPorEstado(selectedEstado: string): void {
+    console.log(selectedEstado);
+
+    this.partidoService.buscarPartidoEstado(selectedEstado).subscribe(
+      (data) => {
+        console.log('Partidos encontrados por estado:', data);
         // Filtrar los partidos que tienen el estado seleccionado
-        this.partidos = (result.partidos || []).filter(
-          (partido: Partido) => partido.estado === this.selectedEstado
-        );
+        this.partidos = Array.isArray(data) ? data : [data];
       },
       (error) => {
         console.error('Error al buscar partidos por estado:', error);
@@ -289,29 +265,6 @@ export class PartidosComponent {
         .subscribe(
           (result) => {
             console.log('Partidos encontrados (result):', result);
-
-            if (Array.isArray(result)) {
-              this.filteredPartidos = result;
-
-              if (numeroCancha) {
-                this.partidos = this.filteredPartidos.filter(
-                  (partido) => partido.numeroCancha === numeroCancha
-                );
-              } else {
-                this.partidos = this.filteredPartidos;
-              }
-
-              if (this.paginator) {
-                this.paginator.firstPage();
-              }
-
-              this.errorOccurred = false;
-              this.errorMessage = '';
-            } else {
-              console.error('Error: Result is not an array of Partido objects');
-              this.errorOccurred = true;
-              this.errorMessage = 'Unexpected response structure';
-            }
           },
           (error) => {
             console.error('Error al buscar partidos:', error);

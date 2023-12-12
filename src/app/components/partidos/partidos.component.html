@@ -121,7 +121,11 @@
         </select>
       </div>
       <div class="contenedor-bn6">
-        <button type="button" class="bn6" (click)="buscarPartidoPorEstado()">
+        <button
+          type="submit"
+          class="bn6"
+          (click)="buscarPartidoPorEstado(selectedEstado)"
+        >
           Buscar
         </button>
       </div>
@@ -148,7 +152,7 @@
           <label>Ingrese Nro de Telefono</label>
         </div>
         <div class="contenedor-bn6">
-          <button type="button" class="bn6">Buscar</button>
+          <button type="submit" class="bn6">Buscar</button>
         </div>
       </form>
     </div>
