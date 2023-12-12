@@ -9,8 +9,6 @@ import { EncargadoComponent } from './components/encargado/encargado.component';
 // import { PopupComponent } from './components/popup/popup.component';
 import { DashboardMatchMakingComponent } from './components/dashboard/dashboard-match-making/dashboard-match-making.component';
 import { PopupDialogComponent } from './components/popup/popup-dialog/popup-dialog.component';
-import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
-
 import { LoginEncargadoComponent } from './components/login-encargado/login-encargado.component';
 import { ValidarEncargadoGuard } from './guard/validar-encargado.guard'; // Cambiar a 'Auth.guard' a 'Auth.guard' en la importación
 import { SolicitudEquipoComponent } from './components/solicitudes/solicitud-equipo/solicitud-equipo.component';
@@ -87,15 +85,6 @@ const routes: Routes = [
     //////POPUP DEL DASHBOARD DE USUARIO 
     path:'popup',
     component:PopupDialogComponent
-  },
-  {
-    path:'adminDash',
-    component:DashboardAdminComponent
-   
-  },
-  {
-    path:'admin2Dash',
-    component:DashboardAdminComponent
   },
   {
     path:'equipos',

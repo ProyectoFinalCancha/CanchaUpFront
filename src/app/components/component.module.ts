@@ -17,7 +17,6 @@ import { EncargadoComponent } from './encargado/encargado.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CardModule } from 'primeng/card';
-import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { DashboardMatchMakingComponent } from './dashboard/dashboard-match-making/dashboard-match-making.component';
 
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -56,7 +55,7 @@ import { PopupSolicitudEquipoComponent } from './popup-solicitud-equipo/popup-so
     VerJugadoresComponent,
     PartidosComponent,
     EncargadoComponent,
-    DashboardAdminComponent,
+   
     DashboardMatchMakingComponent,
     // PopupComponent,
     PopupDialogComponent,

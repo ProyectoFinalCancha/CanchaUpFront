@@ -151,9 +151,6 @@ export class EncargadoComponent implements OnInit {
     }
   }
 
-  navegar() {
-    this.router.navigate(['/admin2Dash']);
-  }
 
   salir() {
     this.router.navigate(['/login']);
