@@ -4,20 +4,29 @@
       <div class="text">Volver</div>
     </button>
     <label class="titulo">Tu Equipo</label>
-     <button class="delete-team" (click)="buscarEquipo()">Eliminar Equipo</button>
+    <button class="delete-team" (click)="buscarEquipo()">Eliminar Equipo</button>
 
     <div class="middle-text">Edita tu equipo</div>
     <hr class="line" />
 
-    <button class="delete-player">Eliminar Jugador</button>
+    <button class="delete-player" (click)="elimarJugador(telefonoEliminar)">
+      Eliminar Jugador
+    </button>
     <input
       type="text"
       placeholder="Número de Teléfono a Eliminar"
       id="phoneToDelete"
+      [(ngModel)]="telefonoEliminar"
     />
 
-    <button class="add-player" (click)="crearEquipo()">Agregar Jugador</button>
-    <input type="text" placeholder="Número de Teléfono del Nuevo Jugador" [(ngModel)]="telefono" />
+    <button class="add-player" (click)="agregarJugador(telefonoAgregar)">
+      Agregar Jugador
+    </button>
+    <input
+      type="text"
+      placeholder="Número de Teléfono del Nuevo Jugador"
+      [(ngModel)]="telefonoAgregar"
+    />
     <hr class="line" />
     <h2>Lista de Jugadores</h2>
     <!-- equipo.component.html -->
@@ -33,21 +42,20 @@
       <tbody>
         <ng-container *ngIf="equipos.length > 0">
           <tr *ngFor="let equipo of equipos">
-           
           </tr>
         </ng-container>
       </tbody>
     </table>
-    
-    
-    
-    
 
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
 
   </div>
 </body>

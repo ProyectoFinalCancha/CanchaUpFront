@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Equipo } from '../models/equipo';
 
@@ -8,8 +8,6 @@ import { Equipo } from '../models/equipo';
   providedIn: 'root'
 })
 export class EquipoService {
-  private apiUrl_crear = 'http://localhost:8080/restful/services/simple.EquipoServices';
-  private apiUrl_buscar = 'http://localhost:8080/restful/services/simple.EquipoServices';
 
 
   constructor(private http: HttpClient, private dialog: MatDialog) {}
@@ -28,7 +26,47 @@ export class EquipoService {
   }
 
 
+  eliminarJugador(telefono: string, instanceId: string): Observable<any> {
+    const url = 'http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarJugadorDeEquipo/invoke';
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept:
+        'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      'Content-Type': 'application/json',
+    });
 
+    const requestBody = {
+      telefono: { value: telefono },
+    };
+
+    return this.http.post(url, requestBody, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error en la solicitud HTTP:', error);
+        throw error;
+      })
+    );
+  }
+
+  agregarJugador(telefono: string, instanceId: string): Observable<any> {
+    const url = 'http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/agregarJugadorAlEquipo/invoke';
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept:
+        'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+      'Content-Type': 'application/json',
+    });
+
+    const requestBody = {
+      telefono: { value: telefono },
+    };
+
+    return this.http.post(url, requestBody, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error en la solicitud HTTP:', error);
+        throw error;
+      })
+    );
+  }
 
 
 
@@ -45,6 +83,8 @@ export class EquipoService {
   }
 
   crearEquipo(telefono: string): Observable<any> {
+
+    
     const url: string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/crearEquipo/invoke';
   
     const headers = new HttpHeaders({
@@ -59,6 +99,8 @@ export class EquipoService {
   
     return this.http.post(url, requestBody, { headers });
   }
+
+
   
   buscarEquipo(telefono: string): Observable<any> {
     const url: string = 'http://localhost:8080/restful/services/simple.EquipoServices/actions/buscarEquipo/invoke';
@@ -77,19 +119,15 @@ export class EquipoService {
   }
   
 
+  eliminarEquipo(instanceId: string): Observable<any> {
+    const url: string = `http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/eliminarEquipo/invoke`;
 
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic c3ZlbjpwYXNz',
+      'Accept': 'application/json;profile=urn:org.apache.causeway/v2',
+    });
 
-
-
-//   abrirPopupCrearEquipo(equipoData: Equipo): void {
-//     const dialogRef2 = this.dialog.open(PopCrearEquipoComponent, {
-//       width:'450px',
-//       height:'450px',
-//         data: equipoData
-//     });
-//     dialogRef2.afterClosed().subscribe(result => {
-//         // Maneja el resultado si es necesario
-//     });
-// }
+    return this.http.delete(url, { headers });
+  }
 
 }

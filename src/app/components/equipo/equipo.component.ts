@@ -20,6 +20,10 @@ export class EquipoComponent implements OnInit {
 
   equipos: Equipo[] = []
 
+  
+  telefonoEliminar: string = '';
+  telefonoAgregar: string = '';
+  id: string = '6';
 
   jugadores: Jugador[] = [];
   telefono: string = '';
@@ -30,15 +34,19 @@ export class EquipoComponent implements OnInit {
     // this.telefono = this.loginService.getTelefono();
 
   }
+
+
+
   ngOnInit(): void {
     this.telefono = this.loginService.getTelefono();
     console.log('telefono: ',this.telefono);
 
+    this.verEquipos();
+    this.obtenerJugadores()
+
     // this.loginService.telefono$.subscribe(telefono => {
     //   this.telefono = telefono;
     // });
-
-
   }
 
 
@@ -59,8 +67,6 @@ export class EquipoComponent implements OnInit {
 
     const telefono = this.telefono;
   
-
-
     this.equipoService.buscarEquipo(telefono).subscribe(
       (data: any[]) => {
         console.log('Datos del servidor (Equipos):', data);
@@ -87,7 +93,18 @@ export class EquipoComponent implements OnInit {
 
   }
 
-
+  eliminarEquipo(instanceId: string): void {
+    this.equipoService.eliminarEquipo(instanceId).subscribe(
+      () => {
+        console.log('Equipo eliminado exitosamente');
+        // Vuelve a cargar la lista de equipos después de eliminar uno
+        this.verEquipos();
+      },
+      (error) => {
+        console.error('Error al eliminar equipo:', error);
+      }
+    );
+  }
 
 
   crearEquipo(): void {
@@ -106,7 +123,27 @@ export class EquipoComponent implements OnInit {
 
 
 
+  elimarJugador(telefono: string): void {
+    this.equipoService.eliminarJugador(telefono, this.id).subscribe(
+      (data: any[]) => {
+        console.log('Datos del servidor (Equipos):', data);
+      },
+      (error) => {
+        console.error('Error al obtener equipos:', error);
+      }
+    );
+  }
 
+  agregarJugador(telefono: string): void {
+    this.equipoService.agregarJugador(telefono, this.id).subscribe(
+      (data: any[]) => {
+        console.log('Datos del servidor (Equipos):', data);
+      },
+      (error) => {
+        console.error('Error al obtener equipos:', error);
+      }
+    );
+  }
 
 
 
