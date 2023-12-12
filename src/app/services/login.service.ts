@@ -13,6 +13,7 @@ export class LoginService {
   constructor(private http: HttpClient) {}
   telefono: string = '';
   password: string = '';
+  email: string = ''
 
   login(telefono: string, password: string): Observable<any> {
     const headers = new HttpHeaders({

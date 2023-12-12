@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class DashboardMatchMakingComponent {
   telefono: string = '';
+  email: string = ''
 
   sidebarVisible1: boolean = false;
   sidebarVisible2: boolean = false;
@@ -28,6 +29,8 @@ export class DashboardMatchMakingComponent {
   ngOnInit(): void {
     this.telefono = localStorage.getItem('telefono') || '';
     console.log('telefono: ', this.telefono);
+    this.email = localStorage.getItem('email') || '';
+    console.log('email:' , this.email)
   }
 
   tienePartido(): Promise<boolean> {

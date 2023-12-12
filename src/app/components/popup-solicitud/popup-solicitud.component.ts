@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Horarios } from 'src/app/models/partido';
 import { LoginService } from 'src/app/services/login.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-popup-solicitud',
@@ -13,6 +14,7 @@ export class PopupSolicitudComponent {
   horarioEnumValues = Object.values(Horarios);
   dia: string = '';
   telefono: string = '';
+  email:string='';
 
   constructor(
     private solicitudesService: SolicitudesService,
@@ -21,6 +23,7 @@ export class PopupSolicitudComponent {
 
   ngOnInit(): void {
     this.telefono = localStorage.getItem('telefono') || '';
+    this.email = localStorage.getItem('email') || '';
     console.log('telefono: ', this.telefono);
   }
 
@@ -34,7 +37,13 @@ export class PopupSolicitudComponent {
       .crearSolicitud(fechaFormateada, horario, this.telefono)
       .subscribe(
         (response) => {
+
           console.log('Respuesta exitosa:', response);
+          Swal.fire({
+            icon:'success',
+            title:'se creo la solicitud!',
+            html:`Te llegará un mail a tu casilla de correo: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`
+          })
         },
         (error) => {
           console.error('Error al crear la solicitud:', error);
@@ -61,4 +70,9 @@ export class PopupSolicitudComponent {
 
     return fechaFormateada;
   }
+
+
+
+
+
 }
