@@ -30,9 +30,9 @@ export class LoginEncargadoService {
         value: password,
       },
     });
-// Guardar temporalmente las credenciales
-this.telefono = telefono;
-this.password = password;
+    // Guardar temporalmente las credenciales
+    this.telefono = telefono;
+    this.password = password;
     return this.http.post(this.apiUrl, body, { headers });
   }
 

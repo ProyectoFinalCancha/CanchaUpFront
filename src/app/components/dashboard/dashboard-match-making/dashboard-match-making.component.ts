@@ -51,7 +51,12 @@ solicitud(){
 solicitudEquipos(){
   this.router.navigate(['/solicitudes-equipo'])
 }
+
+
+
   equipos(): void {
     this.router.navigate(['/equipos']);
+    
+
   }
 }

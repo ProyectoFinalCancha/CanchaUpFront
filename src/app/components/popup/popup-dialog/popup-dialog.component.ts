@@ -55,6 +55,8 @@ export class PopupDialogComponent {
   sacarTurno(partidoForm: NgForm): void {
     console.log('Valor de partidoForm:', partidoForm.value);
     const horarioString = partidoForm.value.horario;
+
+    
     const telefono = this.telefono;
 
     const horario: Horarios | undefined = this.convertirStringAHorario(horarioString);

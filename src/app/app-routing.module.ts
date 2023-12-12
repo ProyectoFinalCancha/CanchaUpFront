@@ -41,7 +41,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent ,
-    canActivate: [ValidarUsuarioGuard] 
+    // canActivate: [ValidarUsuarioGuard] 
   },
   {
     path:'solicitudes',
@@ -68,7 +68,7 @@ const routes: Routes = [
   {
     path: 'partidos',
     component: PartidosComponent,
-    canActivate: [ValidarEncargadoGuard] 
+    // canActivate: [ValidarEncargadoGuard] 
   },
   {
     path:'match',
