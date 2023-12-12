@@ -68,17 +68,11 @@ import { PopupSolicitudEquipoComponent } from './popup-solicitud-equipo/popup-so
 
 
 
-<<<<<<< HEAD
     JugadoresComponent,
                 PopupSolicitudComponent,
                 PopupSolicitudEquipoComponent
     
   
-=======
-    JugadoresComponent
-
-
->>>>>>> 7ad1884e83798bff7e5b00f8f78db8a29a9471e9
   ],
   imports: [
     CommonModule,
