@@ -23,8 +23,8 @@
               <input type="radio" name="radio" />
               <span>Partidos</span>
             </label>
-            <label class="label-bar">
-              <input type="radio" name="radio" checked />
+            <label class="label-bar" (click)="irJugadores()">
+              <input type="radio" name="radio"  />
               <span>Jugadores</span>
             </label>
             <label class="label-bar" (click)="encargados()">
@@ -32,8 +32,8 @@
               <span>Encargados</span>
             </label>
             <label class="label-bar" >
-                <input type="radio" name="radio" />
-                <span>Equipos</span>
+                <input type="radio" name="radio" checked/>
+                <span>Equipos</span> 
               </label>
           </div>
         </div>
@@ -50,33 +50,34 @@
   
     
   
-      <div class="login-box">
-        <div class="text-h1">
-          <h1 class="titulo-bonito">Buscar Equipo</h1>
-        </div>
-  
-        <div class="user-box">
-          <input required type="text" [(ngModel)]="telefonoFiltrado" />
-          <label>Ingrese Nro de Telefono</label>
-        </div>
-  
-        <div class="contenedor-bn6">
-          <button
-            type="button"
-            class="bn6"
-           
-          >
-            Buscar
-          </button> &nb
-          <button
+      
+    <div class="login-box">
+      <div class="text-h1">
+        <h1 class="titulo-bonito">Buscar Equipo</h1>
+      </div>
+
+      <div class="user-box">
+        <input required type="text" [(ngModel)]="telefonoFiltrado" />
+        <label>Ingrese Nro de Telefono</label>
+      </div>
+
+      <div class="contenedor-bn6">
+        <button
           type="button"
           class="bn6"
-          (click)="limpiarDatos()"
+          (click)="buscarEquipoPorTelefono(telefonoFiltrado)"
         >
-          Limpiar
-        </button>
-        </div>
+          Buscar
+        </button> &nb
+        <button
+        type="button"
+        class="bn6"
+        (click)="limpiarDatos()"
+      >
+        Limpiar
+      </button>
       </div>
+    </div>
     </div>
   
     <div class="contenedor-tabla" id="tabla">

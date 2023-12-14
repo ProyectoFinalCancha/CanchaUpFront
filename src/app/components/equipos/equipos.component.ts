@@ -66,6 +66,17 @@ telefono: string = '';
   //     }
   //   );
   // }
+  buscarEquipoPorTelefono(telefono:string): void {
+    this.equipoService.buscarEquipo(telefono).subscribe(
+      (data) => {
+        console.log(data);
+        this.equipos = Array.isArray(data) ? data : [data];
+      },
+      (error) => {
+        console.log('Error', error);
+      }
+    );
+  }
 
   obtenerEquipos(): void {
     this.equipoService.verEquipos().subscribe(
@@ -106,6 +117,8 @@ irAEquipos(){
       div.scrollIntoView({ behavior: 'smooth' });
     }
   }
-
+  irJugadores() {
+    this.router.navigate(['/jugadores']);
+  }
 
 }

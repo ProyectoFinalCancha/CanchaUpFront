@@ -149,4 +149,7 @@ export class JugadoresComponent {
       }
     });
   }
+  irAEquipos(){
+    this.router.navigate(['/equipoS'])
+  }
 }
