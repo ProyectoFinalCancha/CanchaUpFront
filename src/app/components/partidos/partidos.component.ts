@@ -53,6 +53,8 @@ export class PartidosComponent {
       precio: 0,
       telefono: null,
       representante: null,
+      equipo1:null,
+      equipo2:null
     };
   }
 
@@ -305,6 +307,9 @@ export class PartidosComponent {
     if (div !== null) {
       div.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+  irAEquipos(){
+    this.router.navigate(['/equipoS'])
   }
 
   navegar() {

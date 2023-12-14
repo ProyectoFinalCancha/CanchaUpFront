@@ -28,6 +28,10 @@
             <input type="radio" name="radio" />
             <span>Encargados</span>
           </label>
+          <label class="label-bar" (click)="irAEquipos()">
+            <input type="radio" name="radio" />
+            <span>Equipos</span>
+          </label>
         </div>
       </div>
 
@@ -180,6 +184,8 @@
             'numeroCancha',
             'precio',
             'representante',
+            'equipo1',
+            'equipo2',
             'acciones'
           ]
         "
@@ -206,6 +212,14 @@
             <span *ngIf="columna === 'representante'">{{
               partido.representante?.title
             }}</span>
+
+        <span *ngIf="columna === 'equipo1'">{{
+            partido.equipo1?.title
+        }}</span>
+
+<span *ngIf="columna === 'equipo2'">{{
+  partido.equipo2?.title
+}}</span>
           </ng-container>
           <!-- Define las acciones -->
           <ng-template #accionesColumn let-i="index">
@@ -252,6 +266,8 @@
           'numeroCancha',
           'precio',
           'representante',
+          'equipo1',
+          'equipo2',
           'acciones'
         ]"
       ></tr>
@@ -266,6 +282,8 @@
             'numeroCancha',
             'precio',
             'representante',
+            'equipo1',
+            'equipo2',
             'acciones'
           ]
         "

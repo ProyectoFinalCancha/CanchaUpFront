@@ -1,3 +1,4 @@
+import { Equipo } from "./equipo";
 import { Jugador } from "./jugador";
 
 
@@ -10,6 +11,9 @@ export class Partido {
     precio!: number;
     telefono!: string | null;
     representante?: Jugador | null;
+    equipo1?: Equipo | null;
+    equipo2?: Equipo | null;
+    
 }
 
 

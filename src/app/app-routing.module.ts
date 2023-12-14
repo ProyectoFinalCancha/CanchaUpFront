@@ -19,6 +19,7 @@ import { VerEncargadoComponent } from './components/encargado/ver-encargado/ver-
 import { JugadoresComponent } from './components/jugadores/jugadores.component';
 import { VerJugadoresComponent } from './components/jugadores/ver-jugadores/ver-jugadores.component';
 import { ValidarUsuarioGuard } from './guard/validar-usuario.guard';
+import { EquiposComponent } from './components/equipos/equipos.component';
 
 
 const routes: Routes = [
@@ -90,6 +91,11 @@ const routes: Routes = [
     path:'equipos',
     component:EquipoComponent,
     // canActivate: [AuthGuard]
+  },
+  //path para equipos del admin
+  {
+    path:'equipoS',
+    component:EquiposComponent
   },
   {
     path: '**',
