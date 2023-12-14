@@ -60,7 +60,7 @@ export class PopupSolicitudEquipoComponent {
           Swal.fire({
             icon: 'error',
             title: 'Error al crear la solicitud',
-            text: 'Hubo un problema al crear la solicitud.',
+            text: 'ya tienes una solicitud',
           });
         }
       );

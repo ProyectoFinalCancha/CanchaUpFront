@@ -69,7 +69,7 @@ export class DashboardMatchMakingComponent {
     console.log(resultado);
     if (!resultado) {
       const fechaActual = new Date();
-      this.popupService.abrirPopupEquipo('18 HS', fechaActual, '');
+      this.popupService.abrirPopupSolicitud('18 HS', fechaActual, '');
     }
   }
 

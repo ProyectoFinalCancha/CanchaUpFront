@@ -28,10 +28,6 @@
             <input type="radio" name="radio" />
             <span>Encargados</span>
           </label>
-          <label class="label-bar" (click)="irAEquipos()">
-            <input type="radio" name="radio" />
-            <span>Equipos</span>
-          </label>
         </div>
       </div>
 
@@ -130,11 +126,10 @@
           class="bn6"
           (click)="buscarPartidoPorEstado(selectedEstado)"
         >
-          Buscar
-        </button>&nb
+          Buscar</button
+        >&nb
         <button class="bn6" (click)="limpiarYRecargar()">Limpiar</button>
       </div>
-      
     </div>
 
     <!-- BUSCAR PARTIDO POR REPRESENTANTE -->
@@ -184,8 +179,6 @@
             'numeroCancha',
             'precio',
             'representante',
-            'equipo1',
-            'equipo2',
             'acciones'
           ]
         "
@@ -209,17 +202,13 @@
             }}</span>
 
             <span *ngIf="columna === 'precio'">{{ partido.precio }}</span>
-            <span *ngIf="columna === 'representante'">{{
-              partido.representante?.title
-            }}</span>
 
-        <span *ngIf="columna === 'equipo1'">{{
-            partido.equipo1?.title
-        }}</span>
-
-<span *ngIf="columna === 'equipo2'">{{
-  partido.equipo2?.title
-}}</span>
+            <span *ngIf="columna === 'representante'">
+              {{
+                partido.representante?.title ||
+                  partido.equipo1?.title + " / " + partido.equipo2?.title
+              }}
+            </span>
           </ng-container>
           <!-- Define las acciones -->
           <ng-template #accionesColumn let-i="index">
@@ -254,6 +243,9 @@
               </button>
             </div>
           </ng-template>
+          <ng-template #accionesColumn let-i="index">
+            <!-- Código de acciones -->
+          </ng-template>
         </td>
       </ng-container>
       <!-- Filas -->
@@ -266,8 +258,6 @@
           'numeroCancha',
           'precio',
           'representante',
-          'equipo1',
-          'equipo2',
           'acciones'
         ]"
       ></tr>
@@ -282,8 +272,6 @@
             'numeroCancha',
             'precio',
             'representante',
-            'equipo1',
-            'equipo2',
             'acciones'
           ]
         "

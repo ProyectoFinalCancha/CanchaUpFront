@@ -31,10 +31,6 @@
             <input type="radio" name="radio" />
             <span>Encargados</span>
           </label>
-          <label class="label-bar" (click)="irAEquipos()">
-            <input type="radio" name="radio" />
-            <span>Equipos</span>
-          </label>
         </div>
       </div>
       <div class="mybotton-conteiner">
@@ -141,14 +137,11 @@
           (click)="buscarJugadorPorTelefono(telefonoFiltrado)"
         >
           Buscar
-        </button> &nb
-        <button
-        type="button"
-        class="bn6"
-        (click)="limpiarDatos()"
-      >
-        Limpiar
-      </button>
+        </button>
+        &nb
+        <button type="button" class="bn6" (click)="limpiarDatos()">
+          Limpiar
+        </button>
       </div>
     </div>
   </div>

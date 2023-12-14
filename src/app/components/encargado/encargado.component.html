@@ -1,16 +1,13 @@
 <body>
-
   <div class="row">
-
     <div class="mybotton">
-
       <div class="mybotton-conteiner">
         <button class="logout" (click)="salir()">
           <div class="sign">
             <svg viewBox="0 0 512 512">
               <path
-                d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
-              </path>
+                d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+              ></path>
             </svg>
           </div>
 
@@ -31,18 +28,14 @@
             <input type="radio" name="radio" checked />
             <span>Encargados</span>
           </label>
-          <label class="label-bar" (click)="irAEquipos()">
-            <input type="radio" name="radio" />
-            <span>Equipos</span>
-          </label>
         </div>
       </div>
       <div class="mybotton-conteiner">
         <button class="goToTable" (click)="scrollToDiv()">
           <svg class="svgIcon" viewBox="0 0 384 512">
             <path
-              d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
-            </path>
+              d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+            ></path>
           </svg>
         </button>
       </div>
@@ -54,25 +47,55 @@
           <h1 class="titulo-bonito">Crear Encargado</h1>
         </div>
         <div class="user-box">
-          <input required type="text" id="nombre" name="nombre" [(ngModel)]="nuevoEncargado.nombre" />
+          <input
+            required
+            type="text"
+            id="nombre"
+            name="nombre"
+            [(ngModel)]="nuevoEncargado.nombre"
+          />
           <label>Nombre</label>
         </div>
         <div class="user-box">
-          <input required type="text" id="apellido" name="apellido" [(ngModel)]="nuevoEncargado.apellido" />
+          <input
+            required
+            type="text"
+            id="apellido"
+            name="apellido"
+            [(ngModel)]="nuevoEncargado.apellido"
+          />
           <label>Apellido</label>
         </div>
         <div class="user-box">
-          <input required type="text" id="dni" name="dni" [(ngModel)]="nuevoEncargado.dni" />
+          <input
+            required
+            type="text"
+            id="dni"
+            name="dni"
+            [(ngModel)]="nuevoEncargado.dni"
+          />
           <label>Dni</label>
         </div>
 
         <div class="user-box">
-          <input required type="text" id="telefono" name="telefono" [(ngModel)]="nuevoEncargado.telefono" />
+          <input
+            required
+            type="text"
+            id="telefono"
+            name="telefono"
+            [(ngModel)]="nuevoEncargado.telefono"
+          />
           <label>Teléfono</label>
         </div>
 
         <div class="user-box">
-          <input required type="password" id="password" name="password" [(ngModel)]="nuevoEncargado.password" />
+          <input
+            required
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="nuevoEncargado.password"
+          />
           <label>Contraseña</label>
         </div>
         <div class="contenedor-bn6">
@@ -83,30 +106,36 @@
     </div>
 
     <div class="login-box">
-      
-        <div class="text-h1">
-          <h1 class="titulo-bonito">Buscar Encargado</h1>
-        </div>
-        <div class="user-box">
-          <input required type="text" [(ngModel)]="telefonoFiltrado" />
-          <label>Ingrese Nro de Telefono</label>
-        </div>
-        <div class="contenedor-bn6">
-          <button type="button" class="bn6" (click)="buscarEncargadoPorTelefono(telefonoFiltrado)">
-            Buscar
-          </button> &nb
-          <button type="button" class="bn6" (click)="limpiarDatos()">
-            Limpiar
-          </button>
-        </div>
-      
+      <div class="text-h1">
+        <h1 class="titulo-bonito">Buscar Encargado</h1>
+      </div>
+      <div class="user-box">
+        <input required type="text" [(ngModel)]="telefonoFiltrado" />
+        <label>Ingrese Nro de Telefono</label>
+      </div>
+      <div class="contenedor-bn6">
+        <button
+          type="button"
+          class="bn6"
+          (click)="buscarEncargadoPorTelefono(telefonoFiltrado)"
+        >
+          Buscar
+        </button>
+        &nb
+        <button type="button" class="bn6" (click)="limpiarDatos()">
+          Limpiar
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="contenedor-tabla" id="tabla">
     <table mat-table [dataSource]="encargados" class="tabla-estilo" matSort>
       <!-- Definición de columnas -->
-      <ng-container *ngFor="let columna of ['nombre', 'apellido', 'dni', 'telefono']" [matColumnDef]="columna">
+      <ng-container
+        *ngFor="let columna of ['nombre', 'apellido', 'dni', 'telefono']"
+        [matColumnDef]="columna"
+      >
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ columna | titlecase }}
         </th>
@@ -118,10 +147,17 @@
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let encargado">
           <div class="acciones-bnt">
-            <button (click)="eliminarEncargado(encargado.$$instanceId)" class="button2">
+            <button
+              (click)="eliminarEncargado(encargado.$$instanceId)"
+              class="button2"
+            >
               Eliminar
             </button>
-            <button type="button" class="button" (click)="openEditDialog(encargado)">
+            <button
+              type="button"
+              class="button"
+              (click)="openEditDialog(encargado)"
+            >
               Ver
             </button>
           </div>
@@ -129,14 +165,19 @@
       </ng-container>
 
       <!-- Encabezado de la tabla -->
-      <tr mat-header-row *matHeaderRowDef="['nombre', 'apellido', 'dni', 'telefono', 'acciones']"></tr>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="['nombre', 'apellido', 'dni', 'telefono', 'acciones']"
+      ></tr>
 
       <!-- Fila de la tabla -->
-      <tr mat-row *matRowDef="
+      <tr
+        mat-row
+        *matRowDef="
           let row;
           columns: ['nombre', 'apellido', 'dni', 'telefono', 'acciones']
-        "></tr>
+        "
+      ></tr>
     </table>
   </div>
-
 </body>
