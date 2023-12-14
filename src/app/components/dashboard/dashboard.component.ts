@@ -52,17 +52,8 @@ export class DashboardComponent {
     const resultado = await this.tienePartido();
     console.log(resultado);
     if (!resultado) {
-      this.equipoService.tieneEquipo(this.telefono).subscribe((respose) => {
-        if (respose.value) {
-          const fechaActual = new Date();
-          this.popupService.abrirPopup('', fechaActual, '');
-        } else {
-          Swal.fire({
-            title: 'Crear tu equipo Previamente',
-            icon: 'error',
-          });
-        }
-      });
+      const fechaActual = new Date();
+      this.popupService.abrirPopup('', fechaActual, '');
     }
   }
 

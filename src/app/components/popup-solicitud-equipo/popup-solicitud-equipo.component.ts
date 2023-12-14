@@ -17,11 +17,10 @@ export class PopupSolicitudEquipoComponent {
   horarioEnumValues = Object.values(Horarios);
   dia: string = '';
   telefono: string = '';
-  email : string = ''
+  email: string = '';
 
   constructor(
     private solicitudesEquipoService: SolicitudesEquipoService,
-    private loginService: LoginService,
     private emailService: EmailService
   ) {}
 
@@ -29,7 +28,6 @@ export class PopupSolicitudEquipoComponent {
     this.telefono = localStorage.getItem('telefono') || '';
     this.email = localStorage.getItem('email') || '';
     console.log('telefono: ', this.telefono);
-
   }
 
   transformarHorario(horario: string): string {
@@ -38,49 +36,47 @@ export class PopupSolicitudEquipoComponent {
 
   crearSolicitud(dia: string, horario: string): void {
     const fechaFormateada: string = this.formatearFecha(dia);
-  
+
     this.solicitudesEquipoService
       .crearSolicitudEquipo(fechaFormateada, horario, this.telefono)
       .subscribe(
         (response) => {
           console.log('Respuesta exitosa:', response);
-  
+
           // Llamada al servicio de correo electrónico después de la creación exitosa de la solicitud
           this.enviarCorreoElectronico(dia, horario);
-          
+
           // Mostrar mensaje de éxito
           Swal.fire({
             icon: 'success',
             title: '¡Se creó la solicitud!',
-            html: `Te llegará un correo a: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`
+            html: `Te llegará un correo a: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`,
           });
         },
         (error) => {
           console.error('Error al crear la solicitud:', error);
-  
+
           // Mostrar mensaje de error
           Swal.fire({
             icon: 'error',
             title: 'Error al crear la solicitud',
-            text: 'Hubo un problema al crear la solicitud.'
+            text: 'Hubo un problema al crear la solicitud.',
           });
         }
       );
   }
-  
+
   enviarCorreoElectronico(dia: string, horario: string): void {
-    this.emailService.enviarCorreo(dia, horario, this.email)
-      .subscribe(
-        (emailResponse) => {
-          console.log('Correo electrónico enviado con éxito:', emailResponse);
-        },
-        (emailError) => {
-          console.error('Error al enviar el correo electrónico:', emailError);
-        }
-      );
+    this.emailService.enviarCorreo(dia, horario, this.email).subscribe(
+      (emailResponse) => {
+        console.log('Correo electrónico enviado con éxito:', emailResponse);
+      },
+      (emailError) => {
+        console.error('Error al enviar el correo electrónico:', emailError);
+      }
+    );
   }
-  
-  
+
   // enviarCorreoElectronico(): void {
   //   const fechaFormateada: string = this.formatearFecha(this.dia); // Agrega esta línea para obtener el valor del día
   //   const templateParams = {
@@ -90,7 +86,7 @@ export class PopupSolicitudEquipoComponent {
   //     subject: 'Nueva Solicitud (Match Individual) Creada!',
   //     // Otros parámetros que quieras pasar al correo
   //   };
-  
+
   //   emailjs.send('service_nbd6mjj', 'template_6l1qpzb', templateParams, 'XALAjZWm5UGABP3zX')
   //     .then((response) => {
   //       console.log('Correo electrónico enviado con éxito:', response);
@@ -99,7 +95,6 @@ export class PopupSolicitudEquipoComponent {
   //       console.error('Error al enviar el correo electrónico:', error);
   //     });
   // }
-  
 
   formatearFecha(fecha: string): string {
     // Convertir la fecha en un objeto de tipo Date

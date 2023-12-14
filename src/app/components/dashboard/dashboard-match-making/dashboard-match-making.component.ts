@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class DashboardMatchMakingComponent {
   telefono: string = '';
-  email: string = ''
+  email: string = '';
 
   sidebarVisible1: boolean = false;
   sidebarVisible2: boolean = false;
@@ -30,7 +30,7 @@ export class DashboardMatchMakingComponent {
     this.telefono = localStorage.getItem('telefono') || '';
     console.log('telefono: ', this.telefono);
     this.email = localStorage.getItem('email') || '';
-    console.log('email:' , this.email)
+    console.log('email:', this.email);
   }
 
   tienePartido(): Promise<boolean> {
@@ -68,17 +68,8 @@ export class DashboardMatchMakingComponent {
     const resultado = await this.tienePartido();
     console.log(resultado);
     if (!resultado) {
-      this.equipoService.tieneEquipo(this.telefono).subscribe((respose) => {
-        if (respose.value) {
-          const fechaActual = new Date();
-          this.popupService.abrirPopupEquipo('18 HS', fechaActual, '');
-        } else {
-          Swal.fire({
-            title: 'Crear tu equipo Previamente',
-            icon: 'error',
-          });
-        }
-      });
+      const fechaActual = new Date();
+      this.popupService.abrirPopupEquipo('18 HS', fechaActual, '');
     }
   }
 
