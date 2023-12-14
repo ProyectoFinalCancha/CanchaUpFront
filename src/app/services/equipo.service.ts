@@ -136,4 +136,16 @@ export class EquipoService {
 
     return this.http.post(url, requestBody, { headers });
   }
+
+  verJugadores(instanceId: string): Observable<any> {
+    const url = `http://localhost:8080/restful/objects/simple.Equipo/${instanceId}/actions/verJugadores/invoke`;
+
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept:
+        'application/json;profile=urn:org.apache.causeway/v2;suppress=all',
+    });
+
+    return this.http.post(url, null, { headers });
+  }
 }

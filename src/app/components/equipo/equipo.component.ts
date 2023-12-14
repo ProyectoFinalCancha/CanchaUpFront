@@ -38,9 +38,9 @@ export class EquipoComponent implements OnInit {
   }
 
   obtenerJugadores(): void {
-    this.equipoService.buscarEquipo(this.telefono).subscribe(
+    this.equipoService.verJugadores(this.id).subscribe(
       (response) => {
-        this.jugadores = response.jugadoresEquipo.map((jugador: any) => ({
+        this.jugadores = response.map((jugador: any) => ({
           nombre: jugador.nombre,
           apellido: jugador.apellido,
           telefono: jugador.telefono,
