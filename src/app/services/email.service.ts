@@ -11,7 +11,7 @@ export class EmailService {
   
   constructor(private http: HttpClient) {}
 
-  enviarCorreo(dia: string, horario: string, email: string): Observable<any> {
+  enviarCorreo(dia: string, horario: string, email1: string, email2: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -19,7 +19,8 @@ export class EmailService {
     const body = {
       dia: dia,
       horario: horario,
-      email: email,
+      email1: email1,
+      email2: email2,
     };
 
     console.log('Enviando correo con cuerpo:', body);

@@ -37,45 +37,26 @@ export class PopupSolicitudComponent {
   }
 
   crearSolicitud(dia: string, horario: string): void {
-    const fechaFormateada: string = this.formatearFecha(dia);
-
+    const fechaFormateada: string = this.formatearFecha(dia); // Formatear la fecha
     this.solicitudesService
       .crearSolicitud(fechaFormateada, horario, this.telefono)
       .subscribe(
         (response) => {
+
+
           console.log('Respuesta exitosa:', response);
           Swal.fire({
-            icon: 'success',
-            title: 'Solicitud creada y correo enviado con éxito!',
-            html: `Te llegará un mail a tu casilla de correo: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`,
-          });
-          // Llamada al nuevo servicio para enviar el correo electrónico
-          this.emailService.enviarCorreo(dia, horario, this.email).subscribe(
-            (emailResponse) => {
-              console.log(
-                'Correo electrónico enviado con éxito:',
-                emailResponse
-              );
-            },
-            (emailError) => {
-              console.error(
-                'Error al enviar el correo electrónico:',
-                emailError
-              );
-            }
-          );
+            icon:'success',
+            title:'se creo la solicitud!',
+           
+          })
         },
         (error) => {
           console.error('Error al crear la solicitud:', error);
-          Swal.fire({
-            icon: 'success',
-            title: 'Solicitud creada y correo enviado con éxito!',
-            html: `Te llegará un mail a tu casilla de correo: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`,
-          });
         }
       );
-    this.dialogRef.close();
   }
+
 
   formatearFecha(fecha: string): string {
     // Convertir la fecha en un objeto de tipo Date

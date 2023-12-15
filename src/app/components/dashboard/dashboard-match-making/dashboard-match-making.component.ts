@@ -47,7 +47,7 @@ export class DashboardMatchMakingComponent {
           const horario = primerPartido.horario.enumTitle;
           Swal.fire({
             icon: 'error',
-            title: 'Ya tienes un partido',
+            title: '<br><h1><strong><FONT color="#941818">Ya tienes un Partido para el</FONT></strong></h1>',
             html: `Dia: <strong>${dia}</strong>  a las: <strong>${horario}</strong>`,
             showCancelButton: true,
             confirmButtonText: 'Sí, dar de baja',

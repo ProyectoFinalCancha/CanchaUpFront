@@ -13,9 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  sidebarVisible1: boolean = false;
-  sidebarVisible2: boolean = false;
-  sidebarVisible3: boolean = false;
+
 
   telefono: string = '';
 
@@ -26,7 +24,7 @@ export class DashboardComponent {
     public partidoService: PartidoService,
     public equipoService: EquipoService,
     public solicitudesEquipoService: SolicitudesEquipoService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.telefono = localStorage.getItem('telefono') || '';
@@ -36,17 +34,20 @@ export class DashboardComponent {
     this.cursorStyle = puntero ? 'pointer' : 'default';
   }
 
-  salir() {
-    this.router.navigate(['/login']);
-  }
+  
   irAMatch() {
     this.router.navigate(['/match']);
   }
-  abrirPopup() {
-    this.sidebarVisible2 = true;
-  }
+
 
   cerrarSesion() {
+    
+
+
+    localStorage.removeItem('telefono');
+    localStorage.removeItem('nombre');
+    localStorage.removeItem('apellido');
+    localStorage.removeItem('email');
     this.router.navigateByUrl('/login');
   }
 
@@ -87,7 +88,7 @@ export class DashboardComponent {
           const horario = primerPartido.horario.enumTitle;
           Swal.fire({
             icon: 'error',
-            title: 'Ya tienes un partido',
+            title: '<br><h1><strong><FONT color="#941818"><u>Ya tienes un partido</u></FONT></strong></h1>',
             html: `Dia: <strong>${dia}</strong>  a las: <strong>${horario}</strong>`,
             showCancelButton: true,
             confirmButtonText: 'Sí, dar de baja',
@@ -117,8 +118,8 @@ export class DashboardComponent {
           const horario = primerPartido.horario.enumTitle;
           Swal.fire({
             icon: 'success',
-            title: 'Tienes un Partido el',
-            html: `Dia: <strong>${dia}</strong>  a las: <strong>${horario}</strong>`,
+            title: '<br><h1><strong><FONT color="#5d9438"><u>Tienes un Partido para el</u></FONT></strong></h1>',
+            html: `Dia:&nbsp <strong><u>${dia}</u></strong>&nbsp&nbsp&nbsp&nbsp  a las:&nbsp <strong><u>${horario}</u></strong><br><br>`,
             showCancelButton: true,
             confirmButtonText: 'dar de baja',
             cancelButtonText: 'Cancelar',
@@ -132,7 +133,7 @@ export class DashboardComponent {
         },
         (error) => {
           Swal.fire({
-            icon: 'success',
+            icon: 'error',
             title: 'No Tienes turnos',
             html: 'Reserva Uno!',
           });

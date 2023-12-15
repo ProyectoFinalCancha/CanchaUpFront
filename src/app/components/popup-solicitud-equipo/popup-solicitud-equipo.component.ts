@@ -46,7 +46,7 @@ export class PopupSolicitudEquipoComponent {
           console.log('Respuesta exitosa:', response);
 
           // Llamada al servicio de correo electrónico después de la creación exitosa de la solicitud
-          this.enviarCorreoElectronico(dia, horario);
+          // this.enviarCorreoElectronico(dia, horario);
 
           // Mostrar mensaje de éxito
           Swal.fire({
@@ -69,34 +69,15 @@ export class PopupSolicitudEquipoComponent {
     this.dialogRef.close();
   }
 
-  enviarCorreoElectronico(dia: string, horario: string): void {
-    this.emailService.enviarCorreo(dia, horario, this.email).subscribe(
-      (emailResponse) => {
-        console.log('Correo electrónico enviado con éxito:', emailResponse);
-      },
-      (emailError) => {
-        console.error('Error al enviar el correo electrónico:', emailError);
-      }
-    );
-  }
-
-  // enviarCorreoElectronico(): void {
-  //   const fechaFormateada: string = this.formatearFecha(this.dia); // Agrega esta línea para obtener el valor del día
-  //   const templateParams = {
-  //     to_email: this.email,
-  //     dia: fechaFormateada, // Actualiza con el valor del día formateado
-  //     horario: this.horario, // Actualiza con el valor del horario
-  //     subject: 'Nueva Solicitud (Match Individual) Creada!',
-  //     // Otros parámetros que quieras pasar al correo
-  //   };
-
-  //   emailjs.send('service_nbd6mjj', 'template_6l1qpzb', templateParams, 'XALAjZWm5UGABP3zX')
-  //     .then((response) => {
-  //       console.log('Correo electrónico enviado con éxito:', response);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error al enviar el correo electrónico:', error);
-  //     });
+  // enviarCorreoElectronico(dia: string, horario: string): void {
+  //   this.emailService.enviarCorreo(dia, horario, this.email).subscribe(
+  //     (emailResponse) => {
+  //       console.log('Correo electrónico enviado con éxito:', emailResponse);
+  //     },
+  //     (emailError) => {
+  //       console.error('Error al enviar el correo electrónico:', emailError);
+  //     }
+  //   );
   // }
 
   formatearFecha(fecha: string): string {

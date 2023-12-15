@@ -17,9 +17,9 @@ export class LoginComponent {
   constructor(private loginService: LoginService, private router: Router, private jugadorService:JugadorService) {}
 
   ngOnInit(): void {
-    localStorage.removeItem('telefono');
-
-    localStorage.removeItem('instanceId');
+   
+    localStorage.clear();
+     console.log('telefono:', this.telefono);
 
     this.obtenerJugadores();
    
@@ -27,19 +27,20 @@ export class LoginComponent {
   }
 
   login(): void {
+    localStorage.clear();
+  
     this.loginService.login(this.telefono, this.password).subscribe(
       (data) => {
         const valorBooleano = data.result.value;
         if (valorBooleano) {
+          this.correspondeTelefonoConJugador();
           this.router.navigate(['/dashboard']);
           Swal.fire(
             '⚽ Bienvenido! ⚽',
-            'Nombre de Usuario: ' + `${this.telefono}`,
+            'Nombre: ' + `${localStorage.getItem('nombre')}` + '&nbsp;&nbsp;&nbsp;Apellido: ' + `${localStorage.getItem('apellido')}`,
             'success'
           );
-          this.correspondeTelefonoConJugador();
         } else {
-          // Si el valor booleano es falso, muestra un cartel de error
           Swal.fire('Error', 'Usuario o contraseña incorrectos', 'error');
         }
       },
@@ -49,9 +50,11 @@ export class LoginComponent {
       }
     );
   }
+  
 
 
   obtenerJugadores(): void {
+
     this.jugadorService.obtenerJugadores().subscribe(
       (data: Jugador[]) => {
         this.jugadores = data;
@@ -67,15 +70,21 @@ export class LoginComponent {
     const jugadorEncontrado = this.jugadores.find(
       (jugador) => jugador.telefono === this.telefono
     );
-
+  
     if (jugadorEncontrado) {
       const email = jugadorEncontrado.mail;
+      const nombre = jugadorEncontrado.nombre;
+      const apellido = jugadorEncontrado.apellido;
+  
+      localStorage.setItem('apellido', apellido);
+      localStorage.setItem('nombre', nombre);
       localStorage.setItem('email', email);
       console.log('Email almacenado en localStorage:', email);
     } else {
       console.log('No se encontró un jugador con el teléfono proporcionado.');
     }
   }
+  
 
   IraRegistro() {
     this.router.navigate(['/registro']);
@@ -85,22 +94,4 @@ export class LoginComponent {
     this.router.navigate(['/loginEncargado']);
   }
 
-  irAJugadores() {
-    this.router.navigate(['jugadores']);
-  }
-
-  irAEquipos() {
-    this.router.navigate(['equipos']);
-  }
-
-  irAPartidos() {
-    this.router.navigate(['partidos']);
-  }
-  irADashComun() {
-    this.router.navigate(['dashboard']);
-  }
-
-  irADashMatchmaking() {
-    this.router.navigate(['match']);
-  }
 }

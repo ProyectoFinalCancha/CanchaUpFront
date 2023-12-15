@@ -31,7 +31,7 @@ export class RegistoComponent {
           finalize(() => {
             setTimeout(() => {
               this.router.navigate(['/login']);
-            }, 6000);
+            }, 3000);
             // Limpiar el formulario después de una creación exitosa
             this.nuevoJugador = new Jugador();
           })
