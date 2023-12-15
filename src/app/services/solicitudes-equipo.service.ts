@@ -56,4 +56,21 @@ export class SolicitudesEquipoService {
 
     return this.http.post(url, null, { headers });
   }
+
+  tieneSolicitud(telefono: string): Observable<any> {
+    const url: string =
+      'http://localhost:8080/restful/services/simple.SolicitudEquipoServices/actions/tieneSolicitud/invoke';
+
+    const headers = new HttpHeaders({
+      Authorization: 'Basic c3ZlbjpwYXNz',
+      Accept: 'application/json;profile=urn:org.apache.causeway/v2',
+      'Content-Type': 'application/json',
+    });
+
+    const requestBody = {
+      telefono: { value: telefono },
+    };
+
+    return this.http.post(url, requestBody, { headers });
+  }
 }

@@ -4,6 +4,7 @@ import { EquipoService } from 'src/app/services/equipo.service';
 import { PartidoService } from 'src/app/services/partido.service';
 import { PopupService } from 'src/app/services/popup.service';
 import Swal from 'sweetalert2';
+import { SolicitudesEquipoService } from 'src/app/services/solicitudes-equipo.service';
 
 @Component({
   selector: 'app-dashboard-match-making',
@@ -23,7 +24,8 @@ export class DashboardMatchMakingComponent {
     private router: Router,
     public equipoService: EquipoService,
     public popupService: PopupService,
-    public partidoService: PartidoService
+    public partidoService: PartidoService,
+    public solicitudesEquipoService: SolicitudesEquipoService
   ) {}
 
   ngOnInit(): void {
@@ -64,10 +66,28 @@ export class DashboardMatchMakingComponent {
     });
   }
 
+  tieneSolicitud(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.solicitudesEquipoService
+        .tieneSolicitud(this.telefono)
+        .subscribe((response) => {
+          if (response.value === true) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Ya tienes una partido pendiente de marchmaking',
+            });
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        });
+    });
+  }
+
   async abrirPopupSolicitud(): Promise<void> {
     const resultado = await this.tienePartido();
-    console.log(resultado);
-    if (!resultado) {
+    const resultado2 = await this.tieneSolicitud();
+    if (!resultado && !resultado2) {
       const fechaActual = new Date();
       this.popupService.abrirPopupSolicitud('18 HS', fechaActual, '');
     }
@@ -75,8 +95,8 @@ export class DashboardMatchMakingComponent {
 
   async abrirPopupEquipo(): Promise<void> {
     const resultado = await this.tienePartido();
-    console.log(resultado);
-    if (!resultado) {
+    const resultado2 = await this.tieneSolicitud();
+    if (!resultado && !resultado2) {
       this.equipoService.tieneEquipo(this.telefono).subscribe((respose) => {
         if (respose.value) {
           const fechaActual = new Date();
