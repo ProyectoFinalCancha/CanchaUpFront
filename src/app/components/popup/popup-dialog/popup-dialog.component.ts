@@ -45,7 +45,6 @@ export class PopupDialogComponent {
   }
 
   sacarTurno(partidoForm: NgForm): void {
-    console.log('Valor de partidoForm:', partidoForm.value);
     const horarioString = partidoForm.value.horario;
 
     const telefono = this.telefono;
@@ -137,42 +136,21 @@ export class PopupDialogComponent {
   }
 
   convertirStringAHorario(horarioString: string): Horarios | undefined {
-    console.log(
-      'Valor de horarioString al entrar a la función:',
-      horarioString
-    );
-
     // Verificar si horarioString es undefined o null
     if (!horarioString) {
       console.error('Horario no reconocido: ', horarioString);
       return undefined;
     }
 
-    // Loguear el valor actual de horarioString
-    console.log(
-      'Valor de horarioString antes de transformación:',
-      horarioString
-    );
-
     // Revertir la transformación realizada en la presentación
     const formattedString = horarioString.replace(' hs', '_HS');
 
-    // Loguear el valor después de la transformación
-    console.log('Valor de formattedString:', formattedString);
-
     const horarioEnum = this.horarioEnumValues.find((enumValue) => {
-      console.log(
-        'Comparando:',
-        enumValue.toString(),
-        'con',
-        formattedString.trim()
-      );
       return enumValue.toString() === formattedString.trim();
     });
 
     if (horarioEnum) {
       // Loguear el valor de horarioEnum si se encuentra
-      console.log('Valor de horarioEnum encontrado:', horarioEnum.toString());
       return horarioEnum as Horarios;
     } else {
       console.error('Horario no reconocido: ', horarioString);

@@ -44,6 +44,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { PopupSolicitudComponent } from './popup-solicitud/popup-solicitud.component';
 import { PopupSolicitudEquipoComponent } from './popup-solicitud-equipo/popup-solicitud-equipo.component';
+import { EquiposComponent } from './equipos/equipos.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { PopupSolicitudEquipoComponent } from './popup-solicitud-equipo/popup-so
 
     JugadoresComponent,
                 PopupSolicitudComponent,
-                PopupSolicitudEquipoComponent
+                PopupSolicitudEquipoComponent,
+                EquiposComponent
     
   
   ],

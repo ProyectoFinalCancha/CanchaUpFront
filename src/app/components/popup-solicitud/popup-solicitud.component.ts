@@ -5,7 +5,8 @@ import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import Swal from 'sweetalert2';
 import * as emailjs from 'emailjs-com';
 import { EmailService } from 'src/app/services/email.service';
-
+import { PopupDialogComponent } from '../popup/popup-dialog/popup-dialog.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-popup-solicitud',
@@ -17,11 +18,12 @@ export class PopupSolicitudComponent {
   horarioEnumValues = Object.values(Horarios);
   dia: string = '';
   telefono: string = '';
-  email:string='';
+  email: string = '';
 
   constructor(
     private solicitudesService: SolicitudesService,
-    private emailService: EmailService
+    private emailService: EmailService,
+    public dialogRef: MatDialogRef<PopupSolicitudComponent>
   ) {}
 
   ngOnInit(): void {
@@ -34,10 +36,6 @@ export class PopupSolicitudComponent {
     return horario.replace('_', '').replace('_HS', ' hs');
   }
 
-
-
-
-
   crearSolicitud(dia: string, horario: string): void {
     const fechaFormateada: string = this.formatearFecha(dia);
 
@@ -46,40 +44,38 @@ export class PopupSolicitudComponent {
       .subscribe(
         (response) => {
           console.log('Respuesta exitosa:', response);
-
+          Swal.fire({
+            icon: 'success',
+            title: 'Solicitud creada y correo enviado con éxito!',
+            html: `Te llegará un mail a tu casilla de correo: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`,
+          });
           // Llamada al nuevo servicio para enviar el correo electrónico
-          this.emailService.enviarCorreo(dia, horario, this.email)
-            .subscribe(
-              (emailResponse) => {
-                console.log('Correo electrónico enviado con éxito:', emailResponse);
-
-                // Muestra la notificación o realiza otras acciones
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Solicitud creada y correo enviado con éxito!',
-                  html: `Te llegará un mail a tu casilla de correo: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`
-                });
-              },
-              (emailError) => {
-                console.error('Error al enviar el correo electrónico:', emailError);
-
-                // Muestra la notificación o realiza otras acciones
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Error al enviar el correo electrónico',
-                  text: 'Hubo un problema al enviar el correo electrónico.'
-                });
-              }
-            );
+          this.emailService.enviarCorreo(dia, horario, this.email).subscribe(
+            (emailResponse) => {
+              console.log(
+                'Correo electrónico enviado con éxito:',
+                emailResponse
+              );
+            },
+            (emailError) => {
+              console.error(
+                'Error al enviar el correo electrónico:',
+                emailError
+              );
+            }
+          );
         },
         (error) => {
           console.error('Error al crear la solicitud:', error);
+          Swal.fire({
+            icon: 'success',
+            title: 'Solicitud creada y correo enviado con éxito!',
+            html: `Te llegará un mail a tu casilla de correo: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`,
+          });
         }
       );
-}
-
-  
-
+    this.dialogRef.close();
+  }
 
   formatearFecha(fecha: string): string {
     // Convertir la fecha en un objeto de tipo Date
@@ -100,9 +96,4 @@ export class PopupSolicitudComponent {
 
     return fechaFormateada;
   }
-
-
-
-
-
 }

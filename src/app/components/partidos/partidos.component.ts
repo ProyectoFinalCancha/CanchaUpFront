@@ -28,6 +28,7 @@ export class PartidosComponent {
   horarioOptions = Object.keys(Horarios);
   nuevoPartido!: Partido;
   searchHorario: string = '';
+  representante: string = '';
 
   /*   estadosPartido = Object.values(EstadosPartido); */
   estadosPartido: string[] = [
@@ -53,6 +54,8 @@ export class PartidosComponent {
       precio: 0,
       telefono: null,
       representante: null,
+      equipo1: null,
+      equipo2: null,
     };
   }
 
@@ -102,10 +105,9 @@ export class PartidosComponent {
     return horario.replace('_', '').replace('_HS', ' hs');
   }
 
-
   limpiarYRecargar(): void {
-    this.obtenerPartidos()
-    this.telefono = ''
+    this.obtenerPartidos();
+    this.telefono = '';
     this.selectedEstado = '';
   }
 
@@ -305,6 +307,9 @@ export class PartidosComponent {
     if (div !== null) {
       div.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+  irAEquipos() {
+    this.router.navigate(['/equipoS']);
   }
 
   navegar() {

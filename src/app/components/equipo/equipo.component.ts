@@ -22,7 +22,7 @@ export class EquipoComponent implements OnInit {
   telefonoEliminar: string = '';
   telefonoAgregar: string = '';
   id: string = '';
-
+  name: string = '';
   telefono: string = '';
 
   jugadores: Jugador[] = [];

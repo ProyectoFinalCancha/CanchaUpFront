@@ -4,6 +4,7 @@ import { EquipoService } from 'src/app/services/equipo.service';
 import { PartidoService } from 'src/app/services/partido.service';
 import { PopupService } from 'src/app/services/popup.service';
 import Swal from 'sweetalert2';
+import { SolicitudesEquipoService } from 'src/app/services/solicitudes-equipo.service';
 
 @Component({
   selector: 'app-dashboard-match-making',
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class DashboardMatchMakingComponent {
   telefono: string = '';
-  email: string = ''
+  email: string = '';
 
   sidebarVisible1: boolean = false;
   sidebarVisible2: boolean = false;
@@ -21,16 +22,18 @@ export class DashboardMatchMakingComponent {
   cursorStyle: string = 'default';
   constructor(
     private router: Router,
+
     public equipoService: EquipoService,
     public popupService: PopupService,
-    public partidoService: PartidoService
+    public partidoService: PartidoService,
+    public solicitudesEquipoService: SolicitudesEquipoService
   ) {}
 
   ngOnInit(): void {
     this.telefono = localStorage.getItem('telefono') || '';
     console.log('telefono: ', this.telefono);
     this.email = localStorage.getItem('email') || '';
-    console.log('email:' , this.email)
+    console.log('email:', this.email);
   }
 
   tienePartido(): Promise<boolean> {
@@ -64,28 +67,37 @@ export class DashboardMatchMakingComponent {
     });
   }
 
+  tieneSolicitud(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.solicitudesEquipoService
+        .tieneSolicitud(this.telefono)
+        .subscribe((response) => {
+          if (response.value === true) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Ya tienes una partido pendiente de marchmaking',
+            });
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        });
+    });
+  }
+
   async abrirPopupSolicitud(): Promise<void> {
     const resultado = await this.tienePartido();
-    console.log(resultado);
-    if (!resultado) {
-      this.equipoService.tieneEquipo(this.telefono).subscribe((respose) => {
-        if (respose.value) {
-          const fechaActual = new Date();
-          this.popupService.abrirPopupEquipo('18 HS', fechaActual, '');
-        } else {
-          Swal.fire({
-            title: 'Crear tu equipo Previamente',
-            icon: 'error',
-          });
-        }
-      });
+    const resultado2 = await this.tieneSolicitud();
+    if (!resultado && !resultado2) {
+      const fechaActual = new Date();
+      this.popupService.abrirPopupSolicitud('18 HS', fechaActual, '');
     }
   }
 
   async abrirPopupEquipo(): Promise<void> {
     const resultado = await this.tienePartido();
-    console.log(resultado);
-    if (!resultado) {
+    const resultado2 = await this.tieneSolicitud();
+    if (!resultado && !resultado2) {
       this.equipoService.tieneEquipo(this.telefono).subscribe((respose) => {
         if (respose.value) {
           const fechaActual = new Date();

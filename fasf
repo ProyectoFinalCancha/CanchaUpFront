@@ -1,0 +1,299 @@
+[33mcommit 682d2a373f809565023855614e3060c0e75b42da[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Wed Dec 13 00:06:37 2023 -0300
+
+    Email service
+
+[33mcommit c790fa0b925caa3f2642e663570c8c10cfef8a4e[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Tue Dec 12 20:52:29 2023 -0300
+
+    popups EMAIL p solicitudes
+
+[33mcommit 2cf1b6e659c99a6cf966f7250a5bcbcce2fa41f2[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Tue Dec 12 19:16:24 2023 -0300
+
+    Limpiar listas
+
+[33mcommit cf65ec4e5ce16d0fee14cabb50ff25aae7a087e9[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Tue Dec 12 18:29:13 2023 -0300
+
+    eliminado el dashboard admin
+
+[33mcommit 6cf09d037107cbe7a0390c71b0e98654e4efb924[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Tue Dec 12 17:06:49 2023 -0300
+
+    todo
+
+[33mcommit 85cffb37a7f49a942acf59f6317297ee26699db6[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Tue Dec 12 15:26:24 2023 -0300
+
+    todo
+
+[33mcommit 51b0fbf146d243bd73d2b376c6888381cd933776[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Tue Dec 12 01:45:42 2023 -0300
+
+    id partidos
+
+[33mcommit c96065d158e3a688efb27293f5d18340346b6887[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Tue Dec 12 01:07:04 2023 -0300
+
+    id partidos
+
+[33mcommit abfb526c5b3bb2b7eccc981dfc397b7b40e37158[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Tue Dec 12 00:00:53 2023 -0300
+
+    funcionan todos los buscar
+
+[33mcommit 48c257eefc99bce40dfd9598fbefa7f463746958[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 11 23:20:27 2023 -0300
+
+    Ult Act
+
+[33mcommit eb37ee14dd0863a821b27e5b415c685b5772ce02[m
+Merge: f334ae8 cd03002
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Mon Dec 11 23:18:25 2023 -0300
+
+    Merge branch 'develop' of https://github.com/ProyectoFinalCancha/CanchaUpFront into develop
+
+[33mcommit f334ae8a1e849df69ae30dd01cdb4f9ffd4881ea[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Mon Dec 11 23:16:54 2023 -0300
+
+    partido buscar
+
+[33mcommit cd03002400b1fe4b3b5242d449cc077c600145ae[m
+Merge: babd9ff 7b9e6f2
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 11 22:37:24 2023 -0300
+
+    Merge branch 'develop' of https://github.com/ProyectoFinalCancha/CanchaUpFront into develop
+
+[33mcommit babd9ff454dfafd83b73480e63757f430c66e28d[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 11 22:36:48 2023 -0300
+
+    capturar telefono p equipo
+
+[33mcommit 7b9e6f2726531a8ce3aed0e65a3b3601072d4477[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Mon Dec 11 21:44:24 2023 -0300
+
+    popups
+
+[33mcommit 70b505c3ff4fb636edaa18aa008e56e643de5ce7[m
+Merge: dfdd1d7 7ad1884
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Mon Dec 11 21:01:22 2023 -0300
+
+    popups
+
+[33mcommit dfdd1d7abca739236d44b17c29143f1c6d4efc5d[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Mon Dec 11 21:00:37 2023 -0300
+
+    popups
+
+[33mcommit 7ad1884e83798bff7e5b00f8f78db8a29a9471e9[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 11 20:43:10 2023 -0300
+
+    Luca
+
+[33mcommit c81fb7c0ce7c6345b150d681df8330967b993ac8[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 11 20:11:25 2023 -0300
+
+    actualizaciones
+
+[33mcommit 3955440aab4bb45cabe9874161a24874aa1f38e9[m
+Merge: ff0d113 24ea880
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 11 19:03:08 2023 -0300
+
+    Merge branch 'develop' of https://github.com/ProyectoFinalCancha/CanchaUpFront into develop
+
+[33mcommit ff0d11321eec77203ad41376d68a1c71b0ecefc3[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 11 19:02:56 2023 -0300
+
+    Equipo
+
+[33mcommit 24ea880281c81d3f04b855d5a8eb2f7e48c816f1[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Sun Dec 10 23:28:05 2023 -0300
+
+    visual
+
+[33mcommit 0953e9a19cf19860ee5b8e5f7628483b71745b4d[m
+Author: Luca Rivera <lucamartinrivera@gmail.com>
+Date:   Sun Dec 10 22:33:05 2023 -0300
+
+    visual
+
+[33mcommit eceb7a028c0dbab08ef89bf72282f572fb3e7853[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Sun Dec 10 20:54:40 2023 -0300
+
+    Cambio p vale
+
+[33mcommit e293d06fec8c61daffce16c07a6579243cbc5e93[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Sun Dec 10 20:11:25 2023 -0300
+
+    Ult Cambios
+
+[33mcommit f4e148b9a9c4865226525c13bf88c4b7836c84b2[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Sun Dec 10 04:45:29 2023 -0300
+
+    sol equipos
+
+[33mcommit 8294912d301c84ba84afc48ce9ad9372836a0897[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Fri Dec 8 13:33:07 2023 -0300
+
+    Actualiz Esteticas
+
+[33mcommit 624d917601d4c4e79f20b6b6b55e6e0c7cd5ec1f[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Thu Dec 7 02:08:35 2023 -0300
+
+    se copia estilo Popup
+
+[33mcommit e055b0b4ab9b0ec8acbf9accd5485450d3f9bff9[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Thu Dec 7 00:38:59 2023 -0300
+
+    Funca Sac Turn Jugador
+
+[33mcommit d14c41e67d361b8541413cadeb49facb696aec89[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Wed Dec 6 19:47:24 2023 -0300
+
+    Funciona Sacar turno
+
+[33mcommit 0b1153c19937a7d3542947ae79856755479cc712[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Tue Dec 5 00:40:10 2023 -0300
+
+    se muestran bien el enum horarios
+
+[33mcommit adb6a92878cb628497c96b80c0d7361c5dc8af75[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 4 20:02:51 2023 -0300
+
+    Ult Act
+
+[33mcommit 89293cbb876bf2fae97390a6224d28c46140968e[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 4 16:09:03 2023 -0300
+
+    func buscar x representante
+
+[33mcommit fd5da571ed6645a5225652e3b6ff4973224bc522[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Dec 4 15:44:45 2023 -0300
+
+    act con nuevos metodos
+
+[33mcommit 867570980e73bbca27289be77773f4dab892d7a5[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Wed Nov 29 03:33:34 2023 -0300
+
+    No funca bien el Buscar Partido
+
+[33mcommit 43a69d577282f9ed9687ad2e7580c5bd3bede7d4[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Tue Nov 28 22:48:51 2023 -0300
+
+    Ult Act
+
+[33mcommit 3c8f4526b254e3a5f5e8632dd02a2efcbe7956d9[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Nov 27 18:50:53 2023 -0300
+
+    HOY SE PRESENTA PA
+
+[33mcommit 5f4a67382d242f7385399138d9070417de311c50[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Thu Nov 23 15:28:47 2023 -0300
+
+    ENC Y JUG FUNCAN
+
+[33mcommit 5af58cc82da05ea0a29839476751affb2009b77f[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Tue Nov 21 00:44:37 2023 -0300
+
+    FUNCIONA JUG Y ENC
+
+[33mcommit 5e890c4e10685ae1d94af9cfe4a0310db2d3104b[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Nov 20 19:02:33 2023 -0300
+
+    FUNCIONA LOGIN Jug Y Enc
+
+[33mcommit e35c2091e762e159dfd695e2e10352ac182e120a[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Wed Nov 15 21:43:38 2023 -0300
+
+    MODIFICACIONES GLOBALES
+
+[33mcommit 945acbac635e9d11f4025dc834e5162ce68d824b[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Nov 13 18:15:09 2023 -0300
+
+    Ultimos Cambios
+
+[33mcommit 6ab2bb0e5e32a418f1ddaad7bbdaf272a1bd86b8[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Sat Nov 4 19:25:22 2023 -0300
+
+    nuevas actualizaciones
+
+[33mcommit 4e274da2f9aad0361159c68d36b19cacdd2e8be2[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Thu Nov 2 17:15:53 2023 -0300
+
+    ult act
+
+[33mcommit b7b69b85123186e9e6d2f7cfdfa523ed3412dbae[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Tue Oct 31 01:39:44 2023 -0300
+
+    solicitudes y equipo
+
+[33mcommit 9dd15a4951c9b51fdc7a990f9afa9fa678c8c03c[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Mon Oct 30 01:26:45 2023 -0300
+
+    popup encargado
+
+[33mcommit 6ce285f3e1b8fb03245afa120c85e2fa9649b756[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Thu Oct 26 21:17:19 2023 -0300
+
+    Ult Act
+
+[33mcommit 542e819f81555d3d46e63f4bf2302b47c693b99a[m
+Author: unknown <l4ut4r096@gmail.com>
+Date:   Thu Oct 26 00:41:51 2023 -0300
+
+    todo responsive
+
+[33mcommit 9a35c0db84f912e05403e73f84340e85fc0f5e0d[m
+Author: lautiavila96 <81244751+lautiavila96@users.noreply.github.com>
+Date:   Mon Oct 23 22:09:21 2023 -0300
+
+    Actializ
+
+[33mcommit 01b70b3eb56e9ec8237e725

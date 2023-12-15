@@ -176,4 +176,7 @@ export class EncargadoComponent implements OnInit {
       div.scrollIntoView({ behavior: 'smooth' });
     }
   }
+  irAEquipos(){
+    this.router.navigate(['/equipoS'])
+  }
 }
