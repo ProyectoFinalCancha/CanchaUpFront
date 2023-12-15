@@ -5,6 +5,8 @@ import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import Swal from 'sweetalert2';
 import * as emailjs from 'emailjs-com';
 import { EmailService } from 'src/app/services/email.service';
+import { PopupDialogComponent } from '../popup/popup-dialog/popup-dialog.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-popup-solicitud',
@@ -20,7 +22,8 @@ export class PopupSolicitudComponent {
 
   constructor(
     private solicitudesService: SolicitudesService,
-    private emailService: EmailService
+    private emailService: EmailService,
+    public dialogRef: MatDialogRef<PopupSolicitudComponent>
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +74,7 @@ export class PopupSolicitudComponent {
           });
         }
       );
+    this.dialogRef.close();
   }
 
   formatearFecha(fecha: string): string {

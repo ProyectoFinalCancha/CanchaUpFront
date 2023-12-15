@@ -6,6 +6,7 @@ import { SolicitudesEquipoService } from 'src/app/services/solicitudes-equipo.se
 import Swal from 'sweetalert2';
 import * as emailjs from 'emailjs-com';
 import { EmailService } from 'src/app/services/email.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-popup-solicitud-equipo',
@@ -21,7 +22,8 @@ export class PopupSolicitudEquipoComponent {
 
   constructor(
     private solicitudesEquipoService: SolicitudesEquipoService,
-    private emailService: EmailService
+    private emailService: EmailService,
+    public dialogRef: MatDialogRef<PopupSolicitudEquipoComponent>
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +66,7 @@ export class PopupSolicitudEquipoComponent {
           });
         }
       );
+    this.dialogRef.close();
   }
 
   enviarCorreoElectronico(dia: string, horario: string): void {

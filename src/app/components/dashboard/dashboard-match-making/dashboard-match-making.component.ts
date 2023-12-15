@@ -22,6 +22,7 @@ export class DashboardMatchMakingComponent {
   cursorStyle: string = 'default';
   constructor(
     private router: Router,
+
     public equipoService: EquipoService,
     public popupService: PopupService,
     public partidoService: PartidoService,

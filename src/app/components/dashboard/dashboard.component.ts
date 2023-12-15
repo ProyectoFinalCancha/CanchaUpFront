@@ -106,4 +106,39 @@ export class DashboardComponent {
       );
     });
   }
+
+  misPartidos(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.partidoService.hayPartido(this.telefono).subscribe(
+        (response) => {
+          const primerPartido = response[0];
+          const idPartido = primerPartido.$$instanceId;
+          const dia = primerPartido.dia;
+          const horario = primerPartido.horario.enumTitle;
+          Swal.fire({
+            icon: 'success',
+            title: 'Tienes un Partido el',
+            html: `Dia: <strong>${dia}</strong>  a las: <strong>${horario}</strong>`,
+            showCancelButton: true,
+            confirmButtonText: 'dar de baja',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#d33',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.partidoService.darDeBaja(idPartido).subscribe();
+            }
+            resolve(true);
+          });
+        },
+        (error) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'No Tienes turnos',
+            html: 'Reserva Uno!',
+          });
+          resolve(false);
+        }
+      );
+    });
+  }
 }
