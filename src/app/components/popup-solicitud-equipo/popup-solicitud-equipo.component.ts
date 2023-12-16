@@ -54,6 +54,10 @@ export class PopupSolicitudEquipoComponent {
             title: '¡Se creó la solicitud!',
             html: `Te llegará un correo a: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`,
           });
+
+          if (response.value !== 'Se creo la Solicitud') {
+            console.log(response.value);
+          }
         },
         (error) => {
           console.error('Error al crear la solicitud:', error);
