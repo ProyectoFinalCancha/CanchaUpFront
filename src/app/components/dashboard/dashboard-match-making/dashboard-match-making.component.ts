@@ -32,8 +32,6 @@ export class DashboardMatchMakingComponent {
   ngOnInit(): void {
     this.telefono = localStorage.getItem('telefono') || '';
     console.log('telefono: ', this.telefono);
-    this.email = localStorage.getItem('email') || '';
-    console.log('email:', this.email);
   }
 
   tienePartido(): Promise<boolean> {
@@ -47,7 +45,8 @@ export class DashboardMatchMakingComponent {
           const horario = primerPartido.horario.enumTitle;
           Swal.fire({
             icon: 'error',
-            title: '<br><h1><strong><FONT color="#941818">Ya tienes un Partido para el</FONT></strong></h1>',
+            title:
+              '<br><h1><strong><FONT color="#941818">Ya tienes un Partido para el</FONT></strong></h1>',
             html: `Dia: <strong>${dia}</strong>  a las: <strong>${horario}</strong>`,
             showCancelButton: true,
             confirmButtonText: 'Sí, dar de baja',

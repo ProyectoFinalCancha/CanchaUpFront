@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 export class SolicitudesEquipoService {
   constructor(private http: HttpClient) {}
 
+  private urlBase = `http://localhost:8080`;
+
   crearSolicitudEquipo(
     dia: string,
     horario: string,
@@ -27,15 +29,14 @@ export class SolicitudesEquipoService {
     };
 
     return this.http.post(
-      'http://localhost:8080/restful/services/simple.SolicitudEquipoServices/actions/crearSolicitudEquipo/invoke',
+      `${this.urlBase}/restful/services/simple.SolicitudEquipoServices/actions/crearSolicitudEquipo/invoke`,
       body,
       { headers: headers }
     );
   }
 
   verSolicitud(): Observable<any> {
-    const url =
-      'http://localhost:8080/restful/services/simple.SolicitudEquipoServices/actions/verSolicitudes/invoke';
+    const url = `${this.urlBase}/restful/services/simple.SolicitudEquipoServices/actions/verSolicitudes/invoke`;
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
@@ -47,7 +48,7 @@ export class SolicitudesEquipoService {
   }
 
   cancelarSolicitudEquipo(objectId: string): Observable<any> {
-    const url = `http://localhost:8080/restful/objects/simple.SolicitudEquipo/${objectId}/actions/cancelarSolicitud/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.SolicitudEquipo/${objectId}/actions/cancelarSolicitud/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
@@ -58,8 +59,7 @@ export class SolicitudesEquipoService {
   }
 
   tieneSolicitud(telefono: string): Observable<any> {
-    const url: string =
-      'http://localhost:8080/restful/services/simple.SolicitudEquipoServices/actions/tieneSolicitud/invoke';
+    const url: string = `${this.urlBase}/restful/services/simple.SolicitudEquipoServices/actions/tieneSolicitud/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',

@@ -7,17 +7,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class EncargadoService {
-  private apiUrl =
-    'http://localhost:8080/restful/services/simple.EncargadoServices/actions/crearEncargado/invoke';
-
-  private api_GET =
-    'http://localhost:8080/restful/services/simple.EncargadoServices/actions/verEncargados/invoke';
-
-  private apiBuscarEncargado =
-    'http://localhost:8080/restful/services/simple.EncargadoServices/actions/buscarEncargado/invoke';
-
-  private apiEliminarEncargado =
-    'http://localhost:8080/restful/objects/simple.Encargado/';
+  private urlBase = 'http://localhost:8080';
 
   encargado: Encargado[] = [];
 
@@ -46,7 +36,12 @@ export class EncargadoService {
     };
 
     return this.http
-      .post(this.apiUrl, body, { headers })
+      .post(
+        this.urlBase +
+          '/restful/services/simple.EncargadoServices/actions/crearEncargado/invoke',
+        body,
+        { headers }
+      )
       .pipe(catchError(this.handleError));
   }
 
@@ -62,7 +57,11 @@ export class EncargadoService {
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
-    return this.http.get<any>(this.api_GET, { headers });
+    return this.http.get<any>(
+      this.urlBase +
+        '/restful/services/simple.EncargadoServices/actions/verEncargados/invoke',
+      { headers }
+    );
   }
 
   buscarEncargadoPorTelefono(telefono: string): Observable<any> {
@@ -71,13 +70,13 @@ export class EncargadoService {
     };
 
     return this.http.get(
-      `${this.apiBuscarEncargado}?telefono="${telefono}"`,
+      `${this.urlBase}/restful/services/simple.EncargadoServices/actions/buscarEncargado/invoke?telefono="${telefono}"`,
       requestOptions
     );
   }
 
   eliminarEncargado(instanceId: string): Observable<any> {
-    const url = `${this.apiEliminarEncargado}${instanceId}/actions/eliminarEncargado/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Encargado/${instanceId}/actions/eliminarEncargado/invoke`;
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json',

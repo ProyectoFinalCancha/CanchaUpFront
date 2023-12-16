@@ -3,23 +3,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginEncargadoService {
+  private urlBase = 'http://localhost:8080';
 
-  private apiUrl = 'http://localhost:8080/restful/services/simple.LoginAdmin/actions/LoginAdmin/invoke';
+  private apiUrl = `${this.urlBase}/restful/services/simple.LoginAdmin/actions/LoginAdmin/invoke`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   telefono: string = '';
   password: string = '';
-
-
-
 
   login(telefono: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic c3ZlbjpwYXNz'
+      Authorization: 'Basic c3ZlbjpwYXNz',
     });
 
     const body = JSON.stringify({
@@ -36,19 +34,22 @@ export class LoginEncargadoService {
     return this.http.post(this.apiUrl, body, { headers });
   }
 
-  usuarioEncargadoEstaAutenticado(telefono: string, password: string): Observable<any> {
+  usuarioEncargadoEstaAutenticado(
+    telefono: string,
+    password: string
+  ): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Basic c3ZlbjpwYXNz'
+      Authorization: 'Basic c3ZlbjpwYXNz',
     });
 
     const body = JSON.stringify({
       telefono: {
-        value: telefono
+        value: telefono,
       },
       password: {
-        value: password
-      }
+        value: password,
+      },
     });
 
     return this.http.post(this.apiUrl, body, { headers });

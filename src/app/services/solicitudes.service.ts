@@ -11,13 +11,9 @@ import { Solicitud } from '../models/solicitud';
   providedIn: 'root',
 })
 export class SolicitudesService {
+  private urlBase = `http://localhost:8080`;
+
   solicitudes: Solicitud[] = [];
-
-  private apiUrl =
-    'http://localhost:8080/restful/services/simple.SolicituService/actions/crearSolicitud/invoke';
-
-  private cancelarUrlBase =
-    'http://localhost:8080/restful/objects/simple.Solicitud';
 
   constructor(private http: HttpClient) {}
 
@@ -39,11 +35,15 @@ export class SolicitudesService {
       horarioSting: { value: horario },
     };
 
-    return this.http.post(this.apiUrl, body, { headers: headers });
+    return this.http.post(
+      `${this.urlBase}/restful/services/simple.SolicituService/actions/crearSolicitud/invoke`,
+      body,
+      { headers: headers }
+    );
   }
 
   cancelarSolicitud(instanceId: { id: string }): Observable<any> {
-    const url = `${this.cancelarUrlBase}/${instanceId.id}/actions/cancelarSolicitud/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Solicitud/${instanceId.id}/actions/cancelarSolicitud/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
@@ -68,8 +68,7 @@ export class SolicitudesService {
   }
 
   verSolicitud(): Observable<any> {
-    const url =
-      'http://localhost:8080/restful/services/simple.SolicituService/actions/verSolicitudes/invoke';
+    const url = `${this.urlBase}/restful/services/simple.SolicituService/actions/verSolicitudes/invoke`;
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',

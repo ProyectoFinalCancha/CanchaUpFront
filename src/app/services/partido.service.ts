@@ -14,20 +14,7 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 export class PartidoService {
   partidos: Partido[] = [];
 
-  private url_Confirmar =
-    'http://localhost:8080/restful/objects/simple.Partido/';
-
-  private baseUrl =
-    'http://localhost:8080/restful/services/simple.PartidoServices/actions';
-
-  private baseUrlBuscar =
-    'http://localhost:8080/restful/services/simple.PartidoServices';
-
-  private apiUrl =
-    'http://localhost:8080/restful/services/simple.PartidoServices/actions/buscarPartidoPorRepresentante/invoke';
-
-  private baseUrl_ver =
-    'http://localhost:8080/restful/services/simple.PartidoServices/actions/verPartidos/invoke';
+  private urlBase = `http://localhost:8080`;
 
   constructor(private http: HttpClient) {}
 
@@ -36,7 +23,10 @@ export class PartidoService {
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
-    return this.http.get<any>(this.baseUrl_ver, { headers });
+    return this.http.get<any>(
+      `${this.urlBase}/restful/services/simple.EncargadoServices/actions/verEncargados/invoke`,
+      { headers }
+    );
   }
   //
 
@@ -47,9 +37,6 @@ export class PartidoService {
     diaString: string,
     telefono: string
   ): Observable<any> {
-    const apiUrl =
-      'http://localhost:8080/restful/services/simple.PartidoServices/actions/sacarTurno/invoke';
-
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept:
@@ -61,31 +48,12 @@ export class PartidoService {
       diaString: { value: diaString },
       telefono: { value: telefono },
     };
-    console.log('Cuerpo de la solicitud:', body);
 
-    return this.http.post<any>(apiUrl, body, { headers });
-  }
-
-  // Agrega esta función auxiliar en tu servicio para formatear la fecha
-  private formatDateForApi(date: Date): string {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-
-    return `${year}-${month}-${day}`;
-  }
-
-  // Función para obtener la compensación de la zona horaria en formato ±HH:mm
-  private getUTCOffsetString(date: Date): string {
-    const offsetMinutes = date.getTimezoneOffset();
-    const offsetHours = Math.abs(Math.floor(offsetMinutes / 60));
-    const offsetMinutesPart = Math.abs(offsetMinutes % 60);
-
-    const sign = offsetMinutes >= 0 ? '-' : '+';
-
-    return `${sign}${('0' + offsetHours).slice(-2)}:${(
-      '0' + offsetMinutesPart
-    ).slice(-2)}`;
+    return this.http.post<any>(
+      `${this.urlBase}/restful/services/simple.PartidoServices/actions/sacarTurno/invoke`,
+      body,
+      { headers }
+    );
   }
 
   crearPartido(nuevoPartido: Partido): Observable<any> {
@@ -104,7 +72,7 @@ export class PartidoService {
 
     return this.http
       .post(
-        'http://localhost:8080/restful/services/simple.PartidoServices/actions/crearPartido/invoke',
+        `${this.urlBase}/restful/services/simple.PartidoServices/actions/crearPartido/invoke`,
         requestBody,
         { headers }
       )
@@ -118,15 +86,8 @@ export class PartidoService {
       );
   }
 
-  private handleError(error: any): Observable<any> {
-    console.error('Error en la solicitud:', error);
-    return throwError(
-      'Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.'
-    );
-  }
-
   rechazarPartido(instanceId: string): Observable<any> {
-    const url = `http://localhost:8080/restful/objects/simple.Partido/${instanceId}/actions/rechazar/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Partido/${instanceId}/actions/rechazar/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
@@ -137,7 +98,7 @@ export class PartidoService {
   }
 
   darDeBaja(instanceId: string): Observable<any> {
-    const url = `http://localhost:8080/restful/objects/simple.Partido/${instanceId}/actions/darDeBaja/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Partido/${instanceId}/actions/darDeBaja/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
@@ -148,7 +109,7 @@ export class PartidoService {
   }
 
   confirmarPartido(instanceId: string): Observable<any> {
-    const url = `${this.url_Confirmar}${instanceId}/actions/confirmar/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Partido/${instanceId}/actions/completar/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
@@ -159,29 +120,29 @@ export class PartidoService {
   }
 
   completar(instanceId: string): Observable<any> {
-    const urlCompleta = `${this.url_Confirmar}${instanceId}/actions/completar/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Partido/${instanceId}/actions/confirmar/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
-    return this.http.put<any>(urlCompleta, null, { headers });
+    return this.http.put<any>(url, null, { headers });
   }
 
   buscarPartidoPorRepresentante(telefono: string): Observable<Partido[]> {
-    const apiUrl = `http://localhost:8080/restful/services/simple.PartidoServices/actions/buscarPartidoPorRepresentante/invoke?telefono="${telefono}"`;
+    const url = `${this.urlBase}/restful/services/simple.PartidoServices/actions/buscarPartidoPorRepresentante/invoke?telefono="${telefono}"`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
-    return this.http.get<Partido[]>(apiUrl, { headers });
+    return this.http.get<Partido[]>(url, { headers });
   }
 
   buscarPartidoEstado(estado: string): Observable<any> {
-    const url = `${this.baseUrl}/buscarPartidosPorEstados/invoke?estadosString=${estado}`;
+    const url = `${this.urlBase}/restful/services/simple.PartidoServices/actions/buscarPartidosPorEstados/invoke?estadosString=${estado}`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
@@ -197,7 +158,7 @@ export class PartidoService {
     dia: string,
     numeroCancha: string
   ): Observable<any> {
-    const url = `${this.baseUrlBuscar}/actions/buscarPartido/invoke`;
+    const url = `${this.urlBase}/restful/services/simple.PartidoServices/actions/buscarPartido/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
@@ -215,8 +176,7 @@ export class PartidoService {
   }
 
   hayPartido(telefono: string): Observable<any> {
-    const url: string =
-      'http://localhost:8080/restful/services/simple.PartidoServices/actions/hayPartido/invoke';
+    const url: string = `${this.urlBase}/restful/services/simple.PartidoServices/actions/hayPartido/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',

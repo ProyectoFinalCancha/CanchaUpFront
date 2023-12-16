@@ -7,26 +7,13 @@ import { Jugador } from '../models/jugador';
   providedIn: 'root',
 })
 export class JugadorService {
-  private apiUrl =
-    'http://localhost:8080/restful/services/simple.JugadorServices/actions/verJugadores/invoke';
+  private urlBase = 'http://localhost:8080';
+
   private baseUrl =
     'http://localhost:8080/restful/services/simple.JugadorServices/actions/';
   jugador: Jugador[] = [];
 
   constructor(private http: HttpClient) {}
-
-  actualizarJugador(jugador: Jugador): Observable<any> {
-    const url = `${this.apiUrl}/${jugador.id}`;
-
-    const headers = new HttpHeaders({
-      Authorization: 'Basic c3ZlbjpwYXNz',
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    });
-
-    // Asegúrate de que el objeto 'jugador' tenga las propiedades correctas según tu backend
-    return this.http.put(url, jugador, { headers });
-  }
 
   buscarJugadorPorTelefono(telefono: string): Observable<any> {
     const requestOptions = {
@@ -36,7 +23,7 @@ export class JugadorService {
       }),
     };
 
-    const apiUrl = `http://localhost:8080/restful/services/simple.JugadorServices/actions/buscarJugador/invoke?telefono="${telefono}"`;
+    const apiUrl = `${this.urlBase}/restful/services/simple.JugadorServices/actions/buscarJugador/invoke?telefono="${telefono}"`;
 
     return this.http.get(apiUrl, requestOptions);
   }
@@ -47,7 +34,10 @@ export class JugadorService {
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
 
-    return this.http.get<any>(this.apiUrl, { headers });
+    return this.http.get<any>(
+      `${this.urlBase}/restful/services/simple.JugadorServices/actions/verJugadores/invoke`,
+      { headers }
+    );
   }
 
   crearJugador(nuevoJugador: Jugador): Observable<any> {
@@ -68,7 +58,11 @@ export class JugadorService {
     };
 
     return this.http
-      .post(this.baseUrl + 'crearJugador/invoke', requestBody, { headers })
+      .post(
+        `${this.urlBase}/restful/services/simple.JugadorServices/actions/crearJugador/invoke`,
+        requestBody,
+        { headers }
+      )
       .pipe(catchError(this.handleError));
   }
 
@@ -80,7 +74,7 @@ export class JugadorService {
   }
 
   eliminarJugador(instanceId: string): Observable<any> {
-    const url = `http://localhost:8080/restful/objects/simple.Jugador/${instanceId}/actions/eliminarJugador/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Jugador/${instanceId}/actions/eliminarJugador/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',

@@ -7,13 +7,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl =
-    'http://localhost:8080/restful/services/simple.LoginJugador/actions/LoginJugador/invoke';
+  private urlBase = `http://localhost:8080`;
+
+  private apiUrl = `${this.urlBase}/restful/services/simple.LoginJugador/actions/LoginJugador/invoke`;
 
   constructor(private http: HttpClient) {}
   telefono: string = '';
   password: string = '';
-  email: string = ''
+  email: string = '';
 
   login(telefono: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
