@@ -54,7 +54,7 @@ export class PopupSolicitudEquipoComponent {
           Swal.fire({
             icon: 'success',
             title: '¡Se creó la solicitud!',
-            html: `Te llegará un correo a: <br><br>  <span style="color: #000000;"><strong>${this.email}</strong></span>`,
+            html: `Cuando tengas rival les llegará un correo a ambos equipos`,
           });
 
           if (response.value !== 'Se creo la Solicitud') {
