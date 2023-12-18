@@ -11,7 +11,7 @@ export class EmailService {
   
   constructor(private http: HttpClient) {}
 
-  enviarCorreo(dia: string, horario: string, email1: string, email2: string): Observable<any> {
+  enviarCorreo(dia: string, horario: string, email1: any, email2: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

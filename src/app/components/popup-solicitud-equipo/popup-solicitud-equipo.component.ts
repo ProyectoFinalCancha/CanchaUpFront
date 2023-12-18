@@ -18,7 +18,9 @@ export class PopupSolicitudEquipoComponent {
   horarioEnumValues = Object.values(Horarios);
   dia: string = '';
   telefono: string = '';
-  email: string = '';
+  email1: string = '';
+  email2: string = '';
+  email:string = ''
 
   constructor(
     private solicitudesEquipoService: SolicitudesEquipoService,
@@ -28,7 +30,7 @@ export class PopupSolicitudEquipoComponent {
 
   ngOnInit(): void {
     this.telefono = localStorage.getItem('telefono') || '';
-    this.email = localStorage.getItem('email') || '';
+  //  this.email = localStorage.getItem('email') || '';
     console.log('telefono: ', this.telefono);
   }
 
@@ -56,8 +58,14 @@ export class PopupSolicitudEquipoComponent {
           });
 
           if (response.value !== 'Se creo la Solicitud') {
-            console.log(response.value);
+            const parsedResponse = JSON.parse(response.value);
+            const email1 = parsedResponse.email1;
+            const email2 = parsedResponse.email2;
+            console.log('email1 : ', email1);
+            console.log('email2 : ', email2);
+            this.enviarCorreoElectronico(dia,horario,email1,email2);
           }
+
         },
         (error) => {
           console.error('Error al crear la solicitud:', error);
@@ -73,16 +81,16 @@ export class PopupSolicitudEquipoComponent {
     this.dialogRef.close();
   }
 
-  // enviarCorreoElectronico(dia: string, horario: string): void {
-  //   this.emailService.enviarCorreo(dia, horario, this.email).subscribe(
-  //     (emailResponse) => {
-  //       console.log('Correo electrónico enviado con éxito:', emailResponse);
-  //     },
-  //     (emailError) => {
-  //       console.error('Error al enviar el correo electrónico:', emailError);
-  //     }
-  //   );
-  // }
+  enviarCorreoElectronico(dia: string, horario: string,email1:any,email2:any): void {
+    this.emailService.enviarCorreo(dia, horario, email1, email2).subscribe(
+      (emailResponse) => {
+        console.log('Correo electrónico enviado con éxito:', emailResponse);
+      },
+      (emailError) => {
+        console.error('Error al enviar el correo electrónico:', emailError);
+      }
+    );
+  }
 
   formatearFecha(fecha: string): string {
     // Convertir la fecha en un objeto de tipo Date
