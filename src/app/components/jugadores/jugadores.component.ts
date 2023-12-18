@@ -12,6 +12,8 @@ import { VerJugadoresComponent } from './ver-jugadores/ver-jugadores.component';
 import { MatDialog } from '@angular/material/dialog';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { EquipoService } from 'src/app/services/equipo.service';
+import { PartidoService } from 'src/app/services/partido.service';
 
 @Component({
   selector: 'app-jugadores',
@@ -29,7 +31,9 @@ export class JugadoresComponent {
   constructor(
     private jugadorService: JugadorService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public partidoService: PartidoService,
+    private equipoService: EquipoService
   ) {
     this.nuevoJugador = {
       nombre: '',
@@ -124,10 +128,9 @@ export class JugadoresComponent {
     this.router.navigate(['/encargados']);
   }
 
-
-  limpiarDatos(){
-    this.obtenerJugadores()
-    this.telefonoFiltrado = ''
+  limpiarDatos() {
+    this.obtenerJugadores();
+    this.telefonoFiltrado = '';
   }
   scrollToDiv() {
     const div = document.getElementById('tabla');
@@ -149,7 +152,7 @@ export class JugadoresComponent {
       }
     });
   }
-  irAEquipos(){
-    this.router.navigate(['/equipoS'])
+  irAEquipos() {
+    this.router.navigate(['/equipoS']);
   }
 }

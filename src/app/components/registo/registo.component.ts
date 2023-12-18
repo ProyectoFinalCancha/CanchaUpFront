@@ -29,9 +29,7 @@ export class RegistoComponent {
         .crearJugador(this.nuevoJugador)
         .pipe(
           finalize(() => {
-            setTimeout(() => {
-              this.router.navigate(['/login']);
-            }, 3000);
+            this.router.navigate(['/login']);
             // Limpiar el formulario después de una creación exitosa
             this.nuevoJugador = new Jugador();
           })
@@ -44,6 +42,10 @@ export class RegistoComponent {
             });
           },
           (error) => {
+            Swal.fire({
+              icon: 'error',
+              text: 'El jugador ya existe o algun dato no es valido',
+            });
             console.error('Error al crear jugador:', error);
             // Mostrar un mensaje de error usando SweetAlert o manejarlo según sea necesario
           }

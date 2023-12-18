@@ -14,21 +14,22 @@ export class LoginComponent {
   telefono: string = '';
   password: string = '';
   jugadores: Jugador[] = [];
-  constructor(private loginService: LoginService, private router: Router, private jugadorService:JugadorService) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private jugadorService: JugadorService
+  ) {}
 
   ngOnInit(): void {
-   
     localStorage.clear();
-     console.log('telefono:', this.telefono);
+    console.log('telefono:', this.telefono);
 
     this.obtenerJugadores();
-   
-    
   }
 
   login(): void {
     localStorage.clear();
-  
+
     this.loginService.login(this.telefono, this.password).subscribe(
       (data) => {
         const valorBooleano = data.result.value;
@@ -37,7 +38,10 @@ export class LoginComponent {
           this.router.navigate(['/dashboard']);
           Swal.fire(
             '⚽ Bienvenido! ⚽',
-            'Nombre: ' + `${localStorage.getItem('nombre')}` + '&nbsp;&nbsp;&nbsp;Apellido: ' + `${localStorage.getItem('apellido')}`,
+            'Nombre: ' +
+              `${localStorage.getItem('nombre')}` +
+              '&nbsp;&nbsp;&nbsp;Apellido: ' +
+              `${localStorage.getItem('apellido')}`,
             'success'
           );
         } else {
@@ -50,11 +54,8 @@ export class LoginComponent {
       }
     );
   }
-  
-
 
   obtenerJugadores(): void {
-
     this.jugadorService.obtenerJugadores().subscribe(
       (data: Jugador[]) => {
         this.jugadores = data;
@@ -62,6 +63,7 @@ export class LoginComponent {
       },
       (error) => {
         console.log(error);
+        location.reload();
       }
     );
   }
@@ -70,12 +72,12 @@ export class LoginComponent {
     const jugadorEncontrado = this.jugadores.find(
       (jugador) => jugador.telefono === this.telefono
     );
-  
+
     if (jugadorEncontrado) {
       const email = jugadorEncontrado.mail;
       const nombre = jugadorEncontrado.nombre;
       const apellido = jugadorEncontrado.apellido;
-  
+
       localStorage.setItem('apellido', apellido);
       localStorage.setItem('nombre', nombre);
       localStorage.setItem('email', email);
@@ -84,7 +86,6 @@ export class LoginComponent {
       console.log('No se encontró un jugador con el teléfono proporcionado.');
     }
   }
-  
 
   IraRegistro() {
     this.router.navigate(['/registro']);
@@ -93,5 +94,4 @@ export class LoginComponent {
   IrAloginEncargado() {
     this.router.navigate(['/loginEncargado']);
   }
-
 }
