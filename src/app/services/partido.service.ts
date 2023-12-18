@@ -24,7 +24,7 @@ export class PartidoService {
       Accept: 'application/json;profile=urn:org.apache.causeway/v2',
     });
     return this.http.get<any>(
-      `${this.urlBase}/restful/services/simple.EncargadoServices/actions/verEncargados/invoke`,
+      `${this.urlBase}/restful/services/simple.PartidoServices/actions/verPartidos/invoke`,
       { headers }
     );
   }
