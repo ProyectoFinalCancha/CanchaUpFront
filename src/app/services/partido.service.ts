@@ -109,7 +109,7 @@ export class PartidoService {
   }
 
   confirmarPartido(instanceId: string): Observable<any> {
-    const url = `${this.urlBase}/restful/objects/simple.Partido/${instanceId}/actions/completar/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Partido/${instanceId}/actions/confirmar/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',
@@ -120,7 +120,7 @@ export class PartidoService {
   }
 
   completar(instanceId: string): Observable<any> {
-    const url = `${this.urlBase}/restful/objects/simple.Partido/${instanceId}/actions/confirmar/invoke`;
+    const url = `${this.urlBase}/restful/objects/simple.Partido/${instanceId}/actions/completar/invoke`;
 
     const headers = new HttpHeaders({
       Authorization: 'Basic c3ZlbjpwYXNz',

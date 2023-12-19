@@ -212,7 +212,8 @@
           </ng-container>
           <!-- Define las acciones -->
           <ng-template #accionesColumn let-i="index">
-            <div class="acciones-bnt">
+            <div class="acciones-bnt"
+            *ngIf="partido.estados !== 'Completado'">
               <button
                 mat-button
                 (click)="confirmarPartido(partido.$$instanceId, i)"

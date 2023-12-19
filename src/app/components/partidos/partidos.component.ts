@@ -84,6 +84,7 @@ export class PartidosComponent {
           finalize(() => {
             this.obtenerPartidos();
             this.nuevoPartido = new Partido();
+            location.reload()
           })
         )
         .subscribe(
@@ -91,14 +92,15 @@ export class PartidosComponent {
             Swal.fire({
               icon: 'success',
               text: 'Se ha creado el partido:',
+              
             }),
           (error) =>
             Swal.fire({
               icon: 'error',
               text: 'No se pudo crear el partido',
             })
-        );
-    }
+        );location.reload()
+    }location.reload()
   }
 
   transformarHorario(horario: string): string {
@@ -179,14 +181,16 @@ export class PartidosComponent {
       (result) => {
         console.log('Partido dado de baja con éxito:', result);
         this.obtenerPartidos();
+        location.reload()
         // Puedes hacer algo aquí después de que el partido se ha dado de baja
         // this.actualizarListaDePartidos(index);
       },
       (error) => {
         console.error('Error al dar de baja el partido:', error);
+        
         // Manejar el error aquí si es necesario
       }
-    );
+    );location.reload()
   }
 
   confirmarPartido(instanceId: string, index: number): void {
@@ -194,29 +198,35 @@ export class PartidosComponent {
       (result) => {
         console.log('Partido confirmado con éxito:', result);
         this.obtenerPartidos();
+        location.reload()
         // Puedes hacer algo aquí después de que el partido se ha confirmado
         // this.actualizarListaDePartidos(index);
       },
       (error) => {
         console.error('Error al confirmar el partido:', error);
+        location.reload()
         // Manejar el error aquí si es necesario
       }
-    );
+    );location.reload()
   }
 
   completarPartido(instanceId: string, index: number): void {
     this.partidoService.completar(instanceId).subscribe(
       (result) => {
         console.log('Partido completado con éxito:', result);
+       
         this.obtenerPartidos();
+        location.reload()
+        
         // Puedes hacer algo aquí después de que el partido se ha completado
         // this.actualizarListaDePartidos(index);
       },
       (error) => {
         console.error('Error al completar el partido:', error);
+        location.reload()
         // Manejar el error aquí si es necesario
       }
-    );
+    );location.reload()
   }
 
   buscarPartidoPorRepresentante(telefono: string): void {

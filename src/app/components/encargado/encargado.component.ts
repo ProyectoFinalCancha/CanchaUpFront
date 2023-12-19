@@ -106,6 +106,7 @@ export class EncargadoComponent implements OnInit {
           finalize(() => {
             this.obtenerEncargados();
             this.nuevoEncargado = new Encargado();
+            location.reload()
           })
         )
         .subscribe(
@@ -115,12 +116,13 @@ export class EncargadoComponent implements OnInit {
               text: 'Se ha creado el Encargado',
             }),
           (error) =>
+          
             Swal.fire({
               icon: 'error',
               text: 'No se pudo crear el Encargado',
             })
-        );
-    }
+        );location.reload()
+    }location.reload()
   }
 
   buscarEncargadoPorTelefono(telefono: string) {
@@ -140,14 +142,17 @@ export class EncargadoComponent implements OnInit {
       this.encargadoService.eliminarEncargado(instanceId).subscribe(
         (data) => {
           // console.log('Jugador eliminado:', data);
+          location.reload()
           this.obtenerEncargados();
         },
         (error) => {
+          location.reload()
           // console.error('Error al eliminar jugador', error);
         }
       );
     } else {
       console.log('El $$instanceId es undefined.');
+      location.reload()
     }
   }
 
