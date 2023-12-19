@@ -23,7 +23,7 @@ export class LoginComponent {
   ngOnInit(): void {
     localStorage.clear();
     console.log('telefono:', this.telefono);
-
+    
     this.obtenerJugadores();
   }
 

@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 export class PartidosComponent {
   telefono: string = '';
   partidos: Partido[] = [];
+  telefonoFiltrado: string = ''; 
   horarios: string[] = Object.values(Horarios) as string[];
 
   errorOccurred: boolean = false;
@@ -52,7 +53,7 @@ export class PartidosComponent {
       horario: Horarios['_18_HS'], // Inicializa con un valor del enum
       numeroCancha: NumeroCancha.UNO,
       precio: 0,
-      telefono: null,
+      telefono: '0',
       representante: null,
       equipo1: null,
       equipo2: null,
@@ -61,6 +62,8 @@ export class PartidosComponent {
 
   ngOnInit(): void {
     this.obtenerPartidos();
+   
+ 
     // this.buscarPartidoEstado();
   }
 
@@ -111,6 +114,8 @@ export class PartidosComponent {
     this.obtenerPartidos();
     this.telefono = '';
     this.selectedEstado = '';
+    this.telefono = '0'
+    
   }
 
   sacarTurno(partidoForm: NgForm): void {
@@ -154,6 +159,7 @@ export class PartidosComponent {
     this.partidoService.verPartidos().subscribe(
       (data: any[]) => {
         this.partidos = data.filter((item) => item && item.$$instanceId);
+        console.log('partidos: ',this.partidos)
       },
       (error) => {
         console.log(error);
@@ -233,13 +239,9 @@ export class PartidosComponent {
     this.partidoService.buscarPartidoPorRepresentante(telefono).subscribe(
       (data) => {
         console.log(data);
-        if (telefono.trim() !== '') {
-          // Si hay un teléfono especificado en el filtro, mostrar los resultados filtrados
-          this.partidos = Array.isArray(data) ? data : [data];
-        } else {
-          // Si no hay teléfono especificado, mostrar todos los jugadores
-          this.obtenerPartidos();
-        }
+      
+        this.partidos = Array.isArray(data) ? data : [data];
+       
       },
       (error) => {
         console.log('Error', error);
