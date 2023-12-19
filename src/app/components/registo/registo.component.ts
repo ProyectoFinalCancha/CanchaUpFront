@@ -39,11 +39,9 @@ export class RegistoComponent {
           });
         }
       });
-      this.router.navigate(['/login']);
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 1000);
     }
-  }
-
-  IraDash() {
-    this.router.navigate(['/login']);
   }
 }
