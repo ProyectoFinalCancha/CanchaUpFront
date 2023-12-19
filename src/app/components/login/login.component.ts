@@ -49,8 +49,9 @@ export class LoginComponent {
         }
       },
       (error) => {
-        Swal.fire('Error', 'Inicio de sesión fallido', 'error');
-        console.log('Error', error);
+        if (error.status === 500) {
+          Swal.fire('Error', 'Error del servidor, pruebe denuevo');
+        }
       }
     );
   }
