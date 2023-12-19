@@ -29,7 +29,6 @@ export class PopupSolicitudComponent {
   ngOnInit(): void {
     this.telefono = localStorage.getItem('telefono') || '';
     this.email = localStorage.getItem('email') || '';
-    console.log('telefono: ', this.telefono);
   }
 
   transformarHorario(horario: string): string {
@@ -42,21 +41,17 @@ export class PopupSolicitudComponent {
       .crearSolicitud(fechaFormateada, horario, this.telefono)
       .subscribe(
         (response) => {
-
-
           console.log('Respuesta exitosa:', response);
           Swal.fire({
-            icon:'success',
-            title:'se creo la solicitud!',
-           
-          })
+            icon: 'success',
+            title: 'se creo la solicitud!',
+          });
         },
         (error) => {
           console.error('Error al crear la solicitud:', error);
         }
       );
   }
-
 
   formatearFecha(fecha: string): string {
     // Convertir la fecha en un objeto de tipo Date

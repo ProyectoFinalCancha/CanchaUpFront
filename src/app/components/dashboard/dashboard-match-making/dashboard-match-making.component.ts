@@ -31,7 +31,6 @@ export class DashboardMatchMakingComponent {
 
   ngOnInit(): void {
     this.telefono = localStorage.getItem('telefono') || '';
-    console.log('telefono: ', this.telefono);
   }
 
   tienePartido(): Promise<boolean> {
