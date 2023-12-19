@@ -3,15 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmailService {
-  private apiUrl = 'http://localhost/phpmailer/'
+  private apiUrl = 'http://localhost/forma2/';
 
-  
   constructor(private http: HttpClient) {}
 
-  enviarCorreo(dia: string, horario: string, email1: any, email2: any): Observable<any> {
+  enviarCorreo(
+    dia: string,
+    horario: string,
+    email1: any,
+    email2: any
+  ): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -27,8 +31,4 @@ export class EmailService {
 
     return this.http.post(this.apiUrl, body, { headers: headers });
   }
-  
-
-
-
 }

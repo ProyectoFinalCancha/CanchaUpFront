@@ -25,31 +25,20 @@ export class RegistoComponent {
 
   crearJugador(jugadorForm: NgForm): void {
     if (jugadorForm.valid) {
-      this.jugadorService
-        .crearJugador(this.nuevoJugador)
-        .pipe(
-          finalize(() => {
-            this.router.navigate(['/login']);
-            // Limpiar el formulario después de una creación exitosa
-            this.nuevoJugador = new Jugador();
-          })
-        )
-        .subscribe(
-          (jugadorCreado: Jugador) => {
-            Swal.fire({
-              icon: 'success',
-              text: 'Se ha creado el jugador:',
-            });
-          },
-          (error) => {
-            Swal.fire({
-              icon: 'error',
-              text: 'El jugador ya existe o algun dato no es valido',
-            });
-            console.error('Error al crear jugador:', error);
-            // Mostrar un mensaje de error usando SweetAlert o manejarlo según sea necesario
-          }
-        );
+      this.jugadorService.crearJugador(this.nuevoJugador).subscribe((data) => {
+        console.log(data.value);
+        if (data.value === true) {
+          Swal.fire({
+            icon: 'success',
+            text: 'Se ha creado el jugador:',
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            text: 'El jugador ya existe',
+          });
+        }
+      });
     }
   }
 
