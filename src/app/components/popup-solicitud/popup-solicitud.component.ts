@@ -51,6 +51,7 @@ export class PopupSolicitudComponent {
           console.error('Error al crear la solicitud:', error);
         }
       );
+    this.dialogRef.close();
   }
 
   formatearFecha(fecha: string): string {

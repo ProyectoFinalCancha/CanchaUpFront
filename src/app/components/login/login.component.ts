@@ -23,7 +23,7 @@ export class LoginComponent {
   ngOnInit(): void {
     localStorage.clear();
     console.log('telefono:', this.telefono);
-    
+
     this.obtenerJugadores();
   }
 
@@ -64,9 +64,10 @@ export class LoginComponent {
       },
       (error) => {
         console.log(error);
-        if (error.status===500){
+        if (error.status === 500) {
           location.reload();
-      }}
+        }
+      }
     );
   }
 
