@@ -64,8 +64,9 @@ export class LoginComponent {
       },
       (error) => {
         console.log(error);
-        location.reload();
-      }
+        if (error.status===500){
+          location.reload();
+      }}
     );
   }
 
