@@ -57,19 +57,10 @@ export class JugadorService {
       fechaDeNacimientoString: { value: nuevoJugador.fechaDeNacimiento },
     };
 
-    return this.http
-      .post(
-        `${this.urlBase}/restful/services/simple.JugadorServices/actions/crearJugador/invoke`,
-        requestBody,
-        { headers }
-      )
-      .pipe(catchError(this.handleError));
-  }
-
-  private handleError(error: any): Observable<any> {
-    console.error('Error en la solicitud:', error);
-    return throwError(
-      'Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.'
+    return this.http.post(
+      `${this.urlBase}/restful/services/simple.JugadorServices/actions/crearJugador/invoke`,
+      requestBody,
+      { headers }
     );
   }
 

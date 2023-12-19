@@ -39,6 +39,7 @@ export class RegistoComponent {
           });
         }
       });
+      this.router.navigate(['/login']);
     }
   }
 
