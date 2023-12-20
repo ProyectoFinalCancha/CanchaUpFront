@@ -73,7 +73,7 @@ export class DashboardMatchMakingComponent {
           if (response.value === true) {
             Swal.fire({
               icon: 'error',
-              title: 'Ya tienes una partido pendiente de marchmaking',
+              title: 'Ya tienes un partido pendiente de marchmaking',
             });
             resolve(true);
           } else {
